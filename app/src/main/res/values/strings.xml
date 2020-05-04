@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AstroWeather</string>
+    <string name="astro_weather">Astro Weather</string>
+    <string name="give_coordinates">Give coordinates</string>
+    <string name="longitude">longitude</string>
+    <string name="latitude">latitude</string>
+    <string name="how_freaquent">How freaquant you want to refresh:</string>
 </resources>
