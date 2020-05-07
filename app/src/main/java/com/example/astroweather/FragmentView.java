@@ -6,9 +6,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class FragmentView extends AppCompatActivity {
     private Double lat;
     private Double lon;
+    private Thread timer;
 
 
     @Override
@@ -26,6 +31,31 @@ public class FragmentView extends AppCompatActivity {
         longitude.setText("lon: " + Double.toString(lon));
 
 
+
+
+        timer = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!timer.isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                Calendar cali = Calendar.getInstance();
+                                String time = timeFormat.format(cali.getTimeInMillis());
+                                TextView current_time = findViewById(R.id.current_time);
+                                current_time.setText(time);
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        timer.start();
 
     }
 }

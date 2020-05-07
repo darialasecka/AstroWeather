@@ -12,7 +12,7 @@
         android:layout_height="80dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/sun_fragment"
+        app:layout_constraintBottom_toTopOf="@+id/fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
