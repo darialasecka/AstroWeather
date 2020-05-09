@@ -1,23 +1,26 @@
 package com.example.astroweather;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+    /*private Double lat;
+    private Double lon;*/
+
     private Double lat;
     private Double lon;
+    private Thread timer;
+
+    private SunFragment sun_fragment;
+    private MoonFragment moon_fragment;
 
 
     @Override
@@ -25,7 +28,68 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final AlertDialog.Builder error_dialog = new AlertDialog.Builder(this);
+        Intent this_intent = getIntent();
+        lat = this_intent.getDoubleExtra("lat", 0);
+        lon = this_intent.getDoubleExtra("lon", 0);
+
+        TextView latitude = findViewById(R.id.latitude);
+        latitude.setText("lat: " + Double.toString(lat));
+        TextView longitude = findViewById(R.id.longitude);
+        longitude.setText("lon: " + Double.toString(lon));
+
+        timer = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!timer.isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                Calendar cali = Calendar.getInstance();
+                                String time = timeFormat.format(cali.getTimeInMillis());
+                                TextView current_time = findViewById(R.id.current_time);
+                                current_time.setText(time);
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        timer.start();
+
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        sun_fragment = (SunFragment)fragmentManager.findFragmentById(R.id.sun_fragment);
+        moon_fragment = (MoonFragment)fragmentManager.findFragmentById(R.id.moon_fragment);*/
+
+
+        ViewPager view_pager = findViewById(R.id.view_pager);
+        if (view_pager != null) {
+            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            view_pager.setAdapter(adapter);
+            sun_fragment = (SunFragment)adapter.instantiateItem(view_pager, 0);
+            if(sun_fragment != null) {
+                //sun_fragment.setCoordinates(lat, lon);
+            }
+            moon_fragment = (MoonFragment)adapter.instantiateItem(view_pager, 1);
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try{
+            timer.stop();
+        } catch (Exception e) {}
+    }
+
+
+
+        /*final AlertDialog.Builder error_dialog = new AlertDialog.Builder(this);
         TextView error_msg = new TextView(this);
         error_msg.setText("Incorrect input");
         error_msg.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -66,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     error_dialog.show();
                 }*/
-            }
+            /*}
         });
 
         Spinner spinner = findViewById(R.id.refresh_time);
@@ -92,5 +156,5 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView <?> parent) {
             }
         });*/
-    }
+    //}
 }

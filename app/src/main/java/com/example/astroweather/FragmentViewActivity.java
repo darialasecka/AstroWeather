@@ -1,24 +1,10 @@
 package com.example.astroweather;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class FragmentViewActivity extends AppCompatActivity {
-    private Double lat;
-    private Double lon;
-    private Thread timer;
 
-    private SunFragment sun_fragment;
-    private MoonFragment moon_fragment;
-
+/*
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +44,9 @@ public class FragmentViewActivity extends AppCompatActivity {
 
         timer.start();
 
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        *//*FragmentManager fragmentManager = getSupportFragmentManager();
         sun_fragment = (SunFragment)fragmentManager.findFragmentById(R.id.sun_fragment);
-        moon_fragment = (MoonFragment)fragmentManager.findFragmentById(R.id.moon_fragment);*/
+        moon_fragment = (MoonFragment)fragmentManager.findFragmentById(R.id.moon_fragment);*//*
 
 
         ViewPager view_pager = findViewById(R.id.view_pager);
@@ -82,5 +68,5 @@ public class FragmentViewActivity extends AppCompatActivity {
         try{
             timer.stop();
         } catch (Exception e) {}
-    }
+    }*/
 }
