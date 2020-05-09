@@ -36,9 +36,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText lat_text = findViewById(R.id.lat);
-                EditText lon_text= findViewById(R.id.lon);
+                EditText lon_text = findViewById(R.id.lon);
 
-                try {
+                lat = 0.0;
+                lon = 0.0;
+
+                Intent intent = new Intent(MainActivity.this, FragmentViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putDouble("lat", lat);
+                bundle.putDouble("lon", lon);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+
+                /*try {
                     lat = Double.parseDouble(lat_text.getText().toString());
                     lon = Double.parseDouble(lon_text.getText().toString());
                     if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
@@ -54,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     error_dialog.show();
-                }
+                }*/
             }
         });
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import java.text.DateFormat;
@@ -59,16 +58,29 @@ public class FragmentViewActivity extends AppCompatActivity {
 
         timer.start();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        sun_fragment = (SunFragment) fragmentManager.findFragmentById(R.id.sun_fragment);
-        moon_fragment = (MoonFragment) fragmentManager.findFragmentById(R.id.moon_fragment);
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        sun_fragment = (SunFragment)fragmentManager.findFragmentById(R.id.sun_fragment);
+        moon_fragment = (MoonFragment)fragmentManager.findFragmentById(R.id.moon_fragment);*/
+
+
         ViewPager view_pager = findViewById(R.id.view_pager);
         if (view_pager != null) {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
             view_pager.setAdapter(adapter);
             sun_fragment = (SunFragment)adapter.instantiateItem(view_pager, 0);
+            if(sun_fragment != null) {
+                //sun_fragment.setCoordinates(lat, lon);
+            }
             moon_fragment = (MoonFragment)adapter.instantiateItem(view_pager, 1);
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try{
+            timer.stop();
+        } catch (Exception e) {}
     }
 }
