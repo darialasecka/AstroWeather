@@ -1,10 +1,11 @@
 <resources>
 	<string name="astro_weather">Astro Weather</string>
-	<string name="give_coordinates">Give coordinates</string>
+	<string name="give_coordinates">Give coordinates:</string>
 	<string name="longitude">longitude</string>
 	<string name="latitude">latitude</string>
 	<string name="how_frequent">How frequent you want to refresh:</string>
 	<string name="time">Time</string>
+	<string name="save">save</string>
 
 	<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -20,17 +21,4 @@
 	<string name="nearest_full_moon">Nearest Full Moon</string>
 	<string name="phase_of_the_moon">Phase of the Moon</string>
 	<string name="synodic_month_day">Synodic Month Day</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-
-    <string name="home_second">Home Second</string>
 </resources>

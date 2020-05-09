@@ -16,7 +16,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MenuActivity extends AppCompatActivity {
     private Double lat;
@@ -24,12 +27,44 @@ public class MenuActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPref;
 
+    Thread timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
         sharedPref = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        //set current preferences on top of the screen
+        lat = Double.parseDouble(sharedPref.getString("lat", "0"));
+        lon = Double.parseDouble(sharedPref.getString("lon", "0"));
+        TextView latitude = findViewById(R.id.latitude);
+        latitude.setText("lat: " + lat);
+        TextView longitude = findViewById(R.id.longitude);
+        longitude.setText("lon: " + lon);
+
+        timer = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!timer.isInterrupted()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                Calendar cali = Calendar.getInstance();
+                                String time = timeFormat.format(cali.getTimeInMillis());
+                                TextView current_time = findViewById(R.id.current_time);
+                                current_time.setText(time);
+                            }
+                        });
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+        timer.start();
 
         final AlertDialog.Builder error_dialog = new AlertDialog.Builder(this); //zwiększyć rozmiar napisu / zrobić osobną aktywność dla tego tekstu
         TextView error_msg = new TextView(this);
@@ -37,7 +72,7 @@ public class MenuActivity extends AppCompatActivity {
         error_msg.setGravity(Gravity.CENTER);
         error_dialog.setView(error_msg);
 
-        Button ok_button = findViewById(R.id.ok_button);
+        Button ok_button = findViewById(R.id.save_button);
         ok_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

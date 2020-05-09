@@ -42,18 +42,16 @@ public class MainActivity extends AppCompatActivity {
         lat = Double.parseDouble(sharedPref.getString("lat", "0"));
         lon = Double.parseDouble(sharedPref.getString("lon", "0"));
 
-
         TextView latitude = findViewById(R.id.latitude);
-        latitude.setText("lat: " + Double.toString(lat));
+        latitude.setText("lat: " + lat);
         TextView longitude = findViewById(R.id.longitude);
-        longitude.setText("lon: " + Double.toString(lon));
+        longitude.setText("lon: " + lon);
 
         timer = new Thread() {
             @Override
             public void run() {
                 try {
                     while (!timer.isInterrupted()) {
-                        Thread.sleep(1000);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -64,12 +62,12 @@ public class MainActivity extends AppCompatActivity {
                                 current_time.setText(time);
                             }
                         });
+                        Thread.sleep(1000);
                     }
                 } catch (InterruptedException e) {
                 }
             }
         };
-
         timer.start();
 
         /*FragmentManager fragmentManager = getSupportFragmentManager();

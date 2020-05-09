@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class MoonFragment extends Fragment {
-    private Double lat;
-    private Double lon;
+    private Double lat = 0.0;
+    private Double lon = 0.0;
 
     private int year;
     private int month;
