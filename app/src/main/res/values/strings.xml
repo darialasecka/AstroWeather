@@ -3,7 +3,7 @@
 	<string name="give_coordinates">Give coordinates:</string>
 	<string name="longitude">longitude</string>
 	<string name="latitude">latitude</string>
-	<string name="how_frequent">How frequent you want to refresh:</string>
+	<string name="how_frequent">Set refresh time:</string>
 	<string name="time">Time</string>
 	<string name="save">save</string>
 
