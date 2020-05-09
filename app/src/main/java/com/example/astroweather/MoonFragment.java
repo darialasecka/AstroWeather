@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class MoonFragment extends Fragment {
-    private Double lat = 0.0;
-    private Double lon = 0.0;
+    private Double lat;
+    private Double lon;
 
     private int year;
     private int month;
@@ -72,9 +72,9 @@ public class MoonFragment extends Fragment {
         AstroDateTime moonrise_time = moonInfo.getMoonrise();
         moonrise_time_view.setText(String.format("%02d:%02d", moonrise_time.getHour(), moonrise_time.getMinute()));
 
-        /*TextView moonset_time_view = getView().findViewById(R.id.moonset_time);
+        TextView moonset_time_view = getView().findViewById(R.id.moonset_time);
         AstroDateTime moonset_time = moonInfo.getMoonset();
-        moonset_time_view.setText(String.format("%02d:%02d", moonset_time.getHour(), moonset_time.getMinute()));*/
+        moonset_time_view.setText(String.format("%02d:%02d", moonset_time.getHour(), moonset_time.getMinute()));
 
         TextView nearest_new_moon = getView().findViewById(R.id.new_moon);
         AstroDateTime new_moon = moonInfo.getNextNewMoon();

@@ -21,8 +21,8 @@ import java.util.TimeZone;
  * create an instance of this fragment.
  */
 public class SunFragment extends Fragment {
-    private Double lat = 0.0;
-    private Double lon = 0.0;
+    private Double lat;
+    private Double lon;
 
     private int year;
     private int month;
@@ -70,7 +70,7 @@ public class SunFragment extends Fragment {
 
         TextView sunrise_azimuth_view = getView().findViewById(R.id.sunrise_azimuth);
         //sunrise_azimuth_view.setText(Double.toString(sunInfo.getAzimuthRise()));
-        sunrise_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthRise()));
+        sunrise_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthRise()) + (char) 0x00B0);
 
         TextView sunset_time_view = getView().findViewById(R.id.sunset_time);
         AstroDateTime sunset_time = sunInfo.getSunset();
@@ -78,7 +78,7 @@ public class SunFragment extends Fragment {
 
         TextView sunset_azimuth_view = getView().findViewById(R.id.sunset_azimuth);
         //String sunset_azimuth = Double.toString(sunInfo.getAzimuthSet());
-        sunset_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthSet()));
+        sunset_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthSet()) + (char) 0x00B0);
 
         TextView dusk_view = getView().findViewById(R.id.dusk_time);
         AstroDateTime dusk = sunInfo.getTwilightEvening();
