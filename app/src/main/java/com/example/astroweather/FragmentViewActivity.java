@@ -5,21 +5,26 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class FragmentView extends AppCompatActivity {
+public class FragmentViewActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
     private Thread timer;
+
+    private SunFragment sun_fragment;
+    private MoonFragment moon_fragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_view);
+        setContentView(R.layout.fragment_view_activity);
 
         Intent this_intent = getIntent();
         lat = this_intent.getDoubleExtra("lat", 0);
@@ -29,9 +34,6 @@ public class FragmentView extends AppCompatActivity {
         latitude.setText("lat: " + Double.toString(lat));
         TextView longitude = findViewById(R.id.longitude);
         longitude.setText("lon: " + Double.toString(lon));
-
-
-
 
         timer = new Thread() {
             @Override
@@ -56,6 +58,17 @@ public class FragmentView extends AppCompatActivity {
         };
 
         timer.start();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        sun_fragment = (SunFragment) fragmentManager.findFragmentById(R.id.sun_fragment);
+        moon_fragment = (MoonFragment) fragmentManager.findFragmentById(R.id.moon_fragment);
+        ViewPager view_pager = findViewById(R.id.view_pager);
+        if (view_pager != null) {
+            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            view_pager.setAdapter(adapter);
+            sun_fragment = (SunFragment)adapter.instantiateItem(view_pager, 0);
+            moon_fragment = (MoonFragment)adapter.instantiateItem(view_pager, 1);
+        }
 
     }
 }

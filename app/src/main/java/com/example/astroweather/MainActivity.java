@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
                         error_dialog.show();
                     } else {
-                        Intent intent = new Intent(MainActivity.this, FragmentView.class);
+                        Intent intent = new Intent(MainActivity.this, FragmentViewActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putDouble("lat", lat);
                         bundle.putDouble("lon", lon);
