@@ -70,7 +70,7 @@ public class SunFragment extends Fragment {
 
         TextView sunrise_azimuth_view = getView().findViewById(R.id.sunrise_azimuth);
         //sunrise_azimuth_view.setText(Double.toString(sunInfo.getAzimuthRise()));
-        sunrise_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthRise()) + (char) 0x00B0);
+        sunrise_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthRise()) + (char) 0x00B0); //(char) 0x00B0 - symbol stopni
 
         TextView sunset_time_view = getView().findViewById(R.id.sunset_time);
         AstroDateTime sunset_time = sunInfo.getSunset();

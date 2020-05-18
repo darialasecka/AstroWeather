@@ -18,11 +18,14 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
-    private Thread timer;
+    //private Thread timer;
 
     private SunFragment sun_fragment;
     private MoonFragment moon_fragment;
 
+    private int seconds_passed = 0;
+    private int update_time;
+    private Thread update_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences("Settings", Context.MODE_PRIVATE);
         lat = Double.parseDouble(sharedPref.getString("lat", "0"));
         lon = Double.parseDouble(sharedPref.getString("lon", "0"));
+        update_time = sharedPref.getInt("refresh_time", 0) + 1; //bo lista liczy od zera
 
         TextView latitude = findViewById(R.id.latitude);
         latitude.setText("lat: " + lat);
         TextView longitude = findViewById(R.id.longitude);
         longitude.setText("lon: " + lon);
 
-        timer = new Thread() {
+        /*timer = new Thread() {
             @Override
             public void run() {
                 try {
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        timer.start();
+        timer.start();*/
 
         /*FragmentManager fragmentManager = getSupportFragmentManager();
         sun_fragment = (SunFragment)fragmentManager.findFragmentById(R.id.sun_fragment);
@@ -88,6 +92,41 @@ public class MainActivity extends AppCompatActivity {
                 moon_fragment.setCoordinates(lat, lon);
             }
         }
+        
+        update_info = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!update_info.isInterrupted()) {
+                        
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //updates time
+                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                Calendar cali = Calendar.getInstance();
+                                String time = timeFormat.format(cali.getTimeInMillis());
+                                TextView current_time = findViewById(R.id.current_time);
+                                current_time.setText(time);
+                                
+                                //updates fragment info
+                                if(seconds_passed > 60 * update_time * 5) { //60 - liczymy w minutach //* update_time * 5 - czas wybrany przez urzytkownika
+                                    seconds_passed = 0;
+                                    try {
+                                        if(sun_fragment != null) sun_fragment.getSunInfo();
+                                        if(moon_fragment != null) moon_fragment.getMoonInfo();
+                                        System.out.println("Updated!");
+                                    } catch (Exception e) {
+                                    }
+                                }
+                            }
+                        });
+                        Thread.sleep(1000); //sekunda
+                    }
+                } catch (InterruptedException e) {}
+            }
+        };
+        update_info.start();
 
     }
 
@@ -95,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         try{
-            timer.stop();
+            update_info.stop();
         } catch (Exception e) {}
     }
 }
