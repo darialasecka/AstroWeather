@@ -24,7 +24,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/sunrise_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/sunrise_time"
@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:text="@string/sunrise_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -52,7 +52,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/sunrise_azimuth"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/sunrise_azimuth"
@@ -62,7 +62,7 @@
                 android:gravity="center"
                 android:text="@string/sunrise_azimuth"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -80,7 +80,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/sunset_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/sunset_time"
@@ -90,7 +90,7 @@
                 android:gravity="center"
                 android:text="@string/sunset_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -108,7 +108,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/sunset_azimuth"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/sunset_azimuth"
@@ -118,7 +118,7 @@
                 android:gravity="center"
                 android:text="@string/sunset_azimuth"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -136,7 +136,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/dusk"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/dusk_time"
@@ -146,7 +146,7 @@
                 android:gravity="center"
                 android:text="@string/dusk"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -164,7 +164,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/dawn"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/dawn_time"
@@ -174,7 +174,7 @@
                 android:gravity="center"
                 android:text="@string/dawn"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
         </TableRow>
 
     </TableLayout>

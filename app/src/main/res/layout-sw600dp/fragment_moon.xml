@@ -24,7 +24,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/moonrise_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/moonrise_time"
@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:text="@string/moonrise_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
         </TableRow>
 
@@ -53,7 +53,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/moonset_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/moonset_time"
@@ -63,7 +63,7 @@
                 android:gravity="center"
                 android:text="@string/moonset_time"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
         </TableRow>
 
@@ -82,7 +82,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/nearest_new_moon"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/new_moon"
@@ -92,7 +92,7 @@
                 android:gravity="center"
                 android:text="@string/nearest_new_moon"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
         </TableRow>
 
@@ -111,7 +111,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/nearest_full_moon"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/full_moon"
@@ -121,7 +121,7 @@
                 android:gravity="center"
                 android:text="@string/nearest_full_moon"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
         </TableRow>
 
@@ -140,7 +140,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/phase_of_the_moon"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/moon_phase"
@@ -150,7 +150,7 @@
                 android:gravity="center"
                 android:text="@string/phase_of_the_moon"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
         </TableRow>
 
@@ -169,7 +169,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/synodic_month_day"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/synodic_month_day"
@@ -179,7 +179,7 @@
                 android:gravity="center"
                 android:text="@string/synodic_month_day"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="24sp" />
 
         </TableRow>
 
