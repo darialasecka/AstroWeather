@@ -71,13 +71,13 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <fragment
-            android:id="@+id/sun_fragment"
+            android:id="@+id/s_fragment"
             android:name="com.example.astroweather.SunFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <fragment
-            android:id="@+id/moon_fragment"
+            android:id="@+id/m_fragment"
             android:name="com.example.astroweather.MoonFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

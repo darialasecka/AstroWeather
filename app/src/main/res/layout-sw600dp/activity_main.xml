@@ -60,23 +60,23 @@
     </LinearLayout>
 
     <fragment
-        android:id="@+id/sun_fragment"
+        android:id="@+id/s_fragment"
         android:name="com.example.astroweather.SunFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/moon_fragment"
+        app:layout_constraintEnd_toStartOf="@id/m_fragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <fragment
-        android:id="@+id/moon_fragment"
+        android:id="@+id/m_fragment"
         android:name="com.example.astroweather.MoonFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sun_fragment"
+        app:layout_constraintStart_toEndOf="@id/s_fragment"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.0" />
 

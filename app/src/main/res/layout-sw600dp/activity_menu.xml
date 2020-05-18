@@ -14,8 +14,8 @@
         android:background="#2196F3"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,32 +24,32 @@
         <TextView
             android:id="@+id/latitude"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/latitude"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/longitude"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/longitude"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/current_time"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
             android:text="@string/time"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="36sp" />
 
     </LinearLayout>
 
@@ -75,6 +75,7 @@
         android:background="#2196F3"
         android:text="@string/save"
         android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +91,7 @@
         android:inputType="numberDecimal"
         android:padding="25sp"
         android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/lon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +107,7 @@
         android:inputType="numberDecimal"
         android:padding="25sp"
         android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,10 +115,8 @@
 
     <Spinner
         android:id="@+id/refresh_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
+        android:layout_width="150sp"
+        android:layout_height="75sp"
         android:padding="25sp"
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"

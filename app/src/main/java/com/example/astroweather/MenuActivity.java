@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,14 +65,12 @@ public class MenuActivity extends AppCompatActivity {
         };
         timer.start();
 
-        final AlertDialog.Builder error_dialog = new AlertDialog.Builder(this); //zwiększyć rozmiar napisu / zrobić osobną aktywność dla tego tekstu
-        TextView error_msg = new TextView(this);
-        error_msg.setText("Incorrect input");
-        error_msg.setGravity(Gravity.CENTER);
-        error_dialog.setView(error_msg);
+        final AlertDialog.Builder error = new AlertDialog.Builder(this);
+        final View layout = getLayoutInflater().inflate(R.layout.error_msg, null);
+        error.setView(layout);
 
-        Button ok_button = findViewById(R.id.save_button);
-        ok_button.setOnClickListener(new View.OnClickListener() {
+        Button save_button = findViewById(R.id.save_button);
+        save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText lat_text = findViewById(R.id.lat);
@@ -86,7 +83,7 @@ public class MenuActivity extends AppCompatActivity {
                     try {
                         lat = Double.parseDouble(lat_text.getText().toString());
                     } catch (Exception e) {
-                        error_dialog.show();
+                        error.show();
                     }
                 }
 
@@ -97,13 +94,13 @@ public class MenuActivity extends AppCompatActivity {
                     try {
                         lon = Double.parseDouble(lon_text.getText().toString());
                     } catch (Exception e) {
-                        error_dialog.show();
+                        error.show();
                     }
                 }
 
                 //validate coordinates
                 if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
-                    error_dialog.show();
+                    error.show();
                 } else {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("lat", lat.toString());

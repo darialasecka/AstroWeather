@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import java.text.DateFormat;
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button ok_button = findViewById(R.id.menu_button);
-        ok_button.setOnClickListener(new View.OnClickListener() {
+        Button menu_button = findViewById(R.id.menu_button);
+        menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MenuActivity.class);
@@ -74,25 +75,30 @@ public class MainActivity extends AppCompatActivity {
         };
         timer.start();*/
 
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        sun_fragment = (SunFragment)fragmentManager.findFragmentById(R.id.sun_fragment);
-        moon_fragment = (MoonFragment)fragmentManager.findFragmentById(R.id.moon_fragment);*/
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction();
+        sun_fragment = (SunFragment) fragmentManager.findFragmentById(R.id.s_fragment);
+        if (sun_fragment != null) {
+            sun_fragment.setCoordinates(lat,lon);
+            sun_fragment.getSunInfo();
+        }
+        moon_fragment = (MoonFragment) fragmentManager.findFragmentById(R.id.m_fragment);
+        if (moon_fragment != null) {
+            moon_fragment.setCoordinates(lat,lon);
+            moon_fragment.getMoonInfo();
+        }
 
-
+        // for smaller displays:
         ViewPager view_pager = findViewById(R.id.view_pager);
         if (view_pager != null) {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
             view_pager.setAdapter(adapter);
             sun_fragment = (SunFragment)adapter.instantiateItem(view_pager, 0);
-            if(sun_fragment != null) {
-                sun_fragment.setCoordinates(lat, lon);
-            }
             moon_fragment = (MoonFragment)adapter.instantiateItem(view_pager, 1);
-            if(moon_fragment != null) {
-                moon_fragment.setCoordinates(lat, lon);
-            }
+            if (sun_fragment != null)  sun_fragment.setCoordinates(lat,lon);
+            if (moon_fragment != null)  moon_fragment.setCoordinates(lat,lon);
         }
-        
+
         update_info = new Thread() {
             @Override
             public void run() {

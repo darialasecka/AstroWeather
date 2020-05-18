@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment;
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -60,6 +63,22 @@ public class MoonFragment extends Fragment {
         second = calendar.get(Calendar.SECOND);
     }
 
+    private long countSynodicMonthDay(String full_moon, String new_moon) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+        Date firstDate = null;
+        Date secondDate = null;
+        try {
+            firstDate = sdf.parse(full_moon);
+            secondDate = sdf.parse(new_moon);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+    }
+
     public void getMoonInfo() {
         getDateTime();
 
@@ -78,17 +97,19 @@ public class MoonFragment extends Fragment {
 
         TextView nearest_new_moon = getView().findViewById(R.id.new_moon);
         AstroDateTime new_moon = moonInfo.getNextNewMoon();
-        nearest_new_moon.setText(String.format("%02d.%02d.%04d", new_moon.getDay(), new_moon.getMonth(), new_moon.getYear()));
+        String new_moon_text = String.format("%02d.%02d.%04d", new_moon.getDay(), new_moon.getMonth(), new_moon.getYear());
+        nearest_new_moon.setText(new_moon_text);
 
         TextView nearest_full_moon = getView().findViewById(R.id.full_moon);
         AstroDateTime full_moon = moonInfo.getNextFullMoon();
-        nearest_full_moon.setText(String.format("%02d.%02d.%04d", full_moon.getDay(), full_moon.getMonth(), full_moon.getYear()));
+        String full_moon_text = String.format("%02d.%02d.%04d", full_moon.getDay(), full_moon.getMonth(), full_moon.getYear());
+        nearest_full_moon.setText(full_moon_text);
 
         TextView moon_phase_view = getView().findViewById(R.id.moon_phase);
         moon_phase_view.setText(String.format("%.2f%%", moonInfo.getIllumination() * 100));
 
         TextView sunset_azimuth_view = getView().findViewById(R.id.synodic_month_day);
-        String lunar_day = Integer.toString((int)moonInfo.getAge());
+        String lunar_day = Integer.toString((int) countSynodicMonthDay(full_moon_text, new_moon_text));
         sunset_azimuth_view.setText(lunar_day);
 
     }

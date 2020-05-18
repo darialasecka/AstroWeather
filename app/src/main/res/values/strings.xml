@@ -1,24 +1,24 @@
 <resources>
-	<string name="astro_weather">Astro Weather</string>
-	<string name="give_coordinates">Give coordinates:</string>
-	<string name="longitude">longitude</string>
-	<string name="latitude">latitude</string>
-	<string name="how_frequent">Set refresh time:</string>
-	<string name="time">Time</string>
-	<string name="save">save</string>
+    <string name="astro_weather">Astro Weather</string>
+    <string name="give_coordinates">Give coordinates:</string>
+    <string name="longitude">longitude</string>
+    <string name="latitude">latitude</string>
+    <string name="how_frequent">Set refresh time:</string>
+    <string name="time">Time</string>
+    <string name="save">save</string>
 
-	<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sunrise_time">Sunrise Time</string>
-	<string name="sunset_time">Sunset Time</string>
-	<string name="sunrise_azimuth">Sunrise Azimuth</string>
-	<string name="sunset_azimuth">Sunset Azimuth</string>
-	<string name="dusk">Dusk</string>
-	<string name="dawn">Dawn</string>
-	<string name="moonrise_time">Moonrise Time</string>
-	<string name="moonset_time">Moonset Time</string>
-	<string name="nearest_new_moon">Nearest New Moon</string>
-	<string name="nearest_full_moon">Nearest Full Moon</string>
-	<string name="phase_of_the_moon">Phase of the Moon</string>
-	<string name="synodic_month_day">Synodic Month Day</string>
+    <string name="sunset_time">Sunset Time</string>
+    <string name="sunrise_azimuth">Sunrise Azimuth</string>
+    <string name="sunset_azimuth">Sunset Azimuth</string>
+    <string name="dusk">Dusk</string>
+    <string name="dawn">Dawn</string>
+    <string name="moonrise_time">Moonrise Time</string>
+    <string name="moonset_time">Moonset Time</string>
+    <string name="nearest_new_moon">Nearest New Moon</string>
+    <string name="nearest_full_moon">Nearest Full Moon</string>
+    <string name="phase_of_the_moon">Phase of the Moon</string>
+    <string name="synodic_month_day">Synodic Month Day</string>
 </resources>
