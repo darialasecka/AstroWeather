@@ -96,12 +96,6 @@ public class SunFragment extends Fragment {
         getSunInfo();
     }
 
-
-    public static SunFragment newInstance(String param1, String param2) {
-        SunFragment fragment = new SunFragment();
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -120,11 +120,6 @@ public class MoonFragment extends Fragment {
         getMoonInfo();
     }
 
-    public static MoonFragment newInstance(String param1, String param2) {
-        MoonFragment fragment = new MoonFragment();
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

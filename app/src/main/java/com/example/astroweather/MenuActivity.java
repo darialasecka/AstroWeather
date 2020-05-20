@@ -77,9 +77,7 @@ public class MenuActivity extends AppCompatActivity {
                 EditText lon_text = findViewById(R.id.lon);
 
                 //check latitude
-                if (lat_text.getText().toString().isEmpty()) {
-                    lat = 0.0;
-                } else {
+                if (!lat_text.getText().toString().isEmpty()) {
                     try {
                         lat = Double.parseDouble(lat_text.getText().toString());
                     } catch (Exception e) {
@@ -88,9 +86,7 @@ public class MenuActivity extends AppCompatActivity {
                 }
 
                 //check longitude
-                if (lon_text.getText().toString().isEmpty()) {
-                    lon = 0.0;
-                } else {
+                if (!lon_text.getText().toString().isEmpty()) {
                     try {
                         lon = Double.parseDouble(lon_text.getText().toString());
                     } catch (Exception e) {
