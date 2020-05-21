@@ -63,14 +63,22 @@ public class MoonFragment extends Fragment {
         second = calendar.get(Calendar.SECOND);
     }
 
-    private long countSynodicMonthDay(String full_moon, String new_moon) {
+    private long countSynodicMonthDay() { //synodic month - time between two new moons, lasts about 29 days
+        //for counting previous new moon
+        AstroDateTime dateTime = new AstroDateTime(year, month, day - 29, hour, minute, second, getCurrentTimezoneOffset(), true);
+        AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
+        AstroCalculator calculator = new AstroCalculator(dateTime, location);
+        AstroDateTime prev_new_moon = calculator.getMoonInfo().getNextNewMoon();
+        String prev_new_moon_string = String.format("%02d.%02d.%04d", prev_new_moon.getDay(), prev_new_moon.getMonth(), prev_new_moon.getYear());
+        String today = String.format("%02d.%02d.%04d", day, month, year);
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
         Date firstDate = null;
         Date secondDate = null;
         try {
-            firstDate = sdf.parse(full_moon);
-            secondDate = sdf.parse(new_moon);
+            firstDate = sdf.parse(prev_new_moon_string);
+            secondDate = sdf.parse(today);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -109,7 +117,7 @@ public class MoonFragment extends Fragment {
         moon_phase_view.setText(String.format("%.2f%%", moonInfo.getIllumination() * 100));
 
         TextView sunset_azimuth_view = getView().findViewById(R.id.synodic_month_day);
-        String lunar_day = Integer.toString((int) countSynodicMonthDay(full_moon_text, new_moon_text));
+        String lunar_day = Integer.toString((int) countSynodicMonthDay());
         sunset_azimuth_view.setText(lunar_day);
 
     }
