@@ -95,30 +95,57 @@ public class MoonFragment extends Fragment {
         AstroCalculator calculator = new AstroCalculator(dateTime, location);
         AstroCalculator.MoonInfo moonInfo = calculator.getMoonInfo();
 
-        TextView moonrise_time_view = getView().findViewById(R.id.moonrise_time);
-        AstroDateTime moonrise_time = moonInfo.getMoonrise();
-        moonrise_time_view.setText(String.format("%02d:%02d", moonrise_time.getHour(), moonrise_time.getMinute()));
+        try {
+            TextView moonrise_time_view = getView().findViewById(R.id.moonrise_time);
+            AstroDateTime moonrise_time = moonInfo.getMoonrise();
+            moonrise_time_view.setText(String.format("%02d:%02d", moonrise_time.getHour(), moonrise_time.getMinute()));
+        } catch (Exception e) {
+            TextView moonrise_time_view = getView().findViewById(R.id.moonrise_time);
+            moonrise_time_view.setText("Error");
+        }
 
-        TextView moonset_time_view = getView().findViewById(R.id.moonset_time);
-        AstroDateTime moonset_time = moonInfo.getMoonset();
-        moonset_time_view.setText(String.format("%02d:%02d", moonset_time.getHour(), moonset_time.getMinute()));
+        try {
+            TextView moonset_time_view = getView().findViewById(R.id.moonset_time);
+            AstroDateTime moonset_time = moonInfo.getMoonset();
+            moonset_time_view.setText(String.format("%02d:%02d", moonset_time.getHour(), moonset_time.getMinute()));
+        } catch (Exception e) {}
 
-        TextView nearest_new_moon = getView().findViewById(R.id.new_moon);
-        AstroDateTime new_moon = moonInfo.getNextNewMoon();
-        String new_moon_text = String.format("%02d.%02d.%04d", new_moon.getDay(), new_moon.getMonth(), new_moon.getYear());
-        nearest_new_moon.setText(new_moon_text);
+        try {
+            TextView nearest_new_moon = getView().findViewById(R.id.new_moon);
+            AstroDateTime new_moon = moonInfo.getNextNewMoon();
+            String new_moon_text = String.format("%02d.%02d.%04d", new_moon.getDay(), new_moon.getMonth(), new_moon.getYear());
+            nearest_new_moon.setText(new_moon_text);
+        } catch (Exception e) {
+            TextView nearest_new_moon = getView().findViewById(R.id.new_moon);
+            nearest_new_moon.setText("Error");
+        }
 
-        TextView nearest_full_moon = getView().findViewById(R.id.full_moon);
-        AstroDateTime full_moon = moonInfo.getNextFullMoon();
-        String full_moon_text = String.format("%02d.%02d.%04d", full_moon.getDay(), full_moon.getMonth(), full_moon.getYear());
-        nearest_full_moon.setText(full_moon_text);
+        try {
+            TextView nearest_full_moon = getView().findViewById(R.id.full_moon);
+            AstroDateTime full_moon = moonInfo.getNextFullMoon();
+            String full_moon_text = String.format("%02d.%02d.%04d", full_moon.getDay(), full_moon.getMonth(), full_moon.getYear());
+            nearest_full_moon.setText(full_moon_text);
+        } catch (Exception e) {
+            TextView nearest_full_moon = getView().findViewById(R.id.full_moon);
+            nearest_full_moon.setText("Error");
+        }
 
-        TextView moon_phase_view = getView().findViewById(R.id.moon_phase);
-        moon_phase_view.setText(String.format("%.2f%%", moonInfo.getIllumination() * 100));
+        try {
+            TextView moon_phase_view = getView().findViewById(R.id.moon_phase);
+            moon_phase_view.setText(String.format("%.2f%%", moonInfo.getIllumination() * 100));
+        } catch (Exception e) {
+            TextView moon_phase_view = getView().findViewById(R.id.moon_phase);
+            moon_phase_view.setText("Error");
+        }
 
-        TextView sunset_azimuth_view = getView().findViewById(R.id.synodic_month_day);
-        String lunar_day = Integer.toString((int) countSynodicMonthDay());
-        sunset_azimuth_view.setText(lunar_day);
+        try {
+            TextView sunset_azimuth_view = getView().findViewById(R.id.synodic_month_day);
+            String lunar_day = Integer.toString((int) countSynodicMonthDay());
+            sunset_azimuth_view.setText(lunar_day);
+        } catch (Exception e) {
+            TextView sunset_azimuth_view = getView().findViewById(R.id.synodic_month_day);
+            sunset_azimuth_view.setText("Error");
+        }
 
     }
 

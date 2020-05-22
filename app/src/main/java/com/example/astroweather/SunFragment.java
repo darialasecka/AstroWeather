@@ -64,29 +64,60 @@ public class SunFragment extends Fragment {
         AstroCalculator calculator = new AstroCalculator(dateTime, location);
         AstroCalculator.SunInfo sunInfo = calculator.getSunInfo();
 
-        TextView sunrise_time_view = getView().findViewById(R.id.sunrise_time);
-        AstroDateTime sunrise_time = sunInfo.getSunrise();
-        sunrise_time_view.setText(String.format("%02d:%02d", sunrise_time.getHour(), sunrise_time.getMinute()));
+        try{
+            TextView sunrise_time_view = getView().findViewById(R.id.sunrise_time);
+            AstroDateTime sunrise_time = sunInfo.getSunrise();
+            sunrise_time_view.setText(String.format("%02d:%02d", sunrise_time.getHour(), sunrise_time.getMinute()));
+        } catch (Exception e) {
+            TextView sunrise_time_view = getView().findViewById(R.id.sunrise_time);
+            sunrise_time_view.setText("Error");
+        }
 
-        TextView sunrise_azimuth_view = getView().findViewById(R.id.sunrise_azimuth);
-        //sunrise_azimuth_view.setText(Double.toString(sunInfo.getAzimuthRise()));
-        sunrise_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthRise()) + (char) 0x00B0); //(char) 0x00B0 - symbol stopni
+        try {
+            TextView sunrise_azimuth_view = getView().findViewById(R.id.sunrise_azimuth);
+            //sunrise_azimuth_view.setText(Double.toString(sunInfo.getAzimuthRise()));
+            sunrise_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthRise()) + (char) 0x00B0); //(char) 0x00B0 - symbol stopni
+        } catch (Exception e) {
+            TextView sunrise_azimuth_view = getView().findViewById(R.id.sunrise_azimuth);
+            sunrise_azimuth_view.setText("Error");
+        }
 
-        TextView sunset_time_view = getView().findViewById(R.id.sunset_time);
-        AstroDateTime sunset_time = sunInfo.getSunset();
-        sunset_time_view.setText(String.format("%02d:%02d", sunset_time.getHour(), sunset_time.getMinute()));
+        try {
+            TextView sunset_time_view = getView().findViewById(R.id.sunset_time);
+            AstroDateTime sunset_time = sunInfo.getSunset();
+            sunset_time_view.setText(String.format("%02d:%02d", sunset_time.getHour(), sunset_time.getMinute()));
+        } catch (Exception e) {
+            TextView sunset_time_view = getView().findViewById(R.id.sunset_time);
+            sunset_time_view.setText("Error");
+        }
 
-        TextView sunset_azimuth_view = getView().findViewById(R.id.sunset_azimuth);
-        //String sunset_azimuth = Double.toString(sunInfo.getAzimuthSet());
-        sunset_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthSet()) + (char) 0x00B0);
+        try {
+            TextView sunset_azimuth_view = getView().findViewById(R.id.sunset_azimuth);
+            //String sunset_azimuth = Double.toString(sunInfo.getAzimuthSet());
+            sunset_azimuth_view.setText(String.format("%.4f", sunInfo.getAzimuthSet()) + (char) 0x00B0);
+        } catch (Exception e) {
+            TextView sunset_azimuth_view = getView().findViewById(R.id.sunset_azimuth);
+            sunset_azimuth_view.setText("Error");
+        }
 
-        TextView dusk_view = getView().findViewById(R.id.dusk_time);
-        AstroDateTime dusk = sunInfo.getTwilightEvening();
-        dusk_view.setText(String.format("%02d:%02d", dusk.getHour(), dusk.getMinute()));
+        try {
+            TextView dusk_view = getView().findViewById(R.id.dusk_time);
+            AstroDateTime dusk = sunInfo.getTwilightEvening();
+            dusk_view.setText(String.format("%02d:%02d", dusk.getHour(), dusk.getMinute()));
+        } catch (Exception e) {
+            TextView dusk_view = getView().findViewById(R.id.dusk_time);
+            dusk_view.setText("Error");
+        }
 
-        TextView dawn_view = getView().findViewById(R.id.dawn_time);
-        AstroDateTime dawn = sunInfo.getTwilightMorning();
-        dawn_view.setText(String.format("%02d:%02d", dawn.getHour(), dawn.getMinute()));
+        try {
+            TextView dawn_view = getView().findViewById(R.id.dawn_time);
+            AstroDateTime dawn = sunInfo.getTwilightMorning();
+            dawn_view.setText(String.format("%02d:%02d", dawn.getHour(), dawn.getMinute()));
+        } catch (Exception e) {
+            TextView dawn_view = getView().findViewById(R.id.dawn_time);
+            AstroDateTime dawn = sunInfo.getTwilightMorning();
+            dawn_view.setText("Error");
+        }
 
     }
 
