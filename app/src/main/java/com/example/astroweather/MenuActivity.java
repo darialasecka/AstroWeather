@@ -24,10 +24,6 @@ public class MenuActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
 
-    private Double x;
-    private Double y;
-    private int update_time;
-
     private SharedPreferences sharedPref;
 
     Thread timer;
