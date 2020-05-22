@@ -21,8 +21,8 @@ import java.util.TimeZone;
  * create an instance of this fragment.
  */
 public class SunFragment extends Fragment {
-    private Double lat = 0.0;
-    private Double lon = 0.0;
+    private Double lat = 51.759445;
+    private Double lon = 19.457216;
 
     private int year;
     private int month;
