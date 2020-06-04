@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SunFragment sun_fragment;
     private MoonFragment moon_fragment;
+    //private MoonFragment weather_fragment;
 
     private String update_time;
     private int refresh_time;
@@ -36,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);*/
         try {
             WeatherConnection weather = new WeatherConnection();
             weather.execute();
@@ -105,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             moon_fragment.setCoordinates(lat,lon);
             moon_fragment.getMoonInfo();
         }
+        //weather_fragment = (WeatherFragment) fragmentManager.findFragmentById(R.id)
 
         ViewPager view_pager = findViewById(R.id.view_pager);
         if (view_pager != null) {
@@ -112,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
             view_pager.setAdapter(adapter);
             sun_fragment = (SunFragment)adapter.instantiateItem(view_pager, 0);
             moon_fragment = (MoonFragment)adapter.instantiateItem(view_pager, 1);
+            //weather_fragment
             if (sun_fragment != null)  sun_fragment.setCoordinates(lat,lon);
             if (moon_fragment != null)  moon_fragment.setCoordinates(lat,lon);
         }
