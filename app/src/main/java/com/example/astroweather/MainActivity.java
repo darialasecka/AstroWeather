@@ -3,12 +3,13 @@ package com.example.astroweather;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -29,10 +30,19 @@ public class MainActivity extends AppCompatActivity {
     private int refresh_time;
     private Thread update_info;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            WeatherConnection weather = new WeatherConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("test");
+
 
         Button menu_button = findViewById(R.id.menu_button);
         menu_button.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                                 try {
                                     if(sun_fragment != null) sun_fragment.getSunInfo();
                                     if(moon_fragment != null) moon_fragment.getMoonInfo();
-                                    Log.d("Updated!", Integer.toString(refresh_time));
+                                    //Log.d("Updated!", Integer.toString(refresh_time));
                                 } catch (Exception e) {
                                 }
                             }

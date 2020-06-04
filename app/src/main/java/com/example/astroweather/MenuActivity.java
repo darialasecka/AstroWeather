@@ -66,8 +66,12 @@ public class MenuActivity extends AppCompatActivity {
         timer.start();
 
         final AlertDialog.Builder error = new AlertDialog.Builder(this);
-        final View layout = getLayoutInflater().inflate(R.layout.error_msg, null);
-        error.setView(layout);
+        //final View layout = getLayoutInflater().inflate(R.layout.error_msg, null);
+        //error.setView(layout);
+
+        error.setTitle("Error");
+        error.setMessage("Incorrect input");
+
 
         Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
@@ -76,36 +80,25 @@ public class MenuActivity extends AppCompatActivity {
                 EditText lat_text = findViewById(R.id.lat);
                 EditText lon_text = findViewById(R.id.lon);
 
-                //check latitude
-                if (!lat_text.getText().toString().isEmpty()) {
-                    try {
-                        lat = Double.parseDouble(lat_text.getText().toString());
-                    } catch (Exception e) {
-                        error.show();
-                    }
-                }
+                try{
+                    lat = Double.parseDouble(lat_text.getText().toString());
+                    lon = Double.parseDouble(lon_text.getText().toString());
 
-                //check longitude
-                if (!lon_text.getText().toString().isEmpty()) {
-                    try {
-                        lon = Double.parseDouble(lon_text.getText().toString());
-                    } catch (Exception e) {
+                    //validate coordinates
+                    if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
                         error.show();
-                    }
-                }
+                    } else {
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("lat", lat.toString());
+                        editor.putString("lon", lon.toString());
+                        editor.commit();
 
-                //validate coordinates
-                if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+                        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch(Exception e){
                     error.show();
-                } else {
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("lat", lat.toString());
-                    editor.putString("lon", lon.toString());
-                    editor.commit();
-
-                    Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
             }
         });
