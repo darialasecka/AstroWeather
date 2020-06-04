@@ -1,10 +1,13 @@
 package com.example.astroweather;
 
 // Copyright 2019 Oath Inc. Licensed under the terms of the zLib license see https://opensource.org/licenses/Zlib for terms.
+
+import android.os.AsyncTask;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -17,35 +20,55 @@ import java.util.Random;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /*import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;*/
 
-/**
- *
- * <pre>
- * % java --version
- * % java 11.0.1 2018-10-16 LTS
- *
- * % javac WeatherYdnJava.java && java -ea WeatherYdnJava
- * </pre>
- *
- */
-public class WeatherConnection {
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static void main(String[] args) throws Exception {
+public class WeatherConnection extends AsyncTask {
+    OkHttpClient client = new OkHttpClient();
 
-        final String appId = Secret.getAppId();
-        final String consumerKey = Secret.getConsumerKey();
-        final String consumerSecret = Secret.getConsumerSecret();
-        final String url = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
+    final String appId = Secret.getAppId();
+    final String consumerKey = Secret.getConsumerKey();
+    final String consumerSecret = Secret.getConsumerSecret();
+    final String url = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
+    String authorizationLine;
+
+    @Override
+    protected Object doInBackground(Object[] objects) {
+        Request request = new Request.Builder()
+                .url(url + "?location=sunnyvale,ca&format=json")
+                .header("Authorization", authorizationLine)
+                .header("X-Yahoo-App-Id", appId)
+                .header("Content-Type", "application/json")
+                .build();
+
+        System.out.println(request.toString());
+
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            System.out.println(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public WeatherConnection() throws Exception {
 
         long timestamp = new Date().getTime() / 1000;
         byte[] nonce = new byte[32];
         Random rand = new Random();
         rand.nextBytes(nonce);
-        String oauthNonce = new String(nonce).replaceAll("\\W", "");
+        String oauthNonce = "w2gC09BO"; //new String(nonce).replaceAll("\\W", "");
+        System.out.println("oauth " + oauthNonce);
 
         List<String> parameters = new ArrayList<>();
         parameters.add("oauth_consumer_key=" + consumerKey);
@@ -80,7 +103,9 @@ public class WeatherConnection {
             System.exit(0);
         }
 
-        String authorizationLine = "OAuth " +
+        System.out.println(signature);
+
+        authorizationLine = "OAuth " +
                 "oauth_consumer_key=\"" + consumerKey + "\", " +
                 "oauth_nonce=\"" + oauthNonce + "\", " +
                 "oauth_timestamp=\"" + timestamp + "\", " +

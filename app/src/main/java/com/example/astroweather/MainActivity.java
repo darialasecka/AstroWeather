@@ -36,12 +36,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);*/
         try {
             WeatherConnection weather = new WeatherConnection();
+            weather.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("test");
 
 
         Button menu_button = findViewById(R.id.menu_button);
