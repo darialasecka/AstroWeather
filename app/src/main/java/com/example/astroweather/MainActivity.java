@@ -17,10 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private Double lat;
@@ -35,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private int refresh_time;
     private Thread update_info;
 
-    private Set<String> locations = null;
+    //private Set<String> locations = null;
+
+    private File weather = null;
 
 
     private boolean isConnected(){
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         lat = Double.parseDouble(sharedPref.getString("lat", "51.759445"));
         lon = Double.parseDouble(sharedPref.getString("lon", "19.457216"));
         update_time = sharedPref.getString("refresh_time", "1 s");
-        locations = sharedPref.getStringSet("locations", null);
+        //locations = sharedPref.getStringSet("locations", null);
 
         refresh_time = Integer.parseInt(update_time.split(" ")[0]);
         if(update_time.split(" ")[1].startsWith("m")) refresh_time *= 60;
@@ -119,26 +125,49 @@ public class MainActivity extends AppCompatActivity {
             moon_fragment.setCoordinates(lat,lon);
             moon_fragment.getMoonInfo();
         }
-        //weather_fragment = (WeatherFragment) fragmentManager.findFragmentById(R.id)
 
         ViewPager view_pager = findViewById(R.id.view_pager);
+        ViewPagerAdapter adapter = null;
         if (view_pager != null) {
-            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            adapter = new ViewPagerAdapter(getSupportFragmentManager());
             view_pager.setAdapter(adapter);
+            //manage sun anf moon fragments
             sun_fragment = (SunFragment)adapter.instantiateItem(view_pager, 0);
             moon_fragment = (MoonFragment)adapter.instantiateItem(view_pager, 1);
-            //weather_fragment
             if (sun_fragment != null)  sun_fragment.setCoordinates(lat,lon);
             if (moon_fragment != null)  moon_fragment.setCoordinates(lat,lon);
 
-            if (locations != null) {
+            /*if (locations != null) {
                 for(int i=0 ; i<locations.size(); i++){
-                    adapter.addWeatherFragment();
+                    //TODO: change locations to list
+                    adapter.addWeatherFragment(); //abym mogła to zrobić z podawaniem nazwy miasta muszę zmienic locations na listę
                 }
                 view_pager.setAdapter(adapter);
+            }*/
+        }
+
+        //manage weather fragments
+        weather = new File(getCacheDir(),"Weather");
+        System.out.println(weather.getAbsolutePath());
+        if (!weather.exists())
+            weather.mkdirs();
+        String[] locations = weather.list();
+        for(String location : locations) {
+            try{
+                String path = weather.getPath() + "/" + location;
+                String content = new String(Files.readAllBytes(Paths.get(path)));
+
+                JSONObject object = new JSONObject(content);
+                JSONObject locationObject = object.getJSONObject("location");
+                String city = locationObject.get("city").toString();
+                adapter.addWeatherFragment(city);
+                view_pager.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
+        // updates sun and moon info
         update_info = new Thread() {
             @Override
             public void run() {

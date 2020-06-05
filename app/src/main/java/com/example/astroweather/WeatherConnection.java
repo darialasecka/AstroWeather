@@ -2,10 +2,8 @@ package com.example.astroweather;
 
 // Copyright 2019 Oath Inc. Licensed under the terms of the zLib license see https://opensource.org/licenses/Zlib for terms.
 
+import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -24,12 +22,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/*import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;*/
-
-public class WeatherConnection extends AsyncTask {
+public class WeatherConnection extends AsyncTask <Void, Void, String> {
     OkHttpClient client = new OkHttpClient();
 
     final String appId = Secret.getAppId();
@@ -40,6 +33,7 @@ public class WeatherConnection extends AsyncTask {
 
     String location = "lodz";
     Boolean isCelsius = true;
+    Activity activity = null;
 
     public String getResponse(String url) throws IOException {
         Request request = new Request.Builder()
@@ -54,14 +48,15 @@ public class WeatherConnection extends AsyncTask {
     }
 
     @Override
-    protected String doInBackground(Object[] objects) {
+    protected String doInBackground(Void... voids) {
 
         String response = "";
+        String requestURL = url + "?location=" + location + "&format=json";
         try {
             if (isCelsius)
-                response = getResponse(url + "?location=" + location + "&format=json&u=c");
-            else
-                response = getResponse(url + "?location=" + location + "&format=json");
+                requestURL += "&u=c";
+
+            response = getResponse(requestURL);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -70,10 +65,9 @@ public class WeatherConnection extends AsyncTask {
         return response;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public WeatherConnection(String location, boolean isCelsius) throws Exception {
+    public WeatherConnection(String location, boolean isCelsius, Activity activity) throws Exception {
         this.isCelsius = isCelsius;
-        //this.mainActivity = mainActivity;
+        this.activity = activity;
         this.location = location.toLowerCase();
         long timestamp = new Date().getTime() / 1000;
         byte[] nonce = new byte[32];
@@ -89,7 +83,7 @@ public class WeatherConnection extends AsyncTask {
         parameters.add("oauth_timestamp=" + timestamp);
         parameters.add("oauth_version=1.0");
         // Make sure value is encoded
-        parameters.add("location=" + URLEncoder.encode(location, "UTF-8"));
+        parameters.add("location=" + URLEncoder.encode(this.location, "UTF-8"));
         parameters.add("format=json");
         if(this.isCelsius)
             parameters.add("u=c");

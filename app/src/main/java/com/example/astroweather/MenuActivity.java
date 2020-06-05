@@ -3,7 +3,6 @@ package com.example.astroweather;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,9 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,26 +76,41 @@ public class MenuActivity extends AppCompatActivity {
 
         Button add_city_button = findViewById(R.id.add_city_button);
         add_city_button.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                EditText add_city_input = findViewById(R.id.add_city_input);
-                String location_name = add_city_input.getText().toString().toLowerCase();
+                EditText city_name_input = findViewById(R.id.city_name_input);
+                String city_name = city_name_input.getText().toString().toLowerCase();
                 try {
-                    System.out.println("test");
-
-                    WeatherConnection connection = new WeatherConnection(location_name, true);
-                    connection.execute();
-
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("lat", lat.toString());
                     editor.putString("lon", lon.toString());
-                    editor.putString("location", location_name);
 
-                    Set<String> newLocations = new HashSet<>();
-                    if(locations != null) newLocations.addAll(locations);
-                    newLocations.add(location_name);
-                    editor.putStringSet("locations", newLocations);
+                    WeatherConnection connection = new WeatherConnection(city_name,true, MenuActivity.this);
+                    connection.execute();
+
+                    if (connection.get() != null) {
+                        JSONObject object;
+                        PrintWriter out = null;
+                        try {
+                            object = new JSONObject(connection.get());
+                            JSONObject locationObject = object.getJSONObject("location");
+                            city_name = locationObject.get("city").toString();
+
+                            String filename = city_name.replaceAll("\\s","");
+                            out = new PrintWriter(new FileWriter(getCacheDir().toString() + "/Weather/" + filename));
+                            out.write(object.toString());
+                            out.close();
+
+                            //na razie niech zostanie dodawanie miast do shared preferences
+                            Set<String> newLocations = new HashSet<>();
+                            if(locations != null) newLocations.addAll(locations);
+                            newLocations.add(city_name);
+                            editor.putStringSet("locations", newLocations);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                     editor.commit();
 
@@ -107,7 +124,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-
+        //TODO: add choosing celsius or fahrenheit
         /*final AlertDialog.Builder error = new AlertDialog.Builder(this);
         //final View layout = getLayoutInflater().inflate(R.layout.error_msg, null);
         //error.setView(layout);

@@ -4,20 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WeatherFragment extends Fragment {
 
-    public static WeatherFragment newInstance(String param1, String param2) {
-        WeatherFragment fragment = new WeatherFragment();
-        return fragment;
+    String location;
+
+    public WeatherFragment(String location) {
+        this.location = location;
     }
 
     @Override
@@ -27,7 +23,9 @@ public class WeatherFragment extends Fragment {
     }
 
     void update() {
-
+        //TODO: add label Today (like label Forecast)
+        TextView city_name = getView().findViewById(R.id.city_name);
+        city_name.setText(this.location);
     }
 
     @Override
