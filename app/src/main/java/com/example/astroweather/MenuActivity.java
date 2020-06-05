@@ -1,9 +1,8 @@
 package com.example.astroweather;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DateFormat;
@@ -65,20 +65,38 @@ public class MenuActivity extends AppCompatActivity {
         };
         timer.start();
 
-        final AlertDialog.Builder error = new AlertDialog.Builder(this);
+        Button add_city_button = findViewById(R.id.add_city_button);
+        add_city_button.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                System.out.println("test");
+                EditText add_city_input = findViewById(R.id.add_city_input);
+                String location_name = add_city_input.getText().toString();
+                try {
+                    WeatherConnection connection = new WeatherConnection(location_name, true);
+                    connection.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        /*final AlertDialog.Builder error = new AlertDialog.Builder(this);
         //final View layout = getLayoutInflater().inflate(R.layout.error_msg, null);
         //error.setView(layout);
 
         error.setTitle("Error");
-        error.setMessage("Incorrect input");
+        error.setMessage("Incorrect input");*/
 
 
-        Button save_button = findViewById(R.id.save_button);
+        /*Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText lat_text = findViewById(R.id.lat);
-                EditText lon_text = findViewById(R.id.lon);
+                EditText lon_text = findViewById(R.id.city);
 
                 try{
                     lat = Double.parseDouble(lat_text.getText().toString());
@@ -101,7 +119,7 @@ public class MenuActivity extends AppCompatActivity {
                     error.show();
                 }
             }
-        });
+        });*/
 
         final Spinner spinner = findViewById(R.id.refresh_time);
         ArrayList<String> arrayList = new ArrayList<>();

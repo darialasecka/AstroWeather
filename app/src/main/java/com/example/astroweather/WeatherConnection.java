@@ -38,37 +38,49 @@ public class WeatherConnection extends AsyncTask {
     final String url = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
     String authorizationLine;
 
-    @Override
-    protected Object doInBackground(Object[] objects) {
+    String location = "lodz";
+    Boolean isCelsius = true;
+
+    public String getResponse(String url) throws IOException {
         Request request = new Request.Builder()
-                .url(url + "?location=sunnyvale,ca&format=json")
+                .url(url)
                 .header("Authorization", authorizationLine)
                 .header("X-Yahoo-App-Id", appId)
                 .header("Content-Type", "application/json")
                 .build();
-
-        System.out.println(request.toString());
-
-        Response response = null;
-        try {
-            response = client.newCall(request).execute();
-            System.out.println(response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
         }
+    }
 
-        return null;
+    @Override
+    protected String doInBackground(Object[] objects) {
+
+        String response = "";
+        try {
+            if (isCelsius)
+                response = getResponse(url + "?location=" + location + "&format=json&u=c");
+            else
+                response = getResponse(url + "?location=" + location + "&format=json");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        System.out.println(response);
+        return response;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public WeatherConnection() throws Exception {
-
+    public WeatherConnection(String location, boolean isCelsius) throws Exception {
+        this.isCelsius = isCelsius;
+        //this.mainActivity = mainActivity;
+        this.location = location.toLowerCase();
         long timestamp = new Date().getTime() / 1000;
         byte[] nonce = new byte[32];
         Random rand = new Random();
         rand.nextBytes(nonce);
+        System.out.println("oauth " + new String(nonce).replaceAll("\\W", ""));
         String oauthNonce = "w2gC09BO"; //new String(nonce).replaceAll("\\W", "");
-        System.out.println("oauth " + oauthNonce);
 
         List<String> parameters = new ArrayList<>();
         parameters.add("oauth_consumer_key=" + consumerKey);
@@ -77,8 +89,10 @@ public class WeatherConnection extends AsyncTask {
         parameters.add("oauth_timestamp=" + timestamp);
         parameters.add("oauth_version=1.0");
         // Make sure value is encoded
-        parameters.add("location=" + URLEncoder.encode("sunnyvale,ca", "UTF-8"));
+        parameters.add("location=" + URLEncoder.encode(location, "UTF-8"));
         parameters.add("format=json");
+        if(this.isCelsius)
+            parameters.add("u=c");
         Collections.sort(parameters);
 
         StringBuffer parametersList = new StringBuffer();
@@ -103,8 +117,6 @@ public class WeatherConnection extends AsyncTask {
             System.exit(0);
         }
 
-        System.out.println(signature);
-
         authorizationLine = "OAuth " +
                 "oauth_consumer_key=\"" + consumerKey + "\", " +
                 "oauth_nonce=\"" + oauthNonce + "\", " +
@@ -112,16 +124,5 @@ public class WeatherConnection extends AsyncTask {
                 "oauth_signature_method=\"HMAC-SHA1\", " +
                 "oauth_signature=\"" + signature + "\", " +
                 "oauth_version=\"1.0\"";
-
-        /*HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url + "?location=sunnyvale,ca&format=json"))
-                .header("Authorization", authorizationLine)
-                .header("X-Yahoo-App-Id", appId)
-                .header("Content-Type", "application/json")
-                .build();
-
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        System.out.println(response.body());*/
     }
 }

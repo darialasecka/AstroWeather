@@ -37,12 +37,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            WeatherConnection weather = new WeatherConnection();
+        /*try {
+            WeatherConnection weather = new WeatherConnection("warsaw");
             weather.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         Button menu_button = findViewById(R.id.menu_button);

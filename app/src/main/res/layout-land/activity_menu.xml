@@ -90,13 +90,13 @@
         android:inputType="numberDecimal"
         android:padding="10sp"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/lon"
+        app:layout_constraintBottom_toTopOf="@+id/add_city_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/lon"
+        android:id="@+id/add_city_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -144,6 +144,6 @@
         app:layout_constraintBottom_toTopOf="@+id/refresh_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lon" />
+        app:layout_constraintTop_toBottomOf="@+id/add_city_input" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

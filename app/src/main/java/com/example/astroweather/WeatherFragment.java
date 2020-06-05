@@ -23,6 +23,11 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        update();
+    }
+
+    void update() {
+
     }
 
     @Override

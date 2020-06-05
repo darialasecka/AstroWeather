@@ -81,34 +81,20 @@
         app:layout_constraintTop_toBottomOf="@+id/refresh_time" />
 
     <EditText
-        android:id="@+id/lat"
+        android:id="@+id/add_city_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/latitude"
+        android:hint="@string/city"
         android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        android:padding="10sp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/lon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/lon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/longitude"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
+        android:inputType="text"
         android:padding="10sp"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lat" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
         android:id="@+id/refresh_time"
@@ -126,10 +112,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/give_coordinates"
+        android:text="Give city:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/lat"
+        app:layout_constraintBottom_toTopOf="@+id/add_city_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -144,6 +130,14 @@
         app:layout_constraintBottom_toTopOf="@+id/refresh_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lon" />
+        app:layout_constraintTop_toBottomOf="@+id/add_city_input" />
+
+    <Button
+        android:id="@+id/add_city_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add city"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="374dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
