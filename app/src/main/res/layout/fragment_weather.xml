@@ -43,21 +43,10 @@
 				android:paddingBottom="40sp">
 
 				<TextView
-					android:id="@+id/today_label"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:gravity="center_vertical"
-					android:paddingLeft="20dp"
-					android:text="@string/today"
-					android:textColor="#FFFFFF"
-					android:textSize="18sp" />
-
-				<TextView
 					android:id="@+id/today_temp_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_weight="2"
+					android:layout_weight="1"
 					android:gravity="center"
 					android:text="@string/temperature"
 					android:textColor="#FFFFFF"
@@ -67,7 +56,7 @@
 					android:id="@+id/today_cond_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_weight="8"
+					android:layout_weight="2"
 					android:gravity="center"
 					android:text="@string/condition"
 					android:textColor="#FFFFFF"
@@ -224,23 +213,23 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_weight="1"
-				android:background="#3E3E3E"
+				android:background="#323232"
 				android:paddingTop="40sp"
 				android:paddingBottom="40sp">
 
 				<TextView
-					android:id="@+id/tommorow_label"
+					android:id="@+id/today_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:gravity="center_vertical"
-					android:paddingLeft="20dp"
-					android:text="@string/tommorow"
+					android:gravity="clip_horizontal|center_vertical"
+					android:paddingLeft="20sp"
+					android:text="@string/today"
 					android:textColor="#FFFFFF"
 					android:textSize="18sp" />
 
 				<TextView
-					android:id="@+id/tommorow_temp_label"
+					android:id="@+id/today_temp_label2"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="2"
@@ -250,7 +239,47 @@
 					android:textSize="18sp" />
 
 				<TextView
-					android:id="@+id/tommorow_cond_label"
+					android:id="@+id/today_cond_label2"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="8"
+					android:gravity="center"
+					android:text="@string/condition"
+					android:textColor="#FFFFFF"
+					android:textSize="18sp" />
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:background="#3E3E3E"
+				android:paddingTop="40sp"
+				android:paddingBottom="40sp">
+
+				<TextView
+					android:id="@+id/tomorrow_label"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:gravity="clip_horizontal|center_vertical"
+					android:paddingLeft="20dp"
+					android:text="@string/tommorow"
+					android:textColor="#FFFFFF"
+					android:textSize="18sp" />
+
+				<TextView
+					android:id="@+id/tomorrow_temp_label"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="2"
+					android:gravity="center"
+					android:text="@string/temperature"
+					android:textColor="#FFFFFF"
+					android:textSize="18sp" />
+
+				<TextView
+					android:id="@+id/tomorrow_cond_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="8"
@@ -273,7 +302,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:gravity="center_vertical"
+					android:gravity="clip_horizontal|center_vertical"
 					android:paddingLeft="20dp"
 					android:text="@string/day3"
 					android:textColor="#FFFFFF"
@@ -313,7 +342,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:gravity="center_vertical"
+					android:gravity="clip_horizontal|center_vertical"
 					android:paddingLeft="20dp"
 					android:text="@string/day4"
 					android:textColor="#FFFFFF"
@@ -349,11 +378,11 @@
 				android:paddingBottom="40sp">
 
 				<TextView
-					android:id="@+id/textView9"
+					android:id="@+id/day5_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:gravity="center_vertical"
+					android:gravity="clip_horizontal|center_vertical"
 					android:paddingLeft="20dp"
 					android:text="Day5"
 					android:textColor="#FFFFFF"
@@ -389,11 +418,11 @@
 				android:paddingBottom="40sp">
 
 				<TextView
-					android:id="@+id/textView13"
+					android:id="@+id/day6_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:gravity="center_vertical"
+					android:gravity="clip_horizontal|center_vertical"
 					android:paddingLeft="20dp"
 					android:text="Day6"
 					android:textColor="#FFFFFF"
@@ -410,7 +439,7 @@
 					android:textSize="18sp" />
 
 				<TextView
-					android:id="@+id/day6__cond_label"
+					android:id="@+id/day6_cond_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="8"
@@ -429,11 +458,11 @@
 				android:paddingBottom="40sp">
 
 				<TextView
-					android:id="@+id/textView21"
+					android:id="@+id/day7_label"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:gravity="center_vertical"
+					android:gravity="clip_horizontal|center_vertical"
 					android:paddingLeft="20dp"
 					android:text="Day7"
 					android:textColor="#FFFFFF"

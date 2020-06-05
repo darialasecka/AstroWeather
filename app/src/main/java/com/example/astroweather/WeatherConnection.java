@@ -58,14 +58,16 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         try {
             if (isMetric)
                 requestURL += "&u=c";
-            response = getResponse(requestURL);
+            System.out.println("conn " + isMetric + " " + requestURL);
             Thread.sleep(2000);
+            response = getResponse(requestURL);
+
             //System.out.println("sleep");
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        //System.out.println(response);
+        System.out.println(response);
         return response;
     }
 
@@ -129,7 +131,7 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         JSONObject locationObject = object.getJSONObject("location");
         String city_name = locationObject.get("city").toString();
 
-        String filename = city_name.replaceAll("\\s","");
+        String filename = city_name.replaceAll("\\s","_");
         PrintWriter out = new PrintWriter(new FileWriter(activity.getCacheDir().toString() + "/Weather/" + filename));
         out.write(object.toString());
         out.close();

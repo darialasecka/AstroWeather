@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,10 +68,13 @@ public class WeatherSettings extends AppCompatActivity {
         add_city_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("toast");
+                Toast.makeText(WeatherSettings.this, "Adding city. Please wait", Toast.LENGTH_LONG).show();
                 EditText city_name_input = findViewById(R.id.city_name_input);
-                String city_name = city_name_input.getText().toString().toLowerCase();
+                String city_name = city_name_input.getText().toString().toLowerCase().replaceAll("\\s", "_");
                 if(!city_name.isEmpty()) {
                     try {
+                        System.out.println("sett " + isMetric);
                         WeatherConnection connection = new WeatherConnection(city_name, isMetric, WeatherSettings.this);
                         connection.execute();
                         if (connection.get() != null) {
@@ -97,7 +101,6 @@ public class WeatherSettings extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 SharedPreferences.Editor editor = sharedPref.edit();
-
                 switch (checkedId){
                     case R.id.imperial:
                         //do imperial
@@ -111,9 +114,7 @@ public class WeatherSettings extends AppCompatActivity {
                         editor.putBoolean("isMetric", true);
                         break;
                 }
-
                 editor.commit();
-
             }
         });
 

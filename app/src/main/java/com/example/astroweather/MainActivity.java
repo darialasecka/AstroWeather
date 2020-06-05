@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
 
         //manage weather fragments
         createWeatherData();
-
         new WeatherManager(this, isMetric).start();
+        System.out.println("main " + isMetric);
 
 
         // updates sun and moon info
