@@ -1,6 +1,7 @@
 package com.example.astroweather;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,12 +20,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MenuActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
 
     private SharedPreferences sharedPref;
+    private Set<String> locations = new HashSet<>();
 
     Thread timer;
 
@@ -37,6 +41,9 @@ public class MenuActivity extends AppCompatActivity {
         //set current preferences on top of the screen
         lat = Double.parseDouble(sharedPref.getString("lat", "51.759445"));
         lon = Double.parseDouble(sharedPref.getString("lon", "19.457216"));
+
+        locations = sharedPref.getStringSet("locations", null);
+
         TextView latitude = findViewById(R.id.latitude);
         latitude.setText("lat: " + lat);
         TextView longitude = findViewById(R.id.longitude);
@@ -70,12 +77,30 @@ public class MenuActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                System.out.println("test");
                 EditText add_city_input = findViewById(R.id.add_city_input);
-                String location_name = add_city_input.getText().toString();
+                String location_name = add_city_input.getText().toString().toLowerCase();
                 try {
+                    System.out.println("test");
+
                     WeatherConnection connection = new WeatherConnection(location_name, true);
                     connection.execute();
+
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("lat", lat.toString());
+                    editor.putString("lon", lon.toString());
+                    editor.putString("location", location_name);
+
+                    Set<String> newLocations = new HashSet<>();
+                    if(locations != null) newLocations.addAll(locations);
+                    newLocations.add(location_name);
+                    editor.putStringSet("locations", newLocations);
+
+                    editor.commit();
+
+                    Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

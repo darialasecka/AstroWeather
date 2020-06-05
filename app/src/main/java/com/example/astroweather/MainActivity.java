@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private Double lat;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private String update_time;
     private int refresh_time;
     private Thread update_info;
+
+    private Set<String> locations = null;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         lat = Double.parseDouble(sharedPref.getString("lat", "51.759445"));
         lon = Double.parseDouble(sharedPref.getString("lon", "19.457216"));
         update_time = sharedPref.getString("refresh_time", "1 s");
+        locations = sharedPref.getStringSet("locations", null);
 
         refresh_time = Integer.parseInt(update_time.split(" ")[0]);
         if(update_time.split(" ")[1].startsWith("m")) refresh_time *= 60;
@@ -71,22 +75,22 @@ public class MainActivity extends AppCompatActivity {
         timer = new Thread() {
             @Override
             public void run() {
-                try {
-                    while (!timer.isInterrupted()) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                                Calendar cali = Calendar.getInstance();
-                                String time = timeFormat.format(cali.getTimeInMillis());
-                                TextView current_time = findViewById(R.id.current_time);
-                                current_time.setText(time);
-                            }
-                        });
-                        Thread.sleep(1000);
-                    }
-                } catch (InterruptedException e) {
+            try {
+                while (!timer.isInterrupted()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                            Calendar cali = Calendar.getInstance();
+                            String time = timeFormat.format(cali.getTimeInMillis());
+                            TextView current_time = findViewById(R.id.current_time);
+                            current_time.setText(time);
+                        }
+                    });
+                    Thread.sleep(1000);
                 }
+            } catch (InterruptedException e) {
+            }
             }
         };
         timer.start();
@@ -114,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
             //weather_fragment
             if (sun_fragment != null)  sun_fragment.setCoordinates(lat,lon);
             if (moon_fragment != null)  moon_fragment.setCoordinates(lat,lon);
+
+            if (locations != null) {
+                for(int i=0 ; i<locations.size(); i++){
+                    adapter.addWeatherFragment();
+                }
+                view_pager.setAdapter(adapter);
+            }
         }
 
         update_info = new Thread() {
