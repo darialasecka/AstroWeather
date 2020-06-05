@@ -11,12 +11,23 @@ import androidx.fragment.app.Fragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class WeatherFragment extends Fragment {
 
+    String path;
     JSONObject jsonObject;
 
-    public WeatherFragment(JSONObject jsonObject) {
-        this.jsonObject = jsonObject;
+    public WeatherFragment(String path, boolean isMetric) throws Exception {
+        this.path = path;
+        String content = new String(Files.readAllBytes(Paths.get(path)));
+        this.jsonObject = new JSONObject(content);
+    }
+
+    public void updateData() throws Exception{
+        String content = new String(Files.readAllBytes(Paths.get(path)));
+        this.jsonObject = new JSONObject(content);
     }
 
     @Override
@@ -30,7 +41,8 @@ public class WeatherFragment extends Fragment {
     }
 
     void update() throws JSONException {
-        //TODO: add label Today (like label Forecast)
+        //TODO: add label for county
+        //TODO: add changing lat i lon from json
         //city
         JSONObject location = jsonObject.getJSONObject("location");
 
@@ -66,7 +78,7 @@ public class WeatherFragment extends Fragment {
         atmo_pressure.setText("Pressure: " + atmosphere.get("pressure").toString());
 
         //condition
-        //TODO: manage celsius and fahrenheit temperature
+        //TODO: manage all types of units units
         TextView today_temp = getView().findViewById(R.id.today_temp_label);
         today_temp.setText(condition.get("temperature").toString() + (char) 0x00B0 + "C"); //for now it will always show celsius
 

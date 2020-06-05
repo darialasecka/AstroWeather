@@ -1,5 +1,6 @@
 package com.example.astroweather;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,22 +15,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONObject;
-
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MenuActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
 
     private SharedPreferences sharedPref;
-    private Set<String> locations = new HashSet<>();
 
     Thread timer;
 
@@ -42,8 +37,6 @@ public class MenuActivity extends AppCompatActivity {
         //set current preferences on top of the screen
         lat = Double.parseDouble(sharedPref.getString("lat", "51.759445"));
         lon = Double.parseDouble(sharedPref.getString("lon", "19.457216"));
-
-        locations = sharedPref.getStringSet("locations", null);
 
         TextView latitude = findViewById(R.id.latitude);
         latitude.setText("lat: " + lat);
@@ -73,64 +66,21 @@ public class MenuActivity extends AppCompatActivity {
         };
         timer.start();
 
-        Button add_city_button = findViewById(R.id.add_city_button);
-        add_city_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText city_name_input = findViewById(R.id.city_name_input);
-                String city_name = city_name_input.getText().toString().toLowerCase();
-                try {
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("lat", lat.toString());
-                    editor.putString("lon", lon.toString());
-
-                    WeatherConnection connection = new WeatherConnection(city_name,true, MenuActivity.this);
-                    connection.execute();
-
-                    if (connection.get() != null) {
-                        JSONObject object;
-                        PrintWriter out = null;
-                        try {
-                            city_name = connection.addLocation(connection.get(), MenuActivity.this);
-
-                            //na razie niech zostanie dodawanie miast do shared preferences
-                            Set<String> newLocations = new HashSet<>();
-                            if(locations != null) newLocations.addAll(locations);
-                            newLocations.add(city_name);
-                            editor.putStringSet("locations", newLocations);
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    editor.commit();
-
-                    Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         //TODO: add choosing celsius or fahrenheit
-        /*final AlertDialog.Builder error = new AlertDialog.Builder(this);
+        final AlertDialog.Builder error = new AlertDialog.Builder(this);
         //final View layout = getLayoutInflater().inflate(R.layout.error_msg, null);
         //error.setView(layout);
 
         error.setTitle("Error");
-        error.setMessage("Incorrect input");*/
+        error.setMessage("Incorrect input");
 
 
-        /*Button save_button = findViewById(R.id.save_button);
+        Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText lat_text = findViewById(R.id.lat);
-                EditText lon_text = findViewById(R.id.city);
+                EditText lon_text = findViewById(R.id.lon);
 
                 try{
                     lat = Double.parseDouble(lat_text.getText().toString());
@@ -153,7 +103,17 @@ public class MenuActivity extends AppCompatActivity {
                     error.show();
                 }
             }
-        });*/
+        });
+
+        Button weather_settings = findViewById(R.id.weather_settings);
+        weather_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, WeatherSettings.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         final Spinner spinner = findViewById(R.id.refresh_time);
         ArrayList<String> arrayList = new ArrayList<>();

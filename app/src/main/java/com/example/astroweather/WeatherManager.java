@@ -1,27 +1,27 @@
 package com.example.astroweather;
 
-import android.app.Activity;
-
 import java.io.File;
 
 public class WeatherManager extends Thread {
-    Activity activity;
+    private MainActivity activity;
+    private boolean isMetric;
 
-    public WeatherManager(Activity activity){
+    public WeatherManager(MainActivity activity, boolean isMetric){
         this.activity = activity;
+        this.isMetric = isMetric;
     }
 
     @Override
     public void run() {
-        File weather = new File(this.activity.getCacheDir(),"Weather");
+        File weather = new File(activity.getCacheDir(),"Weather");
         String[] locations = weather.list();
         for (String location : locations) {
-            String fullFilePath = null;
             try {
-                WeatherConnection connection = new WeatherConnection(location, true, this.activity);
+                WeatherConnection connection = new WeatherConnection(location, isMetric, activity);
                 connection.execute();
                 if (connection.get() != null) {
                     connection.addLocation(connection.get(), activity);
+                    activity.updateWeatherData();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

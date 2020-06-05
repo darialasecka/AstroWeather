@@ -1,13 +1,12 @@
 <resources>
     <string name="astro_weather">Astro Weather</string>
-    <string name="give_coordinates">Give coordinates:</string>
+    <string name="give_coordinates">Give coordinates for\nsun and moon calculations:</string>
     <string name="longitude">longitude</string>
     <string name="latitude">latitude</string>
     <string name="how_frequent">Set refresh time:</string>
     <string name="time">Time</string>
     <string name="save">save</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sunrise_time">Sunrise Time</string>
     <string name="sunset_time">Sunset Time</string>
@@ -37,4 +36,5 @@
     <string name="wind">Wind</string>
     <string name="day4">Day4</string>
     <string name="city">City</string>
+    <string name="which_system_of_measurments_nwould_you_like_to_use">Which system of measurements\nwould you like to use:</string>
 </resources>

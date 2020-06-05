@@ -36,10 +36,10 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
     String authorizationLine;
 
     String location = "lodz";
-    Boolean isCelsius = true;
+    Boolean isMetric = true;
     Activity activity = null;
 
-    public String getResponse(String url) throws IOException {
+    private String getResponse(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .header("Authorization", authorizationLine)
@@ -53,31 +53,31 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-
         String response = "";
         String requestURL = url + "?location=" + location + "&format=json";
         try {
-            if (isCelsius)
+            if (isMetric)
                 requestURL += "&u=c";
-
             response = getResponse(requestURL);
+            Thread.sleep(2000);
+            //System.out.println("sleep");
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        System.out.println(response);
+        //System.out.println(response);
         return response;
     }
 
-    public WeatherConnection(String location, boolean isCelsius, Activity activity) throws Exception {
-        this.isCelsius = isCelsius;
+    public WeatherConnection(String location, boolean isMetric, Activity activity) throws Exception {
+        this.isMetric = isMetric;
         this.activity = activity;
         this.location = location.toLowerCase();
         long timestamp = new Date().getTime() / 1000;
         byte[] nonce = new byte[32];
         Random rand = new Random();
         rand.nextBytes(nonce);
-        System.out.println("oauth " + new String(nonce).replaceAll("\\W", ""));
+        //System.out.println("oauth " + new String(nonce).replaceAll("\\W", ""));
         String oauthNonce = "w2gC09BO"; //new String(nonce).replaceAll("\\W", "");
 
         List<String> parameters = new ArrayList<>();
@@ -89,7 +89,7 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         // Make sure value is encoded
         parameters.add("location=" + URLEncoder.encode(this.location, "UTF-8"));
         parameters.add("format=json");
-        if(this.isCelsius)
+        if(this.isMetric)
             parameters.add("u=c");
         Collections.sort(parameters);
 

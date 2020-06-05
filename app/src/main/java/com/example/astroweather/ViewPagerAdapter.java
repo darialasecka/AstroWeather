@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private SunFragment sun_fragment = new SunFragment();
     private MoonFragment moon_fragment = new MoonFragment();
     private List<Fragment> fragments = new ArrayList<>();
+    private List<WeatherFragment> weatherFragments = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -23,8 +22,16 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragments.add(moon_fragment);
     }
 
-    public void addWeatherFragment(JSONObject object) {
-        fragments.add(new WeatherFragment(object));
+    public void addWeatherFragment(String path, boolean isMetric) throws Exception {
+        WeatherFragment fragment = new WeatherFragment(path, isMetric);
+        fragments.add(fragment);
+        weatherFragments.add(fragment);
+    }
+
+    public void updateWeatherFragments() throws Exception {
+        for(WeatherFragment fragment : weatherFragments){
+            fragment.updateData();
+        }
     }
 
     @Override
