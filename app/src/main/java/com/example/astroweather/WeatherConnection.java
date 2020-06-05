@@ -5,7 +5,11 @@ package com.example.astroweather;
 import android.app.Activity;
 import android.os.AsyncTask;
 
+import org.json.JSONObject;
+
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -118,5 +122,17 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
                 "oauth_signature_method=\"HMAC-SHA1\", " +
                 "oauth_signature=\"" + signature + "\", " +
                 "oauth_version=\"1.0\"";
+    }
+
+    public String addLocation(String json, Activity activity) throws Exception {
+        JSONObject object = new JSONObject(json);
+        JSONObject locationObject = object.getJSONObject("location");
+        String city_name = locationObject.get("city").toString();
+
+        String filename = city_name.replaceAll("\\s","");
+        PrintWriter out = new PrintWriter(new FileWriter(activity.getCacheDir().toString() + "/Weather/" + filename));
+        out.write(object.toString());
+        out.close();
+        return city_name;
     }
 }

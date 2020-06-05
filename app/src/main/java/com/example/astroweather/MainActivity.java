@@ -148,24 +148,29 @@ public class MainActivity extends AppCompatActivity {
 
         //manage weather fragments
         weather = new File(getCacheDir(),"Weather");
-        System.out.println(weather.getAbsolutePath());
+        //System.out.println(weather.getAbsolutePath());
         if (!weather.exists())
             weather.mkdirs();
         String[] locations = weather.list();
+
+        new WeatherManager(this).start();
+
         for(String location : locations) {
+            String path = null;
             try{
-                String path = weather.getPath() + "/" + location;
+                path = weather.getPath() + "/" + location;
                 String content = new String(Files.readAllBytes(Paths.get(path)));
 
                 JSONObject object = new JSONObject(content);
-                JSONObject locationObject = object.getJSONObject("location");
-                String city = locationObject.get("city").toString();
-                adapter.addWeatherFragment(city);
+
+                adapter.addWeatherFragment(object);
                 view_pager.setAdapter(adapter);
             } catch (Exception e) {
+                if (path != null) new File(path).delete();
                 e.printStackTrace();
             }
         }
+
 
         // updates sun and moon info
         update_info = new Thread() {

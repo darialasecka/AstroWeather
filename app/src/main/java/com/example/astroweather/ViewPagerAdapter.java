@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragments.add(moon_fragment);
     }
 
-    public void addWeatherFragment(String location) {
-        fragments.add(new WeatherFragment(location));
+    public void addWeatherFragment(JSONObject object) {
+        fragments.add(new WeatherFragment(object));
     }
 
     @Override

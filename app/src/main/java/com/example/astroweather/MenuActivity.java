@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
 
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -92,14 +91,7 @@ public class MenuActivity extends AppCompatActivity {
                         JSONObject object;
                         PrintWriter out = null;
                         try {
-                            object = new JSONObject(connection.get());
-                            JSONObject locationObject = object.getJSONObject("location");
-                            city_name = locationObject.get("city").toString();
-
-                            String filename = city_name.replaceAll("\\s","");
-                            out = new PrintWriter(new FileWriter(getCacheDir().toString() + "/Weather/" + filename));
-                            out.write(object.toString());
-                            out.close();
+                            city_name = connection.addLocation(connection.get(), MenuActivity.this);
 
                             //na razie niech zostanie dodawanie miast do shared preferences
                             Set<String> newLocations = new HashSet<>();
