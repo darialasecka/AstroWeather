@@ -1,8 +1,11 @@
 package com.example.astroweather;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -34,19 +37,28 @@ public class MainActivity extends AppCompatActivity {
 
     private Set<String> locations = null;
 
+
+    private boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*try {
-            WeatherConnection weather = new WeatherConnection("warsaw");
-            weather.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
+        if (!isConnected()) {
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("Couldn't connect to Internet");
+            dialog.setMessage("Weather information may not be accurate. To ensure that information are actual you should connect to Internet.");
+            dialog.show();
+        }
 
         Button menu_button = findViewById(R.id.menu_button);
         menu_button.setOnClickListener(new View.OnClickListener() {
