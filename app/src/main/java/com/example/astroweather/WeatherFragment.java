@@ -22,7 +22,6 @@ public class WeatherFragment extends Fragment {
 
     private String path;
     private JSONObject jsonObject;
-    private boolean isMetric;
 
     //units
     private String degrees;
@@ -31,11 +30,10 @@ public class WeatherFragment extends Fragment {
     private String pressure;
 
 
-    public WeatherFragment(String path, boolean isMetric) throws Exception {
+    public WeatherFragment(String path) throws Exception {
         this.path = path;
         String content = new String(Files.readAllBytes(Paths.get(path)));
         this.jsonObject = new JSONObject(content);
-        this.isMetric = isMetric;
     }
 
     public void updateData() throws Exception{
@@ -55,7 +53,8 @@ public class WeatherFragment extends Fragment {
 
     void update() throws JSONException {
         //TODO: somehow save utils type in json file and get it"
-        if(isMetric){
+        System.out.println("json " + jsonObject.get("units").toString());
+        if(jsonObject.get("units").toString().equals("metric")) {
              degrees = (char) 0x00B0 + "C";
              distance = " km";
              speed = " km/h";
@@ -72,6 +71,7 @@ public class WeatherFragment extends Fragment {
         //TODO: add changing lat i lon from json
         //city
         JSONObject location = jsonObject.getJSONObject("location");
+        System.out.println(jsonObject);
 
         TextView city_name = getView().findViewById(R.id.city_name);
         city_name.setText(location.get("city").toString());

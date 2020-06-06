@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             String path = null;
             try{
                 path = weather.getPath() + "/" + location;
-                adapter.addWeatherFragment(path, isMetric);
+                adapter.addWeatherFragment(path);
                 view_pager.setAdapter(adapter);
             } catch (Exception e) {
                 if (path != null) new File(path).delete();

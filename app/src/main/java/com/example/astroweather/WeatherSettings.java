@@ -102,6 +102,7 @@ public class WeatherSettings extends AppCompatActivity {
         system.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                //TODO: if no internet doesn't change system
                 SharedPreferences.Editor editor = sharedPref.edit();
                 switch (checkedId){
                     case R.id.imperial:

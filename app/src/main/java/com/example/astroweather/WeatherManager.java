@@ -21,7 +21,8 @@ public class WeatherManager extends Thread {
                 connection.execute();
                 if (connection.get() != null) {
                     connection.updateFile(location, connection.get(), activity);
-                } else activity.updateDataFromFile();
+                }
+                activity.updateDataFromFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }

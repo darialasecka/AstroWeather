@@ -22,8 +22,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragments.add(moon_fragment);
     }
 
-    public void addWeatherFragment(String path, boolean isMetric) throws Exception {
-        WeatherFragment fragment = new WeatherFragment(path, isMetric);
+    public void addWeatherFragment(String path) throws Exception {
+        WeatherFragment fragment = new WeatherFragment(path);
         fragments.add(fragment);
         weatherFragments.add(fragment);
     }
@@ -31,6 +31,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public void updateWeatherFragments() throws Exception {
         for(WeatherFragment fragment : weatherFragments){
             fragment.updateData();
+            fragment.update();
         }
     }
 
