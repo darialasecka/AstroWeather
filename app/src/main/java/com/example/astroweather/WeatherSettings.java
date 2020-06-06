@@ -81,6 +81,7 @@ public class WeatherSettings extends AppCompatActivity {
                             try {
                                 connection.addLocation(connection.get(), WeatherSettings.this);
                             } catch (Exception e) {
+                                Toast.makeText(WeatherSettings.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
                         }
@@ -88,6 +89,7 @@ public class WeatherSettings extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } catch (Exception e) {
+                        Toast.makeText(WeatherSettings.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 }
@@ -106,15 +108,27 @@ public class WeatherSettings extends AppCompatActivity {
                         //do imperial
                         System.out.println("imperial");
                         editor.putBoolean("isMetric", false);
+                        editor.putBoolean("shouldUpdate", true);
 
                         break;
                     case R.id.metric:
                         //do metric
                         System.out.println("metric");
                         editor.putBoolean("isMetric", true);
+                        editor.putBoolean("shouldUpdate", true);
                         break;
                 }
                 editor.commit();
+            }
+        });
+
+        Button close_weather_settings = findViewById(R.id.close_weather_settings);
+        close_weather_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

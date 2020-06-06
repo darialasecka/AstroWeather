@@ -48,6 +48,15 @@
             android:text="@string/longitude"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/close_weather_settings"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_marginRight="10dp"
+            android:background="@android:drawable/ic_menu_close_clear_cancel"
+            android:backgroundTint="#FFFFFF"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <TextView

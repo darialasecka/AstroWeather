@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private int refresh_time;
     private Thread update_info;
     private boolean isMetric;
+    private boolean shouldUpdate = false;
 
     private File weather = null;
     private ViewPager view_pager;
@@ -66,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateWeatherData(){
+    public void updateDataFromFile(){
         try {
+            System.out.println("need?");
             adapter.updateWeatherFragments();
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         lon = Double.parseDouble(sharedPref.getString("lon", "19.457216"));
         update_time = sharedPref.getString("refresh_time", "1 s");
         isMetric = sharedPref.getBoolean("isMetric", true);
+        shouldUpdate = sharedPref.getBoolean("shouldUpdate", false);
 
         refresh_time = Integer.parseInt(update_time.split(" ")[0]);
         if(update_time.split(" ")[1].startsWith("m")) refresh_time *= 60;
@@ -158,12 +161,6 @@ public class MainActivity extends AppCompatActivity {
             if (moon_fragment != null)  moon_fragment.setCoordinates(lat,lon);
         }
 
-        //manage weather fragments
-        createWeatherData();
-        new WeatherManager(this, isMetric).start();
-        System.out.println("main " + isMetric);
-
-
         // updates sun and moon info
         update_info = new Thread() {
             @Override
@@ -190,6 +187,20 @@ public class MainActivity extends AppCompatActivity {
         };
         update_info.start();
 
+        //manage weather fragments
+        createWeatherData();
+        //new WeatherManager(this, isMetric).start();
+
+        if (shouldUpdate) {
+            System.out.println("yes?");
+            WeatherManager update = new WeatherManager(this, isMetric);
+            update.start();
+            shouldUpdate = false;
+            SharedPreferences sharedPref2 = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref2.edit();
+            editor.putBoolean("shouldUpdate", false);
+            editor.commit();
+        }
     }
 
     @Override

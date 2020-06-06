@@ -84,24 +84,25 @@ public class MenuActivity extends AppCompatActivity {
 
                 try{
                     lat = Double.parseDouble(lat_text.getText().toString());
+                } catch(Exception e) { }
+                try{
                     lon = Double.parseDouble(lon_text.getText().toString());
+                } catch(Exception e) { }
 
-                    //validate coordinates
-                    if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
-                        error.show();
-                    } else {
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("lat", lat.toString());
-                        editor.putString("lon", lon.toString());
-                        editor.commit();
-
-                        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                } catch(Exception e){
+                //validate coordinates
+                if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
                     error.show();
+                } else {
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("lat", lat.toString());
+                    editor.putString("lon", lon.toString());
+                    editor.commit();
+
+                    Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
+
             }
         });
 
@@ -148,5 +149,15 @@ public class MenuActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView <?> parent) { }
         });
 
+
+        Button close_menu_settings = findViewById(R.id.close_menu_settings);
+        close_menu_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

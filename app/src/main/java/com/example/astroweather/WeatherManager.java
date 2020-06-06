@@ -17,13 +17,11 @@ public class WeatherManager extends Thread {
         String[] locations = weather.list();
         for (String location : locations) {
             try {
-                System.out.println("manag " + isMetric);
                 WeatherConnection connection = new WeatherConnection(location, isMetric, activity);
                 connection.execute();
                 if (connection.get() != null) {
-                    //connection.addLocation(connection.get(), activity);
-                    activity.updateWeatherData();
-                }
+                    connection.updateFile(location, connection.get(), activity);
+                } else activity.updateDataFromFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }

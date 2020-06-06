@@ -53,44 +53,8 @@ public class WeatherFragment extends Fragment {
         }
     }
 
-    private String getTemperature(String degrees){
-        if(isMetric) return degrees + this.degrees;
-        else {
-            float celsius = Float.parseFloat(degrees);
-            float fahrenheit = (9f / 5) * celsius + 32;
-            return Math.round(fahrenheit) + this.degrees;
-        }
-    }
-
-    private String getDistance(String distance){
-        if(isMetric) return distance + this.distance;
-        else {
-            float km = Float.parseFloat(distance);
-            float mi = km * 0.62137f;
-            return Math.round(mi) + this.distance;
-        }
-    }
-
-    private String getSpeed(String speed){
-        if(isMetric) return speed + this.speed;
-        else {
-            float kmh = Float.parseFloat(speed);
-            float mph = kmh / 1.609344f;
-            return Math.round(mph) + this.speed;
-        }
-    }
-
-    //TODO: convert pressure
-    private String getPressure(String pressure){
-        if(isMetric) return pressure + this.pressure;
-        else {
-            float mbar = Float.parseFloat(pressure);
-            float inHg = mbar / 33.8639f;
-            return Math.round(inHg) + this.pressure;
-        }
-    }
-
     void update() throws JSONException {
+        //TODO: somehow save utils type in json file and get it"
         if(isMetric){
              degrees = (char) 0x00B0 + "C";
              distance = " km";
@@ -135,28 +99,25 @@ public class WeatherFragment extends Fragment {
         wind_direction.setText("Direction: " + wind.get("direction").toString() + (char) 0x00B0);
 
         TextView wind_speed = getView().findViewById(R.id.speed_label);
-        wind_speed.setText("Speed: " + getSpeed(wind.get("speed").toString()));
+        wind_speed.setText("Speed: " + wind.get("speed").toString() + speed);
 
         //atmosphere
         TextView atmo_humidity = getView().findViewById(R.id.humidity_label);
         atmo_humidity.setText("Humidity: " + atmosphere.get("humidity").toString() + "%");
 
         TextView atmo_visibility = getView().findViewById(R.id.visibility_label);
-        atmo_visibility.setText("Visibility: " +  getDistance(atmosphere.get("visibility").toString()));
+        atmo_visibility.setText("Visibility: " +  atmosphere.get("visibility").toString() + distance);
 
         TextView atmo_pressure = getView().findViewById(R.id.pressure_label);
-        atmo_pressure.setText("Pressure: " + getPressure(atmosphere.get("pressure").toString()));
+        atmo_pressure.setText("Pressure: " + atmosphere.get("pressure").toString() + pressure);
 
         //condition
-        //TODO: manage all types of units units
         TextView today_temp = getView().findViewById(R.id.today_temp_label);
-        today_temp.setText(getTemperature(condition.get("temperature").toString())); //for now it will always show celsius
+        today_temp.setText(condition.get("temperature").toString() + degrees); //for now it will always show celsius
 
         TextView today_cond = getView().findViewById(R.id.today_cond_label);
         today_cond.setText(condition.get("text").toString());
 
-
-        //TODO: get forecast data
         //forecast
         JSONArray forecasts = jsonObject.getJSONArray("forecasts");
         DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM");
@@ -166,7 +127,7 @@ public class WeatherFragment extends Fragment {
         Date date = new Date(Long.parseLong(forecasts.getJSONObject(0).get("date").toString()) * 1000);
         today_label.setText("Today, " + todayTomorrowFormat.format(date));
         TextView today_temp2 = getView().findViewById(R.id.today_temp_label2);
-        today_temp2.setText(getTemperature(forecasts.getJSONObject(0).get("high").toString()) + " / " + getTemperature(forecasts.getJSONObject(0).get("low").toString()));
+        today_temp2.setText(forecasts.getJSONObject(0).get("high").toString() + degrees + " / " + forecasts.getJSONObject(0).get("low").toString() + degrees);
         TextView today_cond2 = getView().findViewById(R.id.today_cond_label2);
         today_cond2.setText(forecasts.getJSONObject(0).get("text").toString());
 
@@ -174,7 +135,7 @@ public class WeatherFragment extends Fragment {
         date = new Date(Long.parseLong(forecasts.getJSONObject(1).get("date").toString()) * 1000);
         tomorrow_label.setText("Tomorrow, " + todayTomorrowFormat.format(date));
         TextView tomorrow_temp_label = getView().findViewById(R.id.tomorrow_temp_label);
-        tomorrow_temp_label.setText(getTemperature(forecasts.getJSONObject(1).get("high").toString()) + " / " + getTemperature(forecasts.getJSONObject(1).get("low").toString()));
+        tomorrow_temp_label.setText(forecasts.getJSONObject(1).get("high").toString() + degrees + " / " + forecasts.getJSONObject(1).get("low").toString() + degrees);
         TextView tomorrow_cond_label = getView().findViewById(R.id.tomorrow_cond_label);
         tomorrow_cond_label.setText(forecasts.getJSONObject(1).get("text").toString());
 
@@ -182,7 +143,7 @@ public class WeatherFragment extends Fragment {
         date = new Date(Long.parseLong(forecasts.getJSONObject(2).get("date").toString()) * 1000);
         day3_label.setText(dateFormat.format(date));
         TextView day3_temp_label = getView().findViewById(R.id.day3_temp_label);
-        day3_temp_label.setText(getTemperature(forecasts.getJSONObject(2).get("high").toString()) + " / " + getTemperature(forecasts.getJSONObject(2).get("low").toString()));
+        day3_temp_label.setText(forecasts.getJSONObject(2).get("high").toString() + degrees + " / " + forecasts.getJSONObject(2).get("low").toString() + degrees);
         TextView day3_cond_label = getView().findViewById(R.id.day3_cond_label);
         day3_cond_label.setText(forecasts.getJSONObject(2).get("text").toString());
 
@@ -190,7 +151,7 @@ public class WeatherFragment extends Fragment {
         date = new Date(Long.parseLong(forecasts.getJSONObject(3).get("date").toString()) * 1000);
         day4_label.setText(dateFormat.format(date));
         TextView day4_temp_label = getView().findViewById(R.id.day4_temp_label);
-        day4_temp_label.setText(getTemperature(forecasts.getJSONObject(3).get("high").toString()) + " / " + getTemperature(forecasts.getJSONObject(3).get("low").toString()));
+        day4_temp_label.setText(forecasts.getJSONObject(3).get("high").toString() + degrees + " / " + forecasts.getJSONObject(3).get("low").toString() + degrees);
         TextView day4_cond_label = getView().findViewById(R.id.day4_cond_label);
         day4_cond_label.setText(forecasts.getJSONObject(3).get("text").toString());
 
@@ -198,7 +159,7 @@ public class WeatherFragment extends Fragment {
         date = new Date(Long.parseLong(forecasts.getJSONObject(4).get("date").toString()) * 1000);
         day5_label.setText(dateFormat.format(date));
         TextView day5_temp_label = getView().findViewById(R.id.day5_temp_label);
-        day5_temp_label.setText(getTemperature(forecasts.getJSONObject(4).get("high").toString()) + " / " + getTemperature(forecasts.getJSONObject(4).get("low").toString()));
+        day5_temp_label.setText(forecasts.getJSONObject(4).get("high").toString() + degrees + " / " + forecasts.getJSONObject(4).get("low").toString() + degrees);
         TextView day5_cond_label = getView().findViewById(R.id.day5_cond_label);
         day5_cond_label.setText(forecasts.getJSONObject(4).get("text").toString());
 
@@ -206,7 +167,7 @@ public class WeatherFragment extends Fragment {
         date = new Date(Long.parseLong(forecasts.getJSONObject(5).get("date").toString()) * 1000);
         day6_label.setText(dateFormat.format(date));
         TextView day6_temp_label = getView().findViewById(R.id.day6_temp_label);
-        day6_temp_label.setText(getTemperature(forecasts.getJSONObject(5).get("high").toString()) + " / " + getTemperature(forecasts.getJSONObject(5).get("low").toString()));
+        day6_temp_label.setText(forecasts.getJSONObject(5).get("high").toString() + degrees + " / " + forecasts.getJSONObject(5).get("low").toString() + degrees);
         TextView day6_cond_label = getView().findViewById(R.id.day6_cond_label);
         day6_cond_label.setText(forecasts.getJSONObject(5).get("text").toString());
 
@@ -214,7 +175,7 @@ public class WeatherFragment extends Fragment {
         date = new Date(Long.parseLong(forecasts.getJSONObject(6).get("date").toString()) * 1000);
         day7_label.setText(dateFormat.format(date));
         TextView day7_temp_label = getView().findViewById(R.id.day7_temp_label);
-        day7_temp_label.setText(getTemperature(forecasts.getJSONObject(6).get("high").toString()) + " / " + getTemperature(forecasts.getJSONObject(6).get("low").toString()) + degrees);
+        day7_temp_label.setText(forecasts.getJSONObject(6).get("high").toString() + degrees + " / " + forecasts.getJSONObject(6).get("low").toString() + degrees);
         TextView day7_cond_label = getView().findViewById(R.id.day7_cond_label);
         day7_cond_label.setText(forecasts.getJSONObject(6).get("text").toString());
 

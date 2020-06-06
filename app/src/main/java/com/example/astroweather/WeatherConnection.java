@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,11 +59,10 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         try {
             if (isMetric)
                 requestURL += "&u=c";
-            System.out.println("conn " + isMetric + " " + requestURL);
-            Thread.sleep(2000);
+            //Thread.sleep(2000);
+            Thread.sleep(10);
             response = getResponse(requestURL);
-
-            //System.out.println("sleep");
+            System.out.println(requestURL);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -91,6 +91,7 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         // Make sure value is encoded
         parameters.add("location=" + URLEncoder.encode(this.location, "UTF-8"));
         parameters.add("format=json");
+        //System.out.println(this.location + " " + isMetric);
         if(this.isMetric)
             parameters.add("u=c");
         Collections.sort(parameters);
@@ -126,10 +127,16 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
                 "oauth_version=\"1.0\"";
     }
 
+
+
     public String addLocation(String json, Activity activity) throws Exception {
         JSONObject object = new JSONObject(json);
         JSONObject locationObject = object.getJSONObject("location");
         String city_name = locationObject.get("city").toString();
+        if (isMetric)
+            object.put("unit", "metric");
+        else
+            object.put("unit", "imperial");
 
         String filename = city_name.replaceAll("\\s","_");
         PrintWriter out = new PrintWriter(new FileWriter(activity.getCacheDir().toString() + "/Weather/" + filename));
@@ -137,4 +144,20 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         out.close();
         return city_name;
     }
+
+    public String updateFile(String filename, String jsonContent, Activity activity) throws Exception {
+        JSONObject object = new JSONObject(jsonContent);
+        JSONObject locationObject = object.getJSONObject("location");
+        String location_name = locationObject.get("city").toString();
+        String filepath = activity.getCacheDir().toString() + "/Weather/" + filename;
+        File f = new File(filepath);
+        if (f.exists()) {
+            PrintWriter out = new PrintWriter(new FileWriter(filepath));
+            out.write(object.toString());
+            out.close();
+            return location_name;
+        }
+        throw new RuntimeException("File " + filepath + " does not exists");
+    }
+
 }
