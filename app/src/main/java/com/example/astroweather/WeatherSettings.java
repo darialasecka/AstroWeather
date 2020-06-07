@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -79,13 +80,11 @@ public class WeatherSettings extends AppCompatActivity {
         add_city_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("toast");
-                Toast.makeText(WeatherSettings.this, "Adding city. Please wait", Toast.LENGTH_LONG).show();
                 EditText city_name_input = findViewById(R.id.city_name_input);
                 String city_name = city_name_input.getText().toString().toLowerCase().replaceAll("\\s", "_");
                 if(!city_name.isEmpty()) {
                     try {
-                        System.out.println("sett " + isMetric);
+                        Toast.makeText(WeatherSettings.this, "Adding city. Please wait", Toast.LENGTH_LONG).show();
                         WeatherConnection connection = new WeatherConnection(city_name, isMetric, WeatherSettings.this);
                         connection.execute();
                         if (connection.get() != null) {
@@ -103,11 +102,13 @@ public class WeatherSettings extends AppCompatActivity {
                         Toast.makeText(WeatherSettings.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
+                } else {
+                    Toast.makeText(WeatherSettings.this, "Give location you want to add.", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        RadioGroup system = findViewById(R.id.system_of_measurements);
+        final RadioGroup system = findViewById(R.id.system_of_measurements);
         if(isMetric) system.check(R.id.metric);
         else system.check(R.id.imperial);
         system.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -155,7 +156,63 @@ public class WeatherSettings extends AppCompatActivity {
         });
 
         Button remove = findViewById(R.id.remove_button);
-        //TODO: remove all, update now buttons
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File weather = new File(getCacheDir() + "/Weather");
+                String[] locations = weather.list();
+
+                EditText city_name_input = findViewById(R.id.city_name_input);
+                String city_name = city_name_input.getText().toString().toLowerCase().replaceAll("\\s", "_");
+                if(!city_name.isEmpty()) {
+                    for(String location : locations) {
+                        if(location.toLowerCase().equals(city_name)){
+                            String path = weather.getPath() + "/" + location;
+                            new File(path).delete();
+                            Toast.makeText(WeatherSettings.this, "Deleted " + location, Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                    }
+                    Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(WeatherSettings.this, "Give location you want to remove.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        Button remove_all = findViewById(R.id.remove_all_button);
+        remove_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File weather = new File(getCacheDir() + "/Weather");
+                String[] locations = weather.list();
+                for(String location : locations) {
+                    String path = weather.getPath() + "/" + location;
+                    new File(path).delete();
+                }
+                Toast.makeText(WeatherSettings.this, "Deleted all locations", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        //TODO: update now button
+
+        Button update_now = findViewById(R.id.update_now_button);
+        update_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean("shouldUpdate", true);
+                editor.commit();
+                Toast.makeText(WeatherSettings.this, "Updated information.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 }

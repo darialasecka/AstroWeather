@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         WeatherManager update = new WeatherManager(this, isMetric);
         update.start();
         shouldUpdate = false;
-        SharedPreferences sharedPref2 = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref2.edit();
+        SharedPreferences sharedPref = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("shouldUpdate", false);
         editor.commit();
     }
