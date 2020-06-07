@@ -133,7 +133,6 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         JSONObject object = new JSONObject(json);
         JSONObject locationObject = object.getJSONObject("location");
         String city_name = locationObject.get("city").toString();
-        System.out.println("add " + isMetric);
         if (isMetric)
             object.put("units", "metric");
         else
@@ -150,7 +149,6 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         JSONObject object = new JSONObject(jsonContent);
         JSONObject locationObject = object.getJSONObject("location");
         String city_name = locationObject.get("city").toString();
-        System.out.println("update " + isMetric);
         if (isMetric)
             object.put("units", "metric");
         else

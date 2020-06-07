@@ -185,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println();
                                 try {
                                     if(sun_fragment != null) sun_fragment.getSunInfo();
                                     if(moon_fragment != null) moon_fragment.getMoonInfo();
