@@ -66,11 +66,9 @@ public class MenuActivity extends AppCompatActivity {
         };
         timer.start();
 
-        //TODO: add choosing celsius or fahrenheit
         final AlertDialog.Builder error = new AlertDialog.Builder(this);
         //final View layout = getLayoutInflater().inflate(R.layout.error_msg, null);
         //error.setView(layout);
-
         error.setTitle("Error");
         error.setMessage("Incorrect input");
 

@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isConnected(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     public void createWeatherData() {
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateDataFromFile(){
         try {
-            System.out.println("need?");
             adapter.updateWeatherFragments();
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
         //new WeatherManager(this, isMetric).start();
 
         if (shouldUpdate) {
-            System.out.println("yes?");
             WeatherManager update = new WeatherManager(this, isMetric);
             update.start();
             shouldUpdate = false;

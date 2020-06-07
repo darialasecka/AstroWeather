@@ -52,7 +52,6 @@ public class WeatherFragment extends Fragment {
     }
 
     void update() throws JSONException {
-        //TODO: somehow save utils type in json file and get it"
         System.out.println("json " + jsonObject.get("units").toString());
         if(jsonObject.get("units").toString().equals("metric")) {
              degrees = (char) 0x00B0 + "C";
@@ -76,7 +75,7 @@ public class WeatherFragment extends Fragment {
         TextView city_name = getView().findViewById(R.id.city_name);
         city_name.setText(location.get("city").toString());
 
-        //cordinates - doesn't work
+        //cordinates - doesn't work make different text views for them
         /*TextView latitude = getView().findViewById(R.id.latitude);
         latitude.setText("lat: " + location.get("lat").toString());
 

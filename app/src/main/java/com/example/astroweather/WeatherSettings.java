@@ -3,6 +3,8 @@ package com.example.astroweather;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +25,16 @@ public class WeatherSettings extends AppCompatActivity {
     private Double lon;
     boolean isMetric;
 
+    static boolean changed = false;
+
     Thread timer;
+
+    private boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,26 +113,27 @@ public class WeatherSettings extends AppCompatActivity {
         system.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                //TODO: if no internet doesn't change system
-                SharedPreferences.Editor editor = sharedPref.edit();
-                switch (checkedId){
-                    case R.id.imperial:
-                        //do imperial
-                        System.out.println("imperial");
-                        editor.putBoolean("isMetric", false);
-                        editor.putBoolean("shouldUpdate", true);
+                if (isConnected()) {
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    switch (checkedId) {
+                        case R.id.imperial:
+                            //do imperial
+                            editor.putBoolean("isMetric", false);
+                            break;
+                        case R.id.metric:
+                            //do metric
+                            editor.putBoolean("isMetric", true);
+                            break;
+                    }
+                    editor.putBoolean("shouldUpdate", true);
+                    editor.commit();
+                } else{
+                    Toast.makeText(WeatherSettings.this, "Could't change system. Try connecting to the Internet first.", Toast.LENGTH_LONG).show();
 
-                        break;
-                    case R.id.metric:
-                        //do metric
-                        System.out.println("metric");
-                        editor.putBoolean("isMetric", true);
-                        editor.putBoolean("shouldUpdate", true);
-                        break;
                 }
-                editor.commit();
             }
         });
+
 
         Button close_weather_settings = findViewById(R.id.close_weather_settings);
         close_weather_settings.setOnClickListener(new View.OnClickListener() {
