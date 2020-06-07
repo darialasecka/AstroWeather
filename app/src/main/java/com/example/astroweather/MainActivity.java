@@ -74,6 +74,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void update(){
+        WeatherManager update = new WeatherManager(this, isMetric);
+        update.start();
+        shouldUpdate = false;
+        SharedPreferences sharedPref2 = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref2.edit();
+        editor.putBoolean("shouldUpdate", false);
+        editor.commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
             if (moon_fragment != null)  moon_fragment.setCoordinates(lat,lon);
         }
 
+        //manage weather fragments
+        createWeatherData();
+        //new WeatherManager(this, isMetric).start();
+
+        if (shouldUpdate) update();
+
         // updates sun and moon info
         update_info = new Thread() {
             @Override
@@ -173,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                                 try {
                                     if(sun_fragment != null) sun_fragment.getSunInfo();
                                     if(moon_fragment != null) moon_fragment.getMoonInfo();
+                                    update();
                                     //Log.d("Updated!", Integer.toString(refresh_time));
                                 } catch (Exception e) {
                                 }
@@ -184,20 +201,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         update_info.start();
-
-        //manage weather fragments
-        createWeatherData();
-        //new WeatherManager(this, isMetric).start();
-
-        if (shouldUpdate) {
-            WeatherManager update = new WeatherManager(this, isMetric);
-            update.start();
-            shouldUpdate = false;
-            SharedPreferences sharedPref2 = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref2.edit();
-            editor.putBoolean("shouldUpdate", false);
-            editor.commit();
-        }
     }
 
     @Override

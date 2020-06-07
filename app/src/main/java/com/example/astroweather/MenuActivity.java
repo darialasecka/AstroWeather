@@ -117,6 +117,7 @@ public class MenuActivity extends AppCompatActivity {
         final Spinner spinner = findViewById(R.id.refresh_time);
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("1 second");
+        arrayList.add("5 seconds");
         arrayList.add("10 seconds");
         arrayList.add("30 seconds");
         arrayList.add("1 minute");

@@ -134,7 +134,6 @@ public class WeatherSettings extends AppCompatActivity {
             }
         });
 
-
         Button close_weather_settings = findViewById(R.id.close_weather_settings);
         close_weather_settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +143,19 @@ public class WeatherSettings extends AppCompatActivity {
                 finish();
             }
         });
+
+        Button sun_moon_settings = findViewById(R.id.sun_moon_setting);
+        sun_moon_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WeatherSettings.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        Button remove = findViewById(R.id.remove_button);
+        //TODO: remove all, update now buttons
 
     }
 }

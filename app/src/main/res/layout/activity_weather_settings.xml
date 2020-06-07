@@ -53,7 +53,7 @@
             android:id="@+id/close_weather_settings"
             android:layout_width="35sp"
             android:layout_height="35sp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@android:drawable/ic_menu_close_clear_cancel"
             android:backgroundTint="#FFFFFF"
             android:textColor="#FFFFFF" />
@@ -78,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Give city name:"
+        android:text="@string/give_city_name"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/city_name_input"
@@ -106,10 +106,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#2196F3"
-        android:text="Add"
+        android:text="@string/add"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/remove_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city_name_input" />
 
@@ -127,12 +127,14 @@
         app:layout_constraintTop_toBottomOf="@+id/add_city_button" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/remove_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remove - not working"
+        android:background="#2196F3"
+        android:text="@string/remove"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/remove_all_button"
         app:layout_constraintStart_toEndOf="@+id/add_city_button"
         app:layout_constraintTop_toBottomOf="@+id/city_name_input" />
 
@@ -141,7 +143,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/update_now_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
@@ -150,8 +152,9 @@
             android:id="@+id/imperial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50sp"
-            android:text="Imperial"
+            android:layout_marginEnd="50sp"
+            android:buttonTint="#2196F3"
+            android:text="@string/imperial"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
@@ -159,10 +162,53 @@
             android:id="@+id/metric"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Metric"
+            android:buttonTint="#2196F3"
+            android:text="@string/metric"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
     </RadioGroup>
+
+    <Button
+        android:id="@+id/remove_all_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="@string/remove_all"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/remove_button"
+        app:layout_constraintTop_toBottomOf="@+id/city_name_input" />
+
+    <Button
+        android:id="@+id/update_now_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="@string/update_now"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sun_moon_setting"
+        app:layout_constraintTop_toBottomOf="@+id/system_of_measurements" />
+
+    <Button
+        android:id="@+id/sun_moon_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="@string/sun_moon_settings"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/update_now_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/system_of_measurements" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

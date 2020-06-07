@@ -46,12 +46,16 @@ public class WeatherFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         try {
             update();
+        } catch (NullPointerException e) {
+            //do nothing
+            System.out.println("null error");
         } catch (JSONException e) {
             e.printStackTrace();
+            System.out.println("json error");
         }
     }
 
-    void update() throws JSONException {
+    void update() throws JSONException, NullPointerException {
         System.out.println("json " + jsonObject.get("units").toString());
         if(jsonObject.get("units").toString().equals("metric")) {
              degrees = (char) 0x00B0 + "C";
@@ -66,21 +70,19 @@ public class WeatherFragment extends Fragment {
             pressure = " inHg";
         }
 
-        //TODO: add label for county
-        //TODO: add changing lat i lon from json
         //city
         JSONObject location = jsonObject.getJSONObject("location");
         System.out.println(jsonObject);
 
-        TextView city_name = getView().findViewById(R.id.city_name);
+        TextView city_name = getView().findViewById(R.id.city_label);
         city_name.setText(location.get("city").toString());
 
-        //cordinates - doesn't work make different text views for them
-        /*TextView latitude = getView().findViewById(R.id.latitude);
-        latitude.setText("lat: " + location.get("lat").toString());
+        TextView country_name = getView().findViewById(R.id.country_label);
+        country_name.setText(location.get("country").toString());
 
-        TextView longitude = getView().findViewById(R.id.longitude);
-        longitude.setText("lon: " + location.get("lat").toString());*/
+        //coordinates
+        TextView lat_lon = getView().findViewById(R.id.lat_lon_label);
+        lat_lon.setText("lat: " + location.get("lat").toString() + ",   lon: " + location.get("long").toString());
 
         //today
         JSONObject current_observation = jsonObject.getJSONObject("current_observation");
@@ -90,7 +92,7 @@ public class WeatherFragment extends Fragment {
         JSONObject condition = current_observation.getJSONObject("condition");
 
         //wind
-        //TODO: add textviews with descriptions (ex. one textview with word "Chill: ", second with number)
+        //TODO: add icons instead of text
         TextView wind_chill = getView().findViewById(R.id.chill_label);
         wind_chill.setText("Chill: " + wind.get("chill").toString() + (char) 0x00B0);
 
