@@ -20,7 +20,6 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private Double lat;
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                             current_time.setText(time);
 
                             //update weather
-                            System.out.println(new Date(last_updated) + " | " + new Date(next_update));
+                            //System.out.println(new Date(last_updated) + " | " + new Date(next_update));
                             if(last_updated >= next_update){
                                 update();
                             }
