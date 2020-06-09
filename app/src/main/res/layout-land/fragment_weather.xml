@@ -129,7 +129,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="@string/wind"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -201,7 +201,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="@string/atmosphere"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -290,7 +290,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="clip_horizontal|center_vertical"
-						android:paddingLeft="20sp"
+						android:paddingLeft="30dp"
 						android:text="@string/today"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -338,7 +338,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="clip_horizontal|center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="@string/tommorow"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -386,7 +386,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="clip_horizontal|center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="@string/day3"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -434,7 +434,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="clip_horizontal|center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="@string/day4"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -482,7 +482,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="clip_horizontal|center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="Day5"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -530,7 +530,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="clip_horizontal|center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="Day6"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
@@ -578,7 +578,7 @@
 						android:layout_height="match_parent"
 						android:layout_weight="1"
 						android:gravity="clip_horizontal|center_vertical"
-						android:paddingLeft="20dp"
+						android:paddingLeft="30dp"
 						android:text="Day7"
 						android:textColor="#FFFFFF"
 						android:textSize="18sp" />
