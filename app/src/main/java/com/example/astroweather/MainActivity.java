@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private Double lat;
@@ -34,14 +36,13 @@ public class MainActivity extends AppCompatActivity {
     private Thread update_info;
     private boolean isMetric;
     private boolean shouldUpdate = false;
-    long last_updated;
-    private Thread update_weather;
+    private long last_updated;
+    private long next_update;
 
     private File weather = null;
     private ViewPager view_pager;
     private ViewPagerAdapter adapter;
-    private final long hour = 3600*1000;
-    private long next6h = System.currentTimeMillis() + (hour * 6);
+    private final long six_hours = 15 * 1000;//3600*1000 * 6;
 
 
     private boolean isConnected(){
@@ -87,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("shouldUpdate", false);
         editor.putLong("updated", System.currentTimeMillis());
         editor.commit();
+
+
+        next_update = System.currentTimeMillis() + six_hours;
+        Log.d("Updated", "Weather");
     }
 
     @Override
@@ -117,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
         update_time = sharedPref.getString("refresh_time", "1 s");
         isMetric = sharedPref.getBoolean("isMetric", true);
         shouldUpdate = sharedPref.getBoolean("shouldUpdate", false);
-        last_updated = sharedPref.getLong("updated", next6h);
+        next_update = System.currentTimeMillis() + six_hours;
+        last_updated = sharedPref.getLong("updated", next_update);
 
         refresh_time = Integer.parseInt(update_time.split(" ")[0]);
         if(update_time.split(" ")[1].startsWith("m")) refresh_time *= 60;
@@ -142,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
                             current_time.setText(time);
 
                             //update weather
-                            if(last_updated >= next6h){
+                            System.out.println(new Date(last_updated) + " | " + new Date(next_update));
+                            if(last_updated >= next_update){
                                 update();
                             }
                             last_updated += 1000;
