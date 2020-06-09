@@ -46,4 +46,9 @@
     <string name="imperial">Imperial</string>
     <string name="metric">Metric</string>
     <string name="weather_settings">Weather Settings</string>
+    <string name="country">Country</string>
+    <string name="latitude_longitude">latitude, longitude</string>
+    <string name="day7">Day7</string>
+    <string name="day6">Day6</string>
+    <string name="day5">Day5</string>
 </resources>
