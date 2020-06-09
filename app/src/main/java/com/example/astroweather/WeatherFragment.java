@@ -85,7 +85,6 @@ public class WeatherFragment extends Fragment {
             JSONObject condition = current_observation.getJSONObject("condition");
 
             //wind
-            //TODO: add icons instead of text
             TextView wind_chill = getView().findViewById(R.id.chill_label);
             wind_chill.setText("Chill: " + wind.get("chill").toString() + (char) 0x00B0);
 

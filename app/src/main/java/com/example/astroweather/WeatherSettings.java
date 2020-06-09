@@ -173,6 +173,7 @@ public class WeatherSettings extends AppCompatActivity {
                             break;
                         }
                     }
+                    Toast.makeText(WeatherSettings.this, "Could't find location to delete", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -198,7 +199,6 @@ public class WeatherSettings extends AppCompatActivity {
                 finish();
             }
         });
-        //TODO: update now button
 
         Button update_now = findViewById(R.id.update_now_button);
         update_now.setOnClickListener(new View.OnClickListener() {
