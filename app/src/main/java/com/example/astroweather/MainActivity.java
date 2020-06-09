@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import java.io.File;
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         };
         timer.start();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction();
         sun_fragment = (SunFragment) fragmentManager.findFragmentById(R.id.s_fragment);
         if (sun_fragment != null) {
@@ -173,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         if (moon_fragment != null) {
             moon_fragment.setCoordinates(lat,lon);
             moon_fragment.getMoonInfo();
-        }
+        }*/
 
         view_pager = findViewById(R.id.view_pager);
         adapter = null;
