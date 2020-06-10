@@ -8,8 +8,7 @@
 
 	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:fillViewport="true">
+		android:layout_height="match_parent">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -26,7 +25,7 @@
 					android:layout_height="match_parent"
 					android:layout_weight="1"
 					android:background="#3E3E3E"
-					android:paddingTop="30sp"
+					android:paddingTop="60sp"
 					android:paddingBottom="5sp">
 
 					<TextView
@@ -37,7 +36,7 @@
 						android:gravity="center"
 						android:text="@string/city"
 						android:textColor="#FFFFFF"
-						android:textSize="30sp" />
+						android:textSize="42sp" />
 				</TableRow>
 
 				<TableRow
@@ -56,7 +55,7 @@
 						android:paddingBottom="5sp"
 						android:text="@string/country"
 						android:textColor="#FFFFFF"
-						android:textSize="18sp" />
+						android:textSize="24sp" />
 				</TableRow>
 
 				<TableRow
@@ -64,7 +63,7 @@
 					android:layout_height="match_parent"
 					android:background="#3E3E3E"
 					android:paddingTop="5sp"
-					android:paddingBottom="35sp">
+					android:paddingBottom="50sp">
 
 					<TextView
 						android:id="@+id/lat_lon_label"
@@ -74,14 +73,14 @@
 						android:gravity="center"
 						android:text="@string/latitude_longitude"
 						android:textColor="#FFFFFF"
-						android:textSize="18sp" />
+						android:textSize="24sp" />
 				</TableRow>
 
 			</TableLayout>
 
 			<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				android:orientation="horizontal">
 
 				<TableLayout
@@ -91,16 +90,15 @@
 
 					<TableRow
 						android:layout_width="match_parent"
-						android:layout_height="match_parent"
+						android:layout_height="208dp"
 						android:layout_weight="1"
-						android:background="#323232"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
+						android:background="#323232">
 
 						<LinearLayout
 							android:layout_width="match_parent"
 							android:layout_height="match_parent"
 							android:layout_weight="1"
+							android:gravity="center"
 							android:orientation="horizontal">
 
 							<TextView
@@ -111,12 +109,12 @@
 								android:gravity="center"
 								android:text="@string/temperature"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<ImageView
 								android:id="@+id/today_cond_img"
 								android:layout_width="match_parent"
-								android:layout_height="100sp"
+								android:layout_height="200sp"
 								android:layout_weight="1"
 								android:contentDescription="@string/condition"
 								android:scaleX="0.5"
@@ -130,10 +128,8 @@
 					<TableRow
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
-						android:layout_weight="1"
-						android:background="#3E3E3E"
-						android:paddingTop="10sp"
-						android:paddingBottom="10sp">
+						android:layout_weight="4"
+						android:background="#3E3E3E">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -150,7 +146,7 @@
 								android:paddingStart="30dp"
 								android:text="@string/wind"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<LinearLayout
 								android:layout_width="match_parent"
@@ -164,11 +160,9 @@
 									android:layout_height="match_parent"
 									android:layout_weight="4"
 									android:gravity="center_vertical"
-									android:paddingTop="5sp"
-									android:paddingBottom="5sp"
 									android:text="@string/chill"
 									android:textColor="#FFFFFF"
-									android:textSize="18sp" />
+									android:textSize="24sp" />
 
 								<TextView
 									android:id="@+id/direction_label"
@@ -176,11 +170,9 @@
 									android:layout_height="match_parent"
 									android:layout_weight="4"
 									android:gravity="center_vertical"
-									android:paddingTop="5sp"
-									android:paddingBottom="5sp"
 									android:text="@string/direction"
 									android:textColor="#FFFFFF"
-									android:textSize="18sp" />
+									android:textSize="24sp" />
 
 								<TextView
 									android:id="@+id/speed_label"
@@ -188,11 +180,9 @@
 									android:layout_height="match_parent"
 									android:layout_weight="4"
 									android:gravity="center_vertical"
-									android:paddingTop="5sp"
-									android:paddingBottom="5sp"
 									android:text="@string/speed"
 									android:textColor="#FFFFFF"
-									android:textSize="18sp" />
+									android:textSize="24sp" />
 							</LinearLayout>
 
 						</LinearLayout>
@@ -202,10 +192,8 @@
 					<TableRow
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
-						android:layout_weight="1"
-						android:background="#323232"
-						android:paddingTop="10sp"
-						android:paddingBottom="10sp">
+						android:layout_weight="4"
+						android:background="#323232">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -222,7 +210,7 @@
 								android:paddingStart="30dp"
 								android:text="@string/atmosphere"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<LinearLayout
 								android:layout_width="match_parent"
@@ -236,11 +224,9 @@
 									android:layout_height="match_parent"
 									android:layout_weight="1"
 									android:gravity="center_vertical"
-									android:paddingTop="5sp"
-									android:paddingBottom="5sp"
 									android:text="@string/humidity"
 									android:textColor="#FFFFFF"
-									android:textSize="18sp" />
+									android:textSize="24sp" />
 
 								<TextView
 									android:id="@+id/visibility_label"
@@ -248,11 +234,9 @@
 									android:layout_height="match_parent"
 									android:layout_weight="1"
 									android:gravity="center_vertical"
-									android:paddingTop="5sp"
-									android:paddingBottom="5sp"
 									android:text="@string/visibility"
 									android:textColor="#FFFFFF"
-									android:textSize="18sp" />
+									android:textSize="24sp" />
 
 								<TextView
 									android:id="@+id/pressure_label"
@@ -260,11 +244,9 @@
 									android:layout_height="match_parent"
 									android:layout_weight="1"
 									android:gravity="center_vertical"
-									android:paddingTop="5sp"
-									android:paddingBottom="5sp"
 									android:text="@string/pressure"
 									android:textColor="#FFFFFF"
-									android:textSize="18sp" />
+									android:textSize="24sp" />
 							</LinearLayout>
 						</LinearLayout>
 
@@ -275,55 +257,6 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1">
-
-					<TableRow
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:layout_weight="1"
-						android:background="#3E3E3E"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
-
-						<LinearLayout
-							android:layout_width="match_parent"
-							android:layout_height="match_parent"
-							android:layout_weight="1"
-							android:orientation="horizontal">
-
-							<TextView
-								android:id="@+id/tomorrow_label"
-								android:layout_width="match_parent"
-								android:layout_height="match_parent"
-								android:layout_weight="1"
-								android:gravity="clip_horizontal|center_vertical"
-								android:paddingStart="30dp"
-								android:text="@string/tommorow"
-								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
-
-							<ImageView
-								android:id="@+id/tomorrow_cond_img"
-								android:layout_width="match_parent"
-								android:layout_height="100sp"
-								android:layout_weight="1"
-								android:contentDescription="@string/condition"
-								android:scaleX="0.5"
-								android:scaleY="0.5"
-								android:src="@drawable/unknown" />
-
-							<TextView
-								android:id="@+id/tomorrow_temp_label"
-								android:layout_width="match_parent"
-								android:layout_height="match_parent"
-								android:layout_weight="1"
-								android:gravity="center"
-								android:text="@string/temperature"
-								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
-
-						</LinearLayout>
-
-					</TableRow>
 
 					<TableRow
 						android:layout_width="match_parent"
@@ -340,16 +273,14 @@
 							android:paddingBottom="5sp"
 							android:text="@string/forecast"
 							android:textColor="#FFFFFF"
-							android:textSize="18sp" />
+							android:textSize="24sp" />
 					</TableRow>
 
 					<TableRow
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
+						android:background="#323232">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -362,16 +293,16 @@
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
 								android:layout_weight="1"
-								android:gravity="clip_horizontal|center_vertical"
+								android:gravity="center_vertical"
 								android:paddingStart="30dp"
 								android:text="@string/today"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<ImageView
 								android:id="@+id/today_cond_img2"
 								android:layout_width="match_parent"
-								android:layout_height="100sp"
+								android:layout_height="95sp"
 								android:layout_weight="1"
 								android:contentDescription="@string/condition"
 								android:scaleX="0.5"
@@ -386,7 +317,7 @@
 								android:gravity="center"
 								android:text="@string/temperature"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 						</LinearLayout>
 
@@ -396,9 +327,54 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
+						android:background="#3E3E3E">
+
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_weight="1"
+							android:orientation="horizontal">
+
+							<TextView
+								android:id="@+id/tomorrow_label"
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:layout_weight="1"
+								android:gravity="center_vertical"
+								android:paddingStart="30dp"
+								android:text="@string/tommorow"
+								android:textColor="#FFFFFF"
+								android:textSize="24sp" />
+
+							<ImageView
+								android:id="@+id/tomorrow_cond_img"
+								android:layout_width="match_parent"
+								android:layout_height="95sp"
+								android:layout_weight="1"
+								android:contentDescription="@string/condition"
+								android:scaleX="0.5"
+								android:scaleY="0.5"
+								android:src="@drawable/unknown" />
+
+							<TextView
+								android:id="@+id/tomorrow_temp_label"
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:layout_weight="1"
+								android:gravity="center"
+								android:text="@string/temperature"
+								android:textColor="#FFFFFF"
+								android:textSize="24sp" />
+
+						</LinearLayout>
+
+					</TableRow>
+
+					<TableRow
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="1"
+						android:background="#323232">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -411,16 +387,16 @@
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
 								android:layout_weight="1"
-								android:gravity="clip_horizontal|center_vertical"
+								android:gravity="center_vertical"
 								android:paddingStart="30dp"
 								android:text="@string/day3"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<ImageView
 								android:id="@+id/day3_cond_img"
 								android:layout_width="match_parent"
-								android:layout_height="100sp"
+								android:layout_height="95sp"
 								android:layout_weight="1"
 								android:contentDescription="@string/condition"
 								android:scaleX="0.5"
@@ -435,7 +411,7 @@
 								android:gravity="center"
 								android:text="@string/temperature"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 						</LinearLayout>
 
@@ -445,9 +421,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#3E3E3E"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
+						android:background="#3E3E3E">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -460,16 +434,16 @@
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
 								android:layout_weight="1"
-								android:gravity="clip_horizontal|center_vertical"
+								android:gravity="center_vertical"
 								android:paddingStart="30dp"
 								android:text="@string/day4"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<ImageView
 								android:id="@+id/day4_cond_img"
 								android:layout_width="match_parent"
-								android:layout_height="100sp"
+								android:layout_height="95sp"
 								android:layout_weight="1"
 								android:contentDescription="@string/condition"
 								android:scaleX="0.5"
@@ -484,7 +458,7 @@
 								android:gravity="center"
 								android:text="@string/temperature"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 						</LinearLayout>
 
@@ -494,9 +468,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
+						android:background="#323232">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -509,16 +481,16 @@
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
 								android:layout_weight="1"
-								android:gravity="clip_horizontal|center_vertical"
+								android:gravity="center_vertical"
 								android:paddingStart="30dp"
 								android:text="@string/day5"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<ImageView
 								android:id="@+id/day5_cond_img"
 								android:layout_width="match_parent"
-								android:layout_height="100sp"
+								android:layout_height="95sp"
 								android:layout_weight="1"
 								android:contentDescription="@string/condition"
 								android:scaleX="0.5"
@@ -533,7 +505,7 @@
 								android:gravity="center"
 								android:text="@string/temperature"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 						</LinearLayout>
 
@@ -543,9 +515,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#3E3E3E"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
+						android:background="#3E3E3E">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -558,16 +528,16 @@
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
 								android:layout_weight="1"
-								android:gravity="clip_horizontal|center_vertical"
+								android:gravity="center_vertical"
 								android:paddingStart="30dp"
 								android:text="@string/day6"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<ImageView
 								android:id="@+id/day6_cond_img"
 								android:layout_width="match_parent"
-								android:layout_height="100sp"
+								android:layout_height="95sp"
 								android:layout_weight="1"
 								android:contentDescription="@string/condition"
 								android:scaleX="0.5"
@@ -582,7 +552,7 @@
 								android:gravity="center"
 								android:text="@string/temperature"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 						</LinearLayout>
 
@@ -592,9 +562,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232"
-						android:paddingTop="5sp"
-						android:paddingBottom="5sp">
+						android:background="#323232">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -607,16 +575,16 @@
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
 								android:layout_weight="1"
-								android:gravity="clip_horizontal|center_vertical"
+								android:gravity="center_vertical"
 								android:paddingStart="30dp"
 								android:text="@string/day7"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 							<ImageView
 								android:id="@+id/day7_cond_img"
 								android:layout_width="match_parent"
-								android:layout_height="100sp"
+								android:layout_height="95sp"
 								android:layout_weight="1"
 								android:contentDescription="@string/condition"
 								android:scaleX="0.5"
@@ -631,13 +599,14 @@
 								android:gravity="center"
 								android:text="@string/temperature"
 								android:textColor="#FFFFFF"
-								android:textSize="18sp" />
+								android:textSize="24sp" />
 
 						</LinearLayout>
 
 					</TableRow>
 				</TableLayout>
 			</LinearLayout>
+
 		</LinearLayout>
 	</ScrollView>
 
