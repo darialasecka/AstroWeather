@@ -25,7 +25,7 @@
 					android:layout_height="match_parent"
 					android:layout_weight="1"
 					android:background="#3E3E3E"
-					android:paddingTop="60sp"
+					android:paddingTop="50sp"
 					android:paddingBottom="5sp">
 
 					<TextView
@@ -63,7 +63,7 @@
 					android:layout_height="match_parent"
 					android:background="#3E3E3E"
 					android:paddingTop="5sp"
-					android:paddingBottom="50sp">
+					android:paddingBottom="40sp">
 
 					<TextView
 						android:id="@+id/lat_lon_label"
@@ -158,7 +158,7 @@
 									android:id="@+id/chill_label"
 									android:layout_width="match_parent"
 									android:layout_height="match_parent"
-									android:layout_weight="4"
+									android:layout_weight="1"
 									android:gravity="center_vertical"
 									android:text="@string/chill"
 									android:textColor="#FFFFFF"
@@ -168,7 +168,7 @@
 									android:id="@+id/direction_label"
 									android:layout_width="match_parent"
 									android:layout_height="match_parent"
-									android:layout_weight="4"
+									android:layout_weight="1"
 									android:gravity="center_vertical"
 									android:text="@string/direction"
 									android:textColor="#FFFFFF"
@@ -178,7 +178,7 @@
 									android:id="@+id/speed_label"
 									android:layout_width="match_parent"
 									android:layout_height="match_parent"
-									android:layout_weight="4"
+									android:layout_weight="1"
 									android:gravity="center_vertical"
 									android:text="@string/speed"
 									android:textColor="#FFFFFF"
@@ -280,7 +280,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232">
+						android:background="#323232"
+						android:paddingTop="10sp"
+						android:paddingBottom="10sp">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -327,7 +329,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#3E3E3E">
+						android:background="#3E3E3E"
+						android:paddingTop="10sp"
+						android:paddingBottom="10sp">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -374,7 +378,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232">
+						android:background="#323232"
+						android:paddingTop="10sp"
+						android:paddingBottom="10sp">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -421,7 +427,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#3E3E3E">
+						android:background="#3E3E3E"
+						android:paddingTop="10sp"
+						android:paddingBottom="10sp">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -468,7 +476,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232">
+						android:background="#323232"
+						android:paddingTop="10sp"
+						android:paddingBottom="10sp">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -515,7 +525,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#3E3E3E">
+						android:background="#3E3E3E"
+						android:paddingTop="10sp"
+						android:paddingBottom="10sp">
 
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -562,7 +574,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_weight="1"
-						android:background="#323232">
+						android:background="#323232"
+						android:paddingTop="10sp"
+						android:paddingBottom="10sp">
 
 						<LinearLayout
 							android:layout_width="match_parent"
