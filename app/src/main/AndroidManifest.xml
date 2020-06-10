@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".WeatherSettings"></activity>
         <activity android:name=".MenuActivity" />
-        <activity android:name=".MainActivity" android:configChanges="keyboardHidden|orientation">
+        <activity android:name=".MainActivity" android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
