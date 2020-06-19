@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -162,6 +164,8 @@ public class WeatherSettings extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
+
+
         spinner.setSelection(getIndex(spinner, city));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -178,6 +182,41 @@ public class WeatherSettings extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView <?> parent) { }
+        });
+
+        /*spinner.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
+                //Add alertDialog here
+                System.out.println("Przytrzymane");
+                return true;
+            }
+        });*/
+
+        final Handler actionHandler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Przytrzymane");
+            }
+        };
+
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    actionHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Przytrzymane");
+                        }
+                    }, 3000);
+                } else if(event.getAction() == MotionEvent.ACTION_UP){
+                    actionHandler.removeCallbacks(runnable);
+                }
+                return false;
+
+            }
         });
 
 
