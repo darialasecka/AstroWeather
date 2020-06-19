@@ -40,9 +40,6 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
     Boolean isMetric = true;
     Activity activity = null;
 
-    private Double lat = 51.759445;
-    private Double lon = 19.457216;
-
     private String getResponse(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
@@ -59,7 +56,7 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         String response = "";
-        String requestURL = url + "?lat=" + lat + "&lon=" + lon + "&format=json";
+        String requestURL = url + "?location=" + location + "&format=json";
         try {
             if (isMetric)
                 requestURL += "&u=c";
@@ -93,9 +90,7 @@ public class WeatherConnection extends AsyncTask <Void, Void, String> {
         parameters.add("oauth_timestamp=" + timestamp);
         parameters.add("oauth_version=1.0");
         // Make sure value is encoded
-        //parameters.add("location=" + URLEncoder.encode(this.location, "UTF-8"));
-        parameters.add("lat=" + lat);
-        parameters.add("lon=" + lon);
+        parameters.add("location=" + URLEncoder.encode(this.location, "UTF-8"));
         parameters.add("format=json");
         //System.out.println(this.location + " " + isMetric);
         if(this.isMetric)

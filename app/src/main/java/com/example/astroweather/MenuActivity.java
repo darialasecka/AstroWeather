@@ -106,8 +106,9 @@ public class MenuActivity extends AppCompatActivity {
                 }
 
                 //weather
+                //TODO: toast, jak się miasta nie udało dodać, i jak się udało dodać
                 try {
-                    WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this); //test
+                    WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
                     connection.execute();
 
                     if (connection.get() != null) {
