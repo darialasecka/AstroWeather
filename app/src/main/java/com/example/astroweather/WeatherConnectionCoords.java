@@ -148,6 +148,8 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
         else
             object.put("units", "imperial");
 
+        //TODO: W odpowiedniku z nazwą też - wrzucać koordynaty do pref, usunąć wrzucanie koordów z sun i moon
+
         String filename = city_name.replaceAll("\\s","_");
         PrintWriter out = new PrintWriter(new FileWriter(activity.getCacheDir().toString() + "/Weather/" + filename));
         out.write(object.toString());

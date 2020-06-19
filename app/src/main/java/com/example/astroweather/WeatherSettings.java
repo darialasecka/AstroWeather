@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -165,17 +163,26 @@ public class WeatherSettings extends AppCompatActivity {
 
         spinner.setSelection(getIndex(spinner, city));
 
-        final Handler actionHandler = new Handler();
-        final Runnable delete_city = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println(spinner.getSelectedItemPosition());
-                System.out.println("Przytrzymane");
-            }
-        };
 
         //TODO: jak wybierzemy jakąć lokalizacje to wrzucamy jej coordynaty do pref
         //TODO: jak nie ma lokalizacji i dodamy jedną to ona automatycznie staje się fav
+        //TODO: poprawić widoki dla ustawień pogody
+
+        Button set = findViewById(R.id.set_fav_button);
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String location = spinner.getSelectedItem().toString();
+                if(!location.equals("No cities")){
+                    sharedPref = getSharedPreferences("Settings",0);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("location", location);
+                    editor.commit();
+                }
+
+                //TODO: powrót do maina, pod warunkiem, że istnieją miasta, wziąść pod uwagę, że może usunąć ulubione
+            }
+        });
 
         /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -193,35 +200,8 @@ public class WeatherSettings extends AppCompatActivity {
 
             }
             @Override
-            public void onNothingSelected(AdapterView <?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });*/
-
-        //TODO: naprawić, bo dodaje tylko jedno miasto - POWINNO DZIALAC!!
-
-        spinner.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                System.out.println("Touched");
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    actionHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            System.out.println(spinner.getSelectedItemPosition());
-                            System.out.println("Przytrzymane");
-                        }
-                    }, 3000);
-                }
-                else if(event.getAction() == MotionEvent.ACTION_UP){
-                    actionHandler.removeCallbacksAndMessages(null);
-                    //actionHandler.removeCallbacksAndMessages(null); //jak to nie zadzniała (to dodamy zmienną)
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!");
-
-                    //don't delete
-                }
-                return false;
-
-            }
-        });
 
 
 
@@ -245,25 +225,24 @@ public class WeatherSettings extends AppCompatActivity {
             }
         });
 
-        Button remove = findViewById(R.id.remove_button);
+        Button remove = findViewById(R.id.delete_button);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 File weather = new File(getCacheDir() + "/Weather");
                 String[] locations = weather.list();
 
-                EditText city_name_input = findViewById(R.id.city_name_input);
-                String city_name = city_name_input.getText().toString().toLowerCase().replaceAll("\\s", "_");
-                if(!city_name.isEmpty()) {
+                String city_name = spinner.getSelectedItem().toString();
+                if(!city_name.isEmpty()) { // jeśli dodam to z brakiem miast, to zmienić porównanie
                     for(String location : locations) {
-                        if(location.toLowerCase().equals(city_name)){
+                        if(location.equals(city_name)){
                             String path = weather.getPath() + "/" + location;
                             new File(path).delete();
                             Toast.makeText(WeatherSettings.this, "Deleted " + location, Toast.LENGTH_LONG).show();
                             break;
                         }
                     }
-                    Toast.makeText(WeatherSettings.this, "Could't find location to delete", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WeatherSettings.this, "Could't find location to delete", Toast.LENGTH_LONG).show(); //TODO: ogarnąć, bo ma jakiś problem z tym toastem
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -272,7 +251,7 @@ public class WeatherSettings extends AppCompatActivity {
                 }
             }
         });
-
+        //TODO: skoro sun i moon zależą od yahoo praktycznie to jak nie może znaleźć lokalizacji to automatycznie pokazuje łódź
         Button remove_all = findViewById(R.id.remove_all_button);
         remove_all.setOnClickListener(new View.OnClickListener() {
             @Override
