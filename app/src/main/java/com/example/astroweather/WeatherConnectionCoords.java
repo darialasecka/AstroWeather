@@ -1,4 +1,3 @@
-package com.example.astroweather;/*
 package com.example.astroweather;
 
 // Copyright 2019 Oath Inc. Licensed under the terms of the zLib license see https://opensource.org/licenses/Zlib for terms.
@@ -8,7 +7,6 @@ import android.os.AsyncTask;
 
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,8 +39,8 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
     Boolean isMetric = true;
     Activity activity = null;
 
-    private Double lat = 51.759445;
-    private Double lon = 19.457216;
+    private Double lat = 50.0;
+    private Double lon = 50.0;
 
     private String getResponse(String url) throws IOException {
         Request request = new Request.Builder()
@@ -52,7 +50,7 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
                 .header("Content-Type", "application/json")
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.body().string());
+            //System.out.println(response.body().string());
             return response.body().string();
         }
     }
@@ -60,15 +58,14 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         String response = "";
-        String requestURL = url + "?lat=" + lat + "?lon=" + lon + "&format=json";
+        String requestURL = url + "?lat=" + lat + "&lon=" + lon + "&format=json";
         try {
             if (isMetric)
                 requestURL += "&u=c";
             //Thread.sleep(2000);
             Thread.sleep(100);
-            System.out.println(requestURL);
             response = getResponse(requestURL);
-            //System.out.println(requestURL);
+            //System.out.println(response);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -77,13 +74,12 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
         return response;
     }
 
-    public WeatherConnectionCoords(Double lat, Double lon, boolean isMetric*/
-/*, Activity activity*//*
-) throws Exception {
+    public WeatherConnectionCoords(Double lat, Double lon, boolean isMetric, Activity activity) throws Exception {
         this.isMetric = isMetric;
-        //this.activity = activity;
+        this.activity = activity;
+        //this.location = location.toLowerCase();
         this.lat = lat;
-        this.lon = lon;
+        this.lon=lon;
         long timestamp = new Date().getTime() / 1000;
         byte[] nonce = new byte[32];
         Random rand = new Random();
@@ -98,8 +94,9 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
         parameters.add("oauth_timestamp=" + timestamp);
         parameters.add("oauth_version=1.0");
         // Make sure value is encoded
-        parameters.add("lat=" + URLEncoder.encode(lat.toString(), "UTF-8"));
-        parameters.add("lon=" + URLEncoder.encode(lon.toString(), "UTF-8"));
+        //parameters.add("location=" + URLEncoder.encode(this.location, "UTF-8"));
+        parameters.add("lat=" + lat);
+        parameters.add("lon=" + lon);
         parameters.add("format=json");
         //System.out.println(this.location + " " + isMetric);
         if(this.isMetric)
@@ -136,14 +133,15 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
                 "oauth_signature=\"" + signature + "\", " +
                 "oauth_version=\"1.0\"";
 
+
         System.out.println(signatureString);
     }
-
-
 
     public String addLocation(String json, Activity activity) throws Exception {
         JSONObject object = new JSONObject(json);
         JSONObject locationObject = object.getJSONObject("location");
+        System.out.println("\n\n\n json:" + object.toString() + "\n\n\n");
+
         String city_name = locationObject.get("city").toString();
         if (isMetric)
             object.put("units", "metric");
@@ -155,145 +153,5 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
         out.write(object.toString());
         out.close();
         return city_name;
-    }
-
-    public String updateFile(String filename, String jsonContent, Activity activity) throws Exception {
-        JSONObject object = new JSONObject(jsonContent);
-        JSONObject locationObject = object.getJSONObject("location");
-        String city_name = locationObject.get("city").toString();
-        if (isMetric)
-            object.put("units", "metric");
-        else
-            object.put("units", "imperial");
-        String filepath = activity.getCacheDir().toString() + "/Weather/" + filename;
-        File file = new File(filepath);
-        if (file.exists()) {
-            PrintWriter out = new PrintWriter(new FileWriter(filepath));
-            out.write(object.toString());
-            out.close();
-            return city_name;
-        }
-        throw new RuntimeException("File " + filepath + " does not exists");
-    }
-
-}*/
-
-import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
-public class WeatherConnectionCoords {
-
-    private static WeatherConnectionCoords instance = null;
-
-    public WeatherConnectionCoords() {
-    }
-
-    public static WeatherConnectionCoords getInstance() {
-        if (instance == null) {
-            instance = new WeatherConnectionCoords();
-        }
-        return instance;
-    }
-
-    private String getRequest(String u) throws Exception {
-        /*OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-            .url(url)
-            .build();
-
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }*/
-
-        URL url = new URL("http://www.android.com/");
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-        try {
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            System.out.println("test");
-            return in.toString();
-        } finally {
-            urlConnection.disconnect();
-            return null;
-        }
-
-
-        /*final URL obj = new URL(url);
-        final HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-
-        System.out.println(con.getResponseMessage());
-        if (con.getResponseCode() != 200) {
-            return null;
-        }
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        return response.toString();*/
-    }
-
-    public Map<String, Double> getCoordinates(Double lat, Double lon) throws JSONException {
-        Map<String, Double> res;
-        StringBuffer query;
-        String queryResult = null;
-
-        query = new StringBuffer();
-        res = new HashMap<String, Double>();
-
-        query.append("https://nominatim.openstreetmap.org/reverse?lat=" + lat + "&lon=" + lon);
-
-        query.append("&format=json");
-
-        Log.d("Query:", query.toString());
-
-        try {
-
-            System.out.println("halo");
-            queryResult = getRequest(query.toString());
-        } catch (Exception e) {
-            Log.d("No:", "no");
-
-        }
-
-        if (queryResult == null) {
-            return null;
-        }
-
-        JSONObject obj = new JSONObject(queryResult);
-        Log.d("obj=" , obj.toString());
-
-        /*JSONArray array = (JSONArray) obj;
-        if (array.size() > 0) {
-            JSONObject jsonObject = (JSONObject) array.get(0);
-
-            String lon = (String) jsonObject.get("lon");
-            String lat = (String) jsonObject.get("lat");
-            Log.d("lon=" + lon);
-            Log.d("lat=" + lat);
-            res.put("lon", Double.parseDouble(lon));
-            res.put("lat", Double.parseDouble(lat));
-
-        }*/
-
-
-
-        return res;
     }
 }

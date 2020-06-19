@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class MenuActivity extends AppCompatActivity {
     private Double lat;
@@ -103,10 +105,23 @@ public class MenuActivity extends AppCompatActivity {
                     finish();
                 }
 
-
                 //weather
                 try {
-                    WeatherConnectionCoords.getInstance().getCoordinates(lat, lon);
+                    WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this); //test
+                    connection.execute();
+
+                    if (connection.get() != null) {
+                        try {
+                            connection.addLocation(connection.get(), MenuActivity.this);
+                        } catch (Exception e) {
+                            Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -156,7 +171,6 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView <?> parent) { }
         });
-
 
         Button close_menu_settings = findViewById(R.id.close_menu_settings);
         close_menu_settings.setOnClickListener(new View.OnClickListener() {
