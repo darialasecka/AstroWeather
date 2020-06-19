@@ -23,6 +23,7 @@ import java.util.Calendar;
 public class MenuActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
+    boolean isMetric;
 
     private SharedPreferences sharedPref;
 
@@ -37,6 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         //set current preferences on top of the screen
         lat = Double.parseDouble(sharedPref.getString("lat", "51.759445"));
         lon = Double.parseDouble(sharedPref.getString("lon", "19.457216"));
+        isMetric = sharedPref.getBoolean("isMetric", true);
 
         TextView latitude = findViewById(R.id.latitude);
         latitude.setText("lat: " + lat);
@@ -101,6 +103,13 @@ public class MenuActivity extends AppCompatActivity {
                     finish();
                 }
 
+
+                //weather
+                try {
+                    WeatherConnectionCoords.getInstance().getCoordinates(lat, lon);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

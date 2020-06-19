@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean shouldUpdate = false;
     private long last_updated;
     private long next_update;
+    String fav_location;
 
     private File weather = null;
     private ViewPager view_pager;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createWeatherData() {
-        weather = new File(getCacheDir(),"Weather");
+        /*weather = new File(getCacheDir(),"Weather");
         //System.out.println(weather.getAbsolutePath());
         if (!weather.exists())
             weather.mkdirs();
@@ -60,6 +61,19 @@ public class MainActivity extends AppCompatActivity {
             String path = null;
             try{
                 path = weather.getPath() + "/" + location;
+                adapter.addWeatherFragment(path);
+                view_pager.setAdapter(adapter);
+            } catch (Exception e) {
+                if (path != null) new File(path).delete();
+                e.printStackTrace();
+            }
+        }*/
+        weather = new File(getCacheDir(),"Weather");
+
+        if(fav_location.length() != 0) {
+            String path = null;
+            try{
+                path = weather.getPath() + "/" + fav_location;
                 adapter.addWeatherFragment(path);
                 view_pager.setAdapter(adapter);
             } catch (Exception e) {
@@ -122,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         shouldUpdate = sharedPref.getBoolean("shouldUpdate", false);
         next_update = System.currentTimeMillis() + six_hours;
         last_updated = sharedPref.getLong("updated", next_update);
+        fav_location = sharedPref.getString("location", "");
 
         refresh_time = Integer.parseInt(update_time.split(" ")[0]);
         if(update_time.split(" ")[1].startsWith("m")) refresh_time *= 60;

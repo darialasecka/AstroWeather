@@ -7,9 +7,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class WeatherSettings extends AppCompatActivity {
@@ -25,6 +29,7 @@ public class WeatherSettings extends AppCompatActivity {
     private Double lat;
     private Double lon;
     boolean isMetric;
+    String city;
 
     static boolean changed = false;
 
@@ -47,6 +52,7 @@ public class WeatherSettings extends AppCompatActivity {
         lat = Double.parseDouble(sharedPref.getString("lat", "51.759445"));
         lon = Double.parseDouble(sharedPref.getString("lon", "19.457216"));
         isMetric = sharedPref.getBoolean("isMetric", true);
+        city = sharedPref.getString("location", "");
 
         TextView latitude = findViewById(R.id.latitude);
         latitude.setText("lat: " + lat);
@@ -135,6 +141,47 @@ public class WeatherSettings extends AppCompatActivity {
             }
         });
 
+        File weather = new File(getCacheDir(),"Weather");
+        //System.out.println(weather.getAbsolutePath());
+        if (!weather.exists())
+            weather.mkdirs();
+        String[] locations = weather.list();
+
+        final Spinner spinner = findViewById(R.id.fav_location);
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        if(locations.length > 0) {
+            System.out.println("test");
+            for(String location : locations){
+                arrayList.add(location);
+            }
+        }
+        else arrayList.add("No cities");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+
+        spinner.setSelection(getIndex(spinner, city));
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String location = spinner.getSelectedItem().toString();
+                if(!location.equals("No cities")){
+                    sharedPref = getSharedPreferences("Settings",0);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("location", location);
+                    editor.commit();
+                }
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView <?> parent) { }
+        });
+
+
+
         Button close_weather_settings = findViewById(R.id.close_weather_settings);
         close_weather_settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,4 +262,14 @@ public class WeatherSettings extends AppCompatActivity {
         });
 
     }
+
+    private int getIndex(Spinner spinner, String myString){
+        for (int i = 0; i < spinner.getCount(); i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+        return 0;
+    }
+
 }
