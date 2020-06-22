@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/textView11"
+        app:layout_constraintBottom_toTopOf="@+id/textView23"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/city_name_input">
@@ -118,17 +118,6 @@
             android:layout_marginEnd="30sp"
             android:background="#2196F3"
             android:text="@string/add"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/remove_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30sp"
-            android:layout_marginRight="30sp"
-            android:background="#2196F3"
-            android:text="@string/remove"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
@@ -146,6 +135,67 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/set_favourite_or_delete_city"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/fav_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+
+    <Spinner
+        android:id="@+id/fav_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout41"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fav_location">
+
+        <Button
+            android:id="@+id/set_fav_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30sp"
+            android:background="#2196F3"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:text="@string/set_as_favourite"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30sp"
+            android:background="#2196F3"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:text="@string/delete"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -156,7 +206,7 @@
         app:layout_constraintBottom_toTopOf="@+id/system_of_measurements"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout7" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout41" />
 
     <RadioGroup
         android:id="@+id/system_of_measurements"

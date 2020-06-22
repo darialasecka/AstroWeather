@@ -73,10 +73,6 @@ public class WeatherFragment extends Fragment {
             TextView country_name = getView().findViewById(R.id.country_label);
             country_name.setText(location.get("country").toString());
 
-            //coordinates
-            TextView lat_lon = getView().findViewById(R.id.lat_lon_label);
-            lat_lon.setText("lat: " + location.get("lat").toString() + ",   lon: " + location.get("long").toString());
-
             //today
             JSONObject current_observation = jsonObject.getJSONObject("current_observation");
 

@@ -44,7 +44,7 @@
 					android:layout_height="match_parent"
 					android:background="#3E3E3E"
 					android:paddingTop="5sp"
-					android:paddingBottom="5sp">
+					android:paddingBottom="40sp">
 
 					<TextView
 						android:id="@+id/country_label"
@@ -54,24 +54,6 @@
 						android:gravity="center"
 						android:paddingBottom="5sp"
 						android:text="@string/country"
-						android:textColor="#FFFFFF"
-						android:textSize="24sp" />
-				</TableRow>
-
-				<TableRow
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="#3E3E3E"
-					android:paddingTop="5sp"
-					android:paddingBottom="40sp">
-
-					<TextView
-						android:id="@+id/lat_lon_label"
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:layout_weight="1"
-						android:gravity="center"
-						android:text="@string/latitude_longitude"
 						android:textColor="#FFFFFF"
 						android:textSize="24sp" />
 				</TableRow>

@@ -200,8 +200,6 @@ public class WeatherSettings extends AppCompatActivity {
 
         spinner.setSelection(getIndex(spinner, city));
 
-        //TODO: poprawić widoki dla ustawień pogody, usunąć koordynaty z pogody
-
         Button set = findViewById(R.id.set_fav_button);
         set.setOnClickListener(new View.OnClickListener() {
             @Override

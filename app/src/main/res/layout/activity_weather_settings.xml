@@ -140,7 +140,7 @@
                     android:id="@+id/add_city_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15sp"
+                    android:layout_marginEnd="15sp"
                     android:background="#2196F3"
                     android:text="@string/add"
                     android:textColor="#FFFFFF" />
@@ -149,7 +149,7 @@
                     android:id="@+id/remove_all_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
+                    android:layout_marginStart="15sp"
                     android:background="#2196F3"
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
@@ -164,16 +164,9 @@
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="20sp"
                 android:gravity="center"
-                android:text="Set  favourite or delete city:"
+                android:text="@string/set_favourite_or_delete_city"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -224,7 +217,7 @@
                     android:background="#2196F3"
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
-                    android:text="Set as favourite"
+                    android:text="@string/set_as_favourite"
                     android:textColor="#FFFFFF" />
 
                 <Button
@@ -235,7 +228,7 @@
                     android:background="#2196F3"
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
-                    android:text="Delete"
+                    android:text="@string/delete"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>

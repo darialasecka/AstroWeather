@@ -58,7 +58,7 @@ public class MenuActivity extends AppCompatActivity {
             editor.putInt("timeZone", timeZone.getRawOffset() + timeZone.getDSTSavings());
             editor.putString("location", location);
             editor.commit();
-            
+
             Toast.makeText(MenuActivity.this, "Set " + location + " as favourite", Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {
