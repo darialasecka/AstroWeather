@@ -66,6 +66,8 @@ public class WeatherSettings extends AppCompatActivity {
             editor.putString("location", location);
             editor.commit();
 
+            Toast.makeText(WeatherSettings.this, "Set " + location + " as favourite", Toast.LENGTH_LONG).show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -212,8 +214,6 @@ public class WeatherSettings extends AppCompatActivity {
                     editor.commit();
 
                     manage_fav(location);
-
-                    Toast.makeText(WeatherSettings.this, "Set " + location + " as favourite", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
