@@ -128,9 +128,7 @@ public class MenuActivity extends AppCompatActivity {
                 if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
                     error.show();
                 } else {
-                    //weather
-                    //TODO: z racji, że chce by po podaniu np, środka oceanu też coś pokazywało to robić zapytania, z innymi koordynatami, dopóki nie da jakiegoś wyniku
-                    //jeśli jest między -180 - 0 to dodaje ileś, a jeśli 60 - 180 to odejmuje,
+                    //weather//jeśli jest między -180 - 0 to dodaje ileś, a jeśli 60 - 180 to odejmuje,
                     //-90 - 0 dodaje, 0 - 90 odejmuje
 
                     try {

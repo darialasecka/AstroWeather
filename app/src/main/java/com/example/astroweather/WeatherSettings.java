@@ -186,7 +186,6 @@ public class WeatherSettings extends AppCompatActivity {
         ArrayList<String> arrayList = new ArrayList<>();
 
         if(locations.length > 0) {
-            System.out.println("test");
             for(String location : locations){
                 arrayList.add(location);
             }
@@ -213,6 +212,8 @@ public class WeatherSettings extends AppCompatActivity {
                     editor.commit();
 
                     manage_fav(location);
+
+                    Toast.makeText(WeatherSettings.this, "Set " + location + " as favourite", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
