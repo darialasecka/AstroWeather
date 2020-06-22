@@ -40,6 +40,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void manage_fav(String location){
         File weather = new File(getCacheDir(),"Weather");
+        location = location.replaceAll("\\s", "_");
         try{
             String path = weather.getPath() + "/" + location;
             String content = new String(Files.readAllBytes(Paths.get(path)));
@@ -129,12 +130,41 @@ public class MenuActivity extends AppCompatActivity {
                 } else {
                     //weather
                     //TODO: z racji, że chce by po podaniu np, środka oceanu też coś pokazywało to robić zapytania, z innymi koordynatami, dopóki nie da jakiegoś wyniku
-                    //jeśli jest między 0 - 60 to dodaje ileś, a jeśli 60 - 180 to odejmuje,
+                    //jeśli jest między -180 - 0 to dodaje ileś, a jeśli 60 - 180 to odejmuje,
                     //-90 - 0 dodaje, 0 - 90 odejmuje
 
                     try {
                         Toast.makeText(MenuActivity.this, "Adding location. Please wait", Toast.LENGTH_LONG).show();
+
                         WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
+                        connection.execute();
+                        boolean empty_json = new JSONObject(connection.get()).getJSONObject("location").length() == 0;
+                        int counter = 0;
+                        int offset = 5;
+                        while(empty_json) { //I konw this system isn't the best, but it works, kind of...
+                            counter ++;
+                            if(counter % 10 == 0) offset += 5;
+                            if(lat > 0 && lat <= 90) lat -= offset;
+                            else lat += offset;
+
+                            if(lon > 0 && lon <= 180) lon -= offset;
+                            else lon += offset;
+
+                            System.out.println(lat + " " + lon);
+                            connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
+                            connection.execute();
+
+                            empty_json = new JSONObject(connection.get()).getJSONObject("location").length() == 0;
+                        }
+                        //here we know that some location exists
+                        try {
+                            location = connection.addLocation(connection.get(), MenuActivity.this);
+                            System.out.println(location);
+                        } catch (Exception e) {
+                            Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                        /*WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
                         connection.execute();
 
                         if (connection.get() != null) {
@@ -145,13 +175,19 @@ public class MenuActivity extends AppCompatActivity {
                                 Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
-                        }
+                        }*/
                     } catch (ExecutionException e) {
                         Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 

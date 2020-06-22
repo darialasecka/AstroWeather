@@ -47,6 +47,7 @@ public class WeatherSettings extends AppCompatActivity {
 
     private void manage_fav(String location){
         File weather = new File(getCacheDir(),"Weather");
+        location = location.replaceAll("\\s", "_");
         try{
             String path = weather.getPath() + "/" + location;
             String content = new String(Files.readAllBytes(Paths.get(path)));
@@ -198,7 +199,6 @@ public class WeatherSettings extends AppCompatActivity {
 
         spinner.setSelection(getIndex(spinner, city));
 
-        //TODO: jak nie ma lokalizacji i dodamy jedną to ona automatycznie staje się fav
         //TODO: poprawić widoki dla ustawień pogody, usunąć koordynaty z pogody
 
         Button set = findViewById(R.id.set_fav_button);
@@ -214,8 +214,6 @@ public class WeatherSettings extends AppCompatActivity {
 
                     manage_fav(location);
 
-                    //TODO: powrót do maina, pod warunkiem, że istnieją miasta, wziąść pod uwagę, że może usunąć ulubione
-                    //albo ustawić losowe ulubione, albo żadne i niech sobie użytkownik ustawia jeszcze raz
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -306,8 +304,7 @@ public class WeatherSettings extends AppCompatActivity {
                 }
             }
         });
-        //TODO: skoro sun i moon zależą od yahoo praktycznie to jak nie może znaleźć lokalizacji to automatycznie pokazuje łódź
-        //TODO: podczas usuwania wszystkich powinno "wracać" do łodzi
+
         Button remove_all = findViewById(R.id.remove_all_button);
         remove_all.setOnClickListener(new View.OnClickListener() {
             @Override

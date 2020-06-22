@@ -134,7 +134,7 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
                 "oauth_version=\"1.0\"";
 
 
-        System.out.println(signatureString);
+        //System.out.println(signatureString);
     }
 
     public String addLocation(String json, Activity activity) throws Exception {
