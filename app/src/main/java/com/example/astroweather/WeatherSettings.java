@@ -233,7 +233,7 @@ public class WeatherSettings extends AppCompatActivity {
                     editor.putString("location", location);
                     editor.commit();
                 }
-                //System.out.println("jednak nie usunę");
+                //System.out.println("nie usuwaj");
 
                 //delayed delete
 
@@ -241,8 +241,6 @@ public class WeatherSettings extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });*/
-
-
 
         Button close_weather_settings = findViewById(R.id.close_weather_settings);
         close_weather_settings.setOnClickListener(new View.OnClickListener() {
@@ -283,7 +281,23 @@ public class WeatherSettings extends AppCompatActivity {
                             break;
                         }
                     }
-                    if(!deleted) Toast.makeText(WeatherSettings.this, "Could't find location to delete", Toast.LENGTH_LONG).show();
+                    if(!deleted) Toast.makeText(WeatherSettings.this, "Could't delete location", Toast.LENGTH_LONG).show();
+                    else {
+                        //set new fav - next on list
+                        weather = new File(getCacheDir() + "/Weather");
+                        locations = weather.list(); //need to update list
+
+                        //if no locations - delete all info and leave default - like when yu first run
+                        if(locations.length == 0){
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.remove("lat");
+                            editor.remove("lon");
+                            editor.remove("timeZone");
+                            editor.remove("location");
+                            editor.commit();
+                        }
+                        else manage_fav(locations[0]);
+                    }
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
                     finish();
