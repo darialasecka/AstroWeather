@@ -35,14 +35,7 @@ public class SunFragment extends Fragment {
         this.lat = latitude;
         this.lon = longitude;
         this.timeZone = (int)TimeUnit.MILLISECONDS.toHours(timeZone);
-        System.out.println("tz sun: " + this.timeZone + " " + timeZone);
     }
-
-    /*public static int getCurrentTimezoneOffset() {
-        TimeZone tz = TimeZone.getDefault();
-        Calendar cal = Calendar.getInstance(tz);
-        return tz.getOffset(cal.getTimeInMillis());
-    }*/
 
     private void getDateTime() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());

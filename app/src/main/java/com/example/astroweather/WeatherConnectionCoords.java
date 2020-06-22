@@ -140,19 +140,12 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
     public String addLocation(String json, Activity activity) throws Exception {
         JSONObject object = new JSONObject(json);
         JSONObject locationObject = object.getJSONObject("location");
-        System.out.println("\n\n\n json:" + object.toString() + "\n\n\n");
 
         String city_name = locationObject.get("city").toString();
         if (isMetric)
             object.put("units", "metric");
         else
             object.put("units", "imperial");
-
-        //TODO:dołożyć ogarnianie strefy czasowej - to właściwie będzie w zapisywaniu a nie tu, ale już olać
-
-
-
-        //dodając lokację, dodaj do listy lkoacji i koordów, a usuwając usuń
 
         String filename = city_name.replaceAll("\\s","_");
         PrintWriter out = new PrintWriter(new FileWriter(activity.getCacheDir().toString() + "/Weather/" + filename));

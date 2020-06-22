@@ -16,10 +16,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
 public class MenuActivity extends AppCompatActivity {
@@ -31,6 +37,30 @@ public class MenuActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
     Thread timer;
+
+    private void manage_fav(String location){
+        File weather = new File(getCacheDir(),"Weather");
+        try{
+            String path = weather.getPath() + "/" + location;
+            String content = new String(Files.readAllBytes(Paths.get(path)));
+            JSONObject jsonObject = new JSONObject(content);
+
+            String lat = jsonObject.getJSONObject("location").get("lat").toString();
+            String lon = jsonObject.getJSONObject("location").get("long").toString();
+
+            String tz = jsonObject.getJSONObject("location").get("timezone_id").toString();
+            TimeZone timeZone = TimeZone.getTimeZone(tz);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("lat", lat);
+            editor.putString("lon", lon);
+            editor.putInt("timeZone", timeZone.getRawOffset() + timeZone.getDSTSavings());
+            editor.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +126,7 @@ public class MenuActivity extends AppCompatActivity {
                 if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
                     error.show();
                 } else {
-                    /*SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("lat", lat.toString());
-                    editor.putString("lon", lon.toString());
-                    editor.commit();*/
-
-
                     //weather
-                    //TODO: toast, jak się miasta nie udało dodać, i jak się udało dodać
                     //TODO: z racji, że chce by po podaniu np, środka oceanu też coś pokazywało to robić zapytania, z innymi koordynatami, dopóki nie da jakiegoś wyniku
                     //jeśli jest między 0 - 60 to dodaje ileś, a jeśli 60 - 180 to odejmuje,
                     //-90 - 0 dodaje, 0 - 90 odejmuje
@@ -131,6 +154,12 @@ public class MenuActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    //TODO: test when creating new vm
+                    File weather = new File(getCacheDir(),"Weather");
+                    if (!weather.exists())
+                        weather.mkdirs();
+                    String[] locations = weather.list();
+                    if(locations.length == 0) manage_fav(location);
 
                     //TODO:to jak jest pierwszą dodawaną lokalizacją i jest ustawiane na ulubione
                     /*File weather = new File(getCacheDir(),"Weather");
@@ -150,9 +179,6 @@ public class MenuActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }*/
-
-
-
 
                     Intent intent = new Intent(MenuActivity.this, MainActivity.class);
                     startActivity(intent);

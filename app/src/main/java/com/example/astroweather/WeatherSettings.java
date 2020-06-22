@@ -45,6 +45,29 @@ public class WeatherSettings extends AppCompatActivity {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
+    private void manage_fav(String location){
+        File weather = new File(getCacheDir(),"Weather");
+        try{
+            String path = weather.getPath() + "/" + location;
+            String content = new String(Files.readAllBytes(Paths.get(path)));
+            JSONObject jsonObject = new JSONObject(content);
+
+            String lat = jsonObject.getJSONObject("location").get("lat").toString();
+            String lon = jsonObject.getJSONObject("location").get("long").toString();
+
+            String tz = jsonObject.getJSONObject("location").get("timezone_id").toString();
+            TimeZone timeZone = TimeZone.getTimeZone(tz);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("lat", lat);
+            editor.putString("lon", lon);
+            editor.putInt("timeZone", timeZone.getRawOffset());
+            editor.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +122,19 @@ public class WeatherSettings extends AppCompatActivity {
                         connection.execute();
                         if (connection.get() != null) {
                             try {
-                                connection.addLocation(connection.get(), WeatherSettings.this);
+                                city_name = connection.addLocation(connection.get(), WeatherSettings.this);
                             } catch (Exception e) {
                                 Toast.makeText(WeatherSettings.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
                         }
+                        //TODO: test when creating new vm
+                        File weather = new File(getCacheDir(),"Weather");
+                        if (!weather.exists())
+                            weather.mkdirs();
+                        String[] locations = weather.list();
+                        if(locations.length == 0) manage_fav(city_name);
+
                         Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -169,7 +199,7 @@ public class WeatherSettings extends AppCompatActivity {
         spinner.setSelection(getIndex(spinner, city));
 
         //TODO: jak nie ma lokalizacji i dodamy jedną to ona automatycznie staje się fav
-        //TODO: poprawić widoki dla ustawień pogody
+        //TODO: poprawić widoki dla ustawień pogody, usunąć koordynaty z pogody
 
         Button set = findViewById(R.id.set_fav_button);
         set.setOnClickListener(new View.OnClickListener() {
@@ -182,30 +212,10 @@ public class WeatherSettings extends AppCompatActivity {
                     editor.putString("location", location);
                     editor.commit();
 
-                    File weather = new File(getCacheDir(),"Weather");
-                    try{
-                        String path = weather.getPath() + "/" + location;
-                        String content = new String(Files.readAllBytes(Paths.get(path)));
-                        JSONObject jsonObject = new JSONObject(content);
-
-                        String lat = jsonObject.getJSONObject("location").get("lat").toString();
-                        String lon = jsonObject.getJSONObject("location").get("long").toString();
-
-                        String tz = jsonObject.getJSONObject("location").get("timezone_id").toString();
-                        TimeZone timeZone = TimeZone.getTimeZone(tz);/*
-                        System.out.println(tz);
-                        System.out.println(timeZone.getRawOffset());*/
-
-                        editor.putString("lat", lat);
-                        editor.putString("lon", lon);
-                        editor.putInt("timeZone", timeZone.getRawOffset());
-                        editor.commit();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    manage_fav(location);
 
                     //TODO: powrót do maina, pod warunkiem, że istnieją miasta, wziąść pod uwagę, że może usunąć ulubione
+                    //albo ustawić losowe ulubione, albo żadne i niech sobie użytkownik ustawia jeszcze raz
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -264,15 +274,17 @@ public class WeatherSettings extends AppCompatActivity {
 
                 String city_name = spinner.getSelectedItem().toString();
                 if(!city_name.isEmpty()) { // jeśli dodam to z brakiem miast, to zmienić porównanie
+                    boolean deleted = false;
                     for(String location : locations) {
                         if(location.equals(city_name)){
                             String path = weather.getPath() + "/" + location;
                             new File(path).delete();
                             Toast.makeText(WeatherSettings.this, "Deleted " + location, Toast.LENGTH_LONG).show();
+                            deleted = true;
                             break;
                         }
                     }
-                    Toast.makeText(WeatherSettings.this, "Could't find location to delete", Toast.LENGTH_LONG).show(); //TODO: ogarnąć, bo ma jakiś problem z tym toastem
+                    if(!deleted) Toast.makeText(WeatherSettings.this, "Could't find location to delete", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
                     finish();

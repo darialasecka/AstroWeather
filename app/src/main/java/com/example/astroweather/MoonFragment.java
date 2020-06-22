@@ -40,13 +40,6 @@ public class MoonFragment extends Fragment {
         this.timeZone = (int)TimeUnit.MILLISECONDS.toHours(timeZone);
     }
 
-    /*public static int getCurrentTimezoneOffset() {
-        TimeZone tz = TimeZone.getDefault();
-        Calendar cal = GregorianCalendar.getInstance(tz);
-        int offsetInMillis = tz.getOffset(cal.getTimeInMillis());
-        return (int)TimeUnit.MICROSECONDS.toHours(offsetInMillis);
-    }*/
-
     private void getDateTime() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         year = calendar.get(Calendar.YEAR);
