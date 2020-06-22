@@ -118,7 +118,7 @@
                     android:gravity="center"
                     android:hint="@string/latitude"
                     android:importantForAutofill="no"
-                    android:inputType="numberDecimal"
+                    android:inputType="numberSigned|numberDecimal"
                     android:padding="10sp"
                     android:textColor="#FFFFFF" />
 
@@ -154,7 +154,7 @@
                     android:gravity="center"
                     android:hint="@string/longitude"
                     android:importantForAutofill="no"
-                    android:inputType="numberDecimal"
+                    android:inputType="numberSigned|numberDecimal"
                     android:padding="10sp"
                     android:textColor="#FFFFFF" />
 

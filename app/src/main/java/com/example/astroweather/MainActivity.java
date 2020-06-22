@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
     private Thread timer;
+    private int timeZone;
 
     private SunFragment sun_fragment;
     private MoonFragment moon_fragment;
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         next_update = System.currentTimeMillis() + six_hours;
         last_updated = sharedPref.getLong("updated", next_update);
         fav_location = sharedPref.getString("location", "");
+        timeZone = sharedPref.getInt("timeZone", 7200000);
 
         refresh_time = Integer.parseInt(update_time.split(" ")[0]);
         if(update_time.split(" ")[1].startsWith("m")) refresh_time *= 60;
@@ -197,8 +199,8 @@ public class MainActivity extends AppCompatActivity {
             //manage sun anf moon fragments
             sun_fragment = (SunFragment)adapter.instantiateItem(view_pager, 0);
             moon_fragment = (MoonFragment)adapter.instantiateItem(view_pager, 1);
-            if (sun_fragment != null)  sun_fragment.setCoordinates(lat,lon);
-            if (moon_fragment != null)  moon_fragment.setCoordinates(lat,lon);
+            if (sun_fragment != null)  sun_fragment.setData(lat,lon, timeZone);
+            if (moon_fragment != null)  moon_fragment.setData(lat,lon, timeZone);
         }
 
         //manage weather fragments

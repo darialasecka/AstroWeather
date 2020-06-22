@@ -13,16 +13,12 @@ import com.astrocalculator.AstroDateTime;
 
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SunFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SunFragment extends Fragment {
     private Double lat = 51.759445;
     private Double lon = 19.457216;
+    private int timeZone = 2;
 
     private int year;
     private int month;
@@ -35,16 +31,18 @@ public class SunFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void setCoordinates(Double latitude, Double longitude) {
+    public void setData(Double latitude, Double longitude, int timeZone) {
         this.lat = latitude;
         this.lon = longitude;
+        this.timeZone = (int)TimeUnit.MILLISECONDS.toHours(timeZone);
+        System.out.println("tz sun: " + this.timeZone + " " + timeZone);
     }
 
-    public static int getCurrentTimezoneOffset() {
+    /*public static int getCurrentTimezoneOffset() {
         TimeZone tz = TimeZone.getDefault();
         Calendar cal = Calendar.getInstance(tz);
         return tz.getOffset(cal.getTimeInMillis());
-    }
+    }*/
 
     private void getDateTime() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -59,7 +57,7 @@ public class SunFragment extends Fragment {
     public void getSunInfo() {
         getDateTime();
 
-        AstroDateTime dateTime = new AstroDateTime(year, month, day, hour, minute, second, getCurrentTimezoneOffset(), true);
+        AstroDateTime dateTime = new AstroDateTime(year, month, day, hour, minute, second, timeZone, true);
         AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
         AstroCalculator calculator = new AstroCalculator(dateTime, location);
         AstroCalculator.SunInfo sunInfo = calculator.getSunInfo();

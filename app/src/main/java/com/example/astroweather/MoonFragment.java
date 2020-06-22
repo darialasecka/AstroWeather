@@ -15,19 +15,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MoonFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MoonFragment extends Fragment {
     private Double lat = 51.759445;
     private Double lon = 19.457216;
+    private int timeZone = 7200000;
 
     private int year;
     private int month;
@@ -40,18 +34,18 @@ public class MoonFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void setCoordinates(Double latitude, Double longitude) {
+    public void setData(Double latitude, Double longitude, int timeZone) {
         this.lat = latitude;
         this.lon = longitude;
+        this.timeZone = (int)TimeUnit.MILLISECONDS.toHours(timeZone);
     }
 
-    public static int getCurrentTimezoneOffset() {
+    /*public static int getCurrentTimezoneOffset() {
         TimeZone tz = TimeZone.getDefault();
         Calendar cal = GregorianCalendar.getInstance(tz);
         int offsetInMillis = tz.getOffset(cal.getTimeInMillis());
         return (int)TimeUnit.MICROSECONDS.toHours(offsetInMillis);
-
-    }
+    }*/
 
     private void getDateTime() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -65,7 +59,7 @@ public class MoonFragment extends Fragment {
 
     private long countSynodicMonthDay() { //synodic month - time between two new moons, lasts about 29 days
         //for counting previous new moon
-        AstroDateTime dateTime = new AstroDateTime(year, month, day - 29, hour, minute, second, getCurrentTimezoneOffset(), true);
+        AstroDateTime dateTime = new AstroDateTime(year, month, day - 29, hour, minute, second, timeZone, true);
         AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
         AstroCalculator calculator = new AstroCalculator(dateTime, location);
         AstroDateTime prev_new_moon = calculator.getMoonInfo().getNextNewMoon();
@@ -90,7 +84,7 @@ public class MoonFragment extends Fragment {
     public void getMoonInfo() {
         getDateTime();
 
-        AstroDateTime dateTime = new AstroDateTime(year, month, day, hour, minute, second, getCurrentTimezoneOffset(), true);
+        AstroDateTime dateTime = new AstroDateTime(year, month, day, hour, minute, second, timeZone, true);
         AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
         AstroCalculator calculator = new AstroCalculator(dateTime, location);
         AstroCalculator.MoonInfo moonInfo = calculator.getMoonInfo();

@@ -96,10 +96,10 @@ public class MenuActivity extends AppCompatActivity {
                 if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
                     error.show();
                 } else {
-                    SharedPreferences.Editor editor = sharedPref.edit();
+                    /*SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("lat", lat.toString());
                     editor.putString("lon", lon.toString());
-                    editor.commit();
+                    editor.commit();*/
 
 
                     //weather

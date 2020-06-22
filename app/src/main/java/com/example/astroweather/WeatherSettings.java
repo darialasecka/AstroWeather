@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class WeatherSettings extends AppCompatActivity {
     SharedPreferences sharedPref;
@@ -190,8 +191,14 @@ public class WeatherSettings extends AppCompatActivity {
                         String lat = jsonObject.getJSONObject("location").get("lat").toString();
                         String lon = jsonObject.getJSONObject("location").get("long").toString();
 
+                        String tz = jsonObject.getJSONObject("location").get("timezone_id").toString();
+                        TimeZone timeZone = TimeZone.getTimeZone(tz);/*
+                        System.out.println(tz);
+                        System.out.println(timeZone.getRawOffset());*/
+
                         editor.putString("lat", lat);
                         editor.putString("lon", lon);
+                        editor.putInt("timeZone", timeZone.getRawOffset());
                         editor.commit();
 
                     } catch (Exception e) {
