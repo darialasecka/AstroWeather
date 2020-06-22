@@ -17,7 +17,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -163,8 +167,6 @@ public class WeatherSettings extends AppCompatActivity {
 
         spinner.setSelection(getIndex(spinner, city));
 
-
-        //TODO: jak wybierzemy jakąć lokalizacje to wrzucamy jej coordynaty do pref
         //TODO: jak nie ma lokalizacji i dodamy jedną to ona automatycznie staje się fav
         //TODO: poprawić widoki dla ustawień pogody
 
@@ -178,9 +180,30 @@ public class WeatherSettings extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("location", location);
                     editor.commit();
-                }
 
-                //TODO: powrót do maina, pod warunkiem, że istnieją miasta, wziąść pod uwagę, że może usunąć ulubione
+                    File weather = new File(getCacheDir(),"Weather");
+                    try{
+                        String path = weather.getPath() + "/" + location;
+                        String content = new String(Files.readAllBytes(Paths.get(path)));
+                        JSONObject jsonObject = new JSONObject(content);
+
+                        String lat = jsonObject.getJSONObject("location").get("lat").toString();
+                        String lon = jsonObject.getJSONObject("location").get("long").toString();
+
+                        editor.putString("lat", lat);
+                        editor.putString("lon", lon);
+                        editor.commit();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //TODO: powrót do maina, pod warunkiem, że istnieją miasta, wziąść pod uwagę, że może usunąć ulubione
+                    Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
             }
         });
 

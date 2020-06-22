@@ -148,7 +148,9 @@ public class WeatherConnectionCoords extends AsyncTask <Void, Void, String> {
         else
             object.put("units", "imperial");
 
-        //TODO: W odpowiedniku z nazwą też - wrzucać koordynaty do pref, usunąć wrzucanie koordów z sun i moon
+        //TODO: W odpowiedniku z nazwą też - wrzucać koordynaty do pref, usunąć wrzucanie koordów z sun i moon, dołożyć ogarnianie strefy czasowej - to właściwie będzie w zapisywaniu a nie tu, ale już olać
+
+        //dodając lokację, dodaj do listy lkoacji i koordów, a usuwając usuń
 
         String filename = city_name.replaceAll("\\s","_");
         PrintWriter out = new PrintWriter(new FileWriter(activity.getCacheDir().toString() + "/Weather/" + filename));

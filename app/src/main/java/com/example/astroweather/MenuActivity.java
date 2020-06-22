@@ -26,6 +26,7 @@ public class MenuActivity extends AppCompatActivity {
     private Double lat;
     private Double lon;
     boolean isMetric;
+    private String location;
 
     private SharedPreferences sharedPref;
 
@@ -100,31 +101,62 @@ public class MenuActivity extends AppCompatActivity {
                     editor.putString("lon", lon.toString());
                     editor.commit();
 
+
+                    //weather
+                    //TODO: toast, jak się miasta nie udało dodać, i jak się udało dodać
+                    //TODO: z racji, że chce by po podaniu np, środka oceanu też coś pokazywało to robić zapytania, z innymi koordynatami, dopóki nie da jakiegoś wyniku
+                    //jeśli jest między 0 - 60 to dodaje ileś, a jeśli 60 - 180 to odejmuje,
+                    //-90 - 0 dodaje, 0 - 90 odejmuje
+
+                    try {
+                        Toast.makeText(MenuActivity.this, "Adding location. Please wait", Toast.LENGTH_LONG).show();
+                        WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
+                        connection.execute();
+
+                        if (connection.get() != null) {
+                            try {
+                                location = connection.addLocation(connection.get(), MenuActivity.this);
+                                System.out.println(location);
+                            } catch (Exception e) {
+                                Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
+                                e.printStackTrace();
+                            }
+                        }
+                    } catch (ExecutionException e) {
+                        Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    //TODO:to jak jest pierwszą dodawaną lokalizacją i jest ustawiane na ulubione
+                    /*File weather = new File(getCacheDir(),"Weather");
+
+                    try{
+                        String path = weather.getPath() + "/" + location;
+                        String content = new String(Files.readAllBytes(Paths.get(path)));
+                        JSONObject jsonObject = new JSONObject(content);
+
+                        String lat = jsonObject.getJSONObject("location").get("lat").toString();
+                        String lon = jsonObject.getJSONObject("location").get("long").toString();
+
+                        editor.putString("lat", lat);
+                        editor.putString("lon", lon);
+                        editor.commit();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }*/
+
+
+
+
                     Intent intent = new Intent(MenuActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }
-
-                //weather
-                //TODO: toast, jak się miasta nie udało dodać, i jak się udało dodać
-                try {
-                    WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
-                    connection.execute();
-
-                    if (connection.get() != null) {
-                        try {
-                            connection.addLocation(connection.get(), MenuActivity.this);
-                        } catch (Exception e) {
-                            Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         });
