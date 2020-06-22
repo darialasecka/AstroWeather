@@ -55,6 +55,7 @@ public class MenuActivity extends AppCompatActivity {
             editor.putString("lat", lat);
             editor.putString("lon", lon);
             editor.putInt("timeZone", timeZone.getRawOffset() + timeZone.getDSTSavings());
+            editor.putString("location", location);
             editor.commit();
 
         } catch (Exception e) {
@@ -154,31 +155,10 @@ public class MenuActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    //TODO: test when creating new vm
                     File weather = new File(getCacheDir(),"Weather");
                     if (!weather.exists())
                         weather.mkdirs();
-                    String[] locations = weather.list();
-                    if(locations.length == 0) manage_fav(location);
-
-                    //TODO:to jak jest pierwszą dodawaną lokalizacją i jest ustawiane na ulubione
-                    /*File weather = new File(getCacheDir(),"Weather");
-
-                    try{
-                        String path = weather.getPath() + "/" + location;
-                        String content = new String(Files.readAllBytes(Paths.get(path)));
-                        JSONObject jsonObject = new JSONObject(content);
-
-                        String lat = jsonObject.getJSONObject("location").get("lat").toString();
-                        String lon = jsonObject.getJSONObject("location").get("long").toString();
-
-                        editor.putString("lat", lat);
-                        editor.putString("lon", lon);
-                        editor.commit();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }*/
+                    if(weather.list().length == 1) manage_fav(location);
 
                     Intent intent = new Intent(MenuActivity.this, MainActivity.class);
                     startActivity(intent);

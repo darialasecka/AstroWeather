@@ -61,7 +61,8 @@ public class WeatherSettings extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("lat", lat);
             editor.putString("lon", lon);
-            editor.putInt("timeZone", timeZone.getRawOffset());
+            editor.putInt("timeZone", timeZone.getRawOffset() + timeZone.getDSTSavings());
+            editor.putString("location", location);
             editor.commit();
 
         } catch (Exception e) {
@@ -128,12 +129,12 @@ public class WeatherSettings extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                        //TODO: test when creating new vm
+
                         File weather = new File(getCacheDir(),"Weather");
                         if (!weather.exists())
                             weather.mkdirs();
-                        String[] locations = weather.list();
-                        if(locations.length == 0) manage_fav(city_name);
+                        System.out.println(weather.list().length);
+                        if(weather.list().length == 1) manage_fav(city_name);
 
                         Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                         startActivity(intent);
@@ -170,7 +171,6 @@ public class WeatherSettings extends AppCompatActivity {
                     editor.commit();
                 } else{
                     Toast.makeText(WeatherSettings.this, "Could't change system. Try connecting to the Internet first.", Toast.LENGTH_LONG).show();
-
                 }
             }
         });
@@ -219,7 +219,6 @@ public class WeatherSettings extends AppCompatActivity {
                     Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-
                 }
             }
         });
@@ -294,6 +293,7 @@ public class WeatherSettings extends AppCompatActivity {
             }
         });
         //TODO: skoro sun i moon zależą od yahoo praktycznie to jak nie może znaleźć lokalizacji to automatycznie pokazuje łódź
+        //TODO: podczas usuwania wszystkich powinno "wracać" do łodzi
         Button remove_all = findViewById(R.id.remove_all_button);
         remove_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,6 +304,13 @@ public class WeatherSettings extends AppCompatActivity {
                     String path = weather.getPath() + "/" + location;
                     new File(path).delete();
                 }
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.remove("lat");
+                editor.remove("lon");
+                editor.remove("timeZone");
+                editor.remove("location");
+                editor.commit();
+
                 Toast.makeText(WeatherSettings.this, "Deleted all locations", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(WeatherSettings.this, MainActivity.class);
                 startActivity(intent);
