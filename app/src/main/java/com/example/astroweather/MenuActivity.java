@@ -136,7 +136,7 @@ public class MenuActivity extends AppCompatActivity {
                     try {
                         Toast.makeText(MenuActivity.this, "Adding location. Please wait", Toast.LENGTH_LONG).show();
 
-                        WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
+                        /*WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
                         connection.execute();
                         boolean empty_json = new JSONObject(connection.get()).getJSONObject("location").length() == 0;
                         int counter = 0;
@@ -163,8 +163,8 @@ public class MenuActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
-                        }
-                        /*WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
+                        }*/
+                        WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
                         connection.execute();
 
                         if (connection.get() != null) {
@@ -175,7 +175,7 @@ public class MenuActivity extends AppCompatActivity {
                                 Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
-                        }*/
+                        }
                     } catch (ExecutionException e) {
                         Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
