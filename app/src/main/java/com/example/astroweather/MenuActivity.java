@@ -130,18 +130,15 @@ public class MenuActivity extends AppCompatActivity {
                 if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
                     error.show();
                 } else {
-                    //weather//jeśli jest między -180 - 0 to dodaje ileś, a jeśli 60 - 180 to odejmuje,
-                    //-90 - 0 dodaje, 0 - 90 odejmuje
-
                     try {
                         Toast.makeText(MenuActivity.this, "Adding location. Please wait", Toast.LENGTH_LONG).show();
 
-                        /*WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
+                        WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
                         connection.execute();
                         boolean empty_json = new JSONObject(connection.get()).getJSONObject("location").length() == 0;
                         int counter = 0;
                         int offset = 5;
-                        while(empty_json) { //I konw this system isn't the best, but it works, kind of...
+                        while(empty_json) {
                             counter ++;
                             if(counter % 10 == 0) offset += 5;
                             if(lat > 0 && lat <= 90) lat -= offset;
@@ -163,8 +160,8 @@ public class MenuActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
-                        }*/
-                        WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
+                        }
+                        /*WeatherConnectionCoords connection = new WeatherConnectionCoords(lat, lon, isMetric, MenuActivity.this);
                         connection.execute();
 
                         if (connection.get() != null) {
@@ -175,7 +172,7 @@ public class MenuActivity extends AppCompatActivity {
                                 Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
-                        }
+                        }*/
                     } catch (ExecutionException e) {
                         Toast.makeText(MenuActivity.this, "Couldn't add location.", Toast.LENGTH_LONG).show();
                         e.printStackTrace();

@@ -136,7 +136,7 @@ public class WeatherSettings extends AppCompatActivity {
                         File weather = new File(getCacheDir(),"Weather");
                         if (!weather.exists())
                             weather.mkdirs();
-                        System.out.println(weather.list().length);
+                        //System.out.println(weather.list().length);
                         if(weather.list().length == 1) manage_fav(city_name);
 
                         Intent intent = new Intent(WeatherSettings.this, MainActivity.class);

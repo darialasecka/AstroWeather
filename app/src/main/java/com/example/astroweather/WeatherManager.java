@@ -14,18 +14,18 @@ public class WeatherManager extends Thread {
     @Override
     public void run() {
         File weather = new File(activity.getCacheDir(),"Weather");
-        String[] locations = weather.list();
-        for (String location : locations) {
-            try {
+        try {
+            String[] locations = weather.list();
+            for (String location : locations) {
                 WeatherConnection connection = new WeatherConnection(location, isMetric, activity);
                 connection.execute();
                 if (connection.get() != null) {
                     connection.updateFile(location, connection.get(), activity);
                 }
                 activity.updateDataFromFile();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
