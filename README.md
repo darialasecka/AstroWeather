@@ -1,5 +1,5 @@
 # Astroweather
-Application for android, ahowing weather and sun and moon calculations
+Application for android, showing weather and sun and moon calculations
 
 # Features
 ## Sun and Moon
@@ -13,7 +13,7 @@ In prefences user can enter coordinates of the place he want to see weather and 
 <img src="images/Coordinates.png" width="300px"> <img src="images/Location.png" width="300px">
 
 ## Weather
-The weather screen will show location name with temperature, condition, wind and atmosphere information. Below this there is forecast for the next week with condition, and high.low temperature.
+The weather screen will show location name with temperature, condition, wind and atmosphere information. Below this there is forecast for the next week with condition, and high / low temperatures.
 
 <img src="images/Weather.png" width="300px"> <img src="images/Forecast.png" width="300px">
 
