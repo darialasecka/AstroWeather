@@ -8,7 +8,7 @@ When user first time opens app he can only see sun and moon calculations for def
 <img src="images/SunInfo.png" width="300px"> <img src="images/MoonInfo.png" width="300px">
 
 ## Preferences
-In prefences user can enter coordinates of the place he want to see weather and sun and moon calculations of. In the first screen he can also choose time how frequently information will be refreshed. In the second one He can choose location by writing in city name. All added cities will be stores, so then user can choose his favourite city, for which will curent information show, or delete it.
+In prefences user can enter coordinates of the place he want to see weather and sun and moon calculations of. In the first screen he can also choose time how frequently information will be refreshed. In the second one He can choose location by writing in city name. All added cities will be stores, so then user can choose his favourite city, for which will curent information show, or delete it. User can also choose if the measurments are shown in metric or imperial system (option isn't shown on the screenshots).
 
 <img src="images/Coordinates.png" width="300px"> <img src="images/Location.png" width="300px">
 
