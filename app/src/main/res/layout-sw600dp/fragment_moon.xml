@@ -21,7 +21,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:text="@string/moonrise_time"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:text="@string/moonset_time"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
@@ -79,7 +79,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:text="@string/nearest_new_moon"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
@@ -108,7 +108,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:text="@string/nearest_full_moon"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
@@ -137,7 +137,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:text="@string/phase_of_the_moon"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
@@ -166,7 +166,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:text="@string/synodic_month_day"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />

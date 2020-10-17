@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#373737"
-    tools:context=".MainActivity">
+    android:isScrollContainer="false"
+    tools:context=".WeatherSettings">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,22 +15,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:isScrollContainer="false"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="#2196F3"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp">
 
                 <TextView
                     android:id="@+id/current_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="center"
@@ -39,9 +40,9 @@
 
                 <TextView
                     android:id="@+id/latitude"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/latitude"
                     android:textColor="#FFFFFF"
@@ -49,32 +50,30 @@
 
                 <TextView
                     android:id="@+id/longitude"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/longitude"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/close_menu_settings"
+                    android:id="@+id/close_weather_settings"
                     android:layout_width="35sp"
                     android:layout_height="35sp"
                     android:layout_marginEnd="10dp"
                     android:background="@android:drawable/ic_menu_close_clear_cancel"
                     android:backgroundTint="#FFFFFF"
                     android:textColor="#FFFFFF" />
-
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30sp"
                 android:layout_marginBottom="20sp"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/astro_weather"
                 android:textColor="#FFFFFF"
@@ -83,32 +82,30 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="20sp"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/give_coordinates"
+                android:text="@string/give_city_name"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/lat"
+                    android:id="@+id/city_name_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
@@ -116,14 +113,14 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="@string/latitude"
+                    android:hint="@string/city"
                     android:importantForAutofill="no"
-                    android:inputType="numberSigned|numberDecimal"
+                    android:inputType="text"
                     android:padding="10sp"
                     android:textColor="#FFFFFF" />
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/textView13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
@@ -131,50 +128,43 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20sp"
-                    android:layout_weight="1" />
-
-                <EditText
-                    android:id="@+id/lon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20sp"
-                    android:layout_marginBottom="20sp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="@string/longitude"
-                    android:importantForAutofill="no"
-                    android:inputType="numberSigned|numberDecimal"
-                    android:padding="10sp"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20sp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="20sp"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/how_frequent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/add_city_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15sp"
+                    android:background="#2196F3"
+                    android:text="@string/add"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/remove_all_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15sp"
+                    android:background="#2196F3"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:text="@string/remove_all"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="20sp"
+                android:gravity="center"
+                android:text="@string/set_favourite_or_delete_city"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
@@ -192,7 +182,7 @@
                     android:layout_weight="8" />
 
                 <Spinner
-                    android:id="@+id/refresh_time"
+                    android:id="@+id/fav_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
@@ -210,37 +200,112 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/linearLayout41"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="20sp"
-                android:layout_weight="1"
+                android:layout_weight="8"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/save_button"
+                    android:id="@+id/set_fav_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30sp"
                     android:background="#2196F3"
-                    android:text="@string/save"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:text="@string/set_as_favourite"
                     android:textColor="#FFFFFF" />
 
                 <Button
-                    android:id="@+id/weather_settings"
+                    android:id="@+id/delete_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30sp"
                     android:background="#2196F3"
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
-                    android:text="@string/weather_settings"
+                    android:text="@string/delete"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="20sp"
+                android:gravity="center"
+                android:text="@string/which_system_of_measurments_nwould_you_like_to_use"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/system_of_measurements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="20sp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/imperial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50sp"
+                    android:buttonTint="#2196F3"
+                    android:text="@string/imperial"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/metric"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#2196F3"
+                    android:text="@string/metric"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="20sp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/sun_moon_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30sp"
+                    android:background="#2196F3"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:text="@string/sun_moon_settings"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/update_now_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30sp"
+                    android:background="#2196F3"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:text="@string/update_now"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

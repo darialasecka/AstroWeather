@@ -1,13 +1,12 @@
 <resources>
     <string name="astro_weather">Astro Weather</string>
-    <string name="give_coordinates">Give coordinates:</string>
+    <string name="give_coordinates">Give coordinates for\nsun and moon calculations:</string>
     <string name="longitude">longitude</string>
     <string name="latitude">latitude</string>
     <string name="how_frequent">Set refresh time:</string>
     <string name="time">Time</string>
     <string name="save">save</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sunrise_time">Sunrise Time</string>
     <string name="sunset_time">Sunset Time</string>
@@ -21,4 +20,39 @@
     <string name="nearest_full_moon">Nearest Full Moon</string>
     <string name="phase_of_the_moon">Phase of the Moon</string>
     <string name="synodic_month_day">Synodic Month Day</string>
+    <string name="today">Today</string>
+    <string name="chill">Chill</string>
+    <string name="humidity">Humidity</string>
+    <string name="condition">Condition</string>
+    <string name="temperature">Temperature</string>
+    <string name="day3">Day3</string>
+    <string name="tommorow">Tommorow</string>
+    <string name="forecast">Forecast</string>
+    <string name="pressure">Pressure</string>
+    <string name="visibility">Visibility</string>
+    <string name="atmosphere">Atmosphere</string>
+    <string name="speed">Speed</string>
+    <string name="direction">Direction</string>
+    <string name="wind">Wind</string>
+    <string name="day4">Day4</string>
+    <string name="city">City</string>
+    <string name="which_system_of_measurments_nwould_you_like_to_use">Which system of measurements\nwould you like to use:</string>
+    <string name="give_city_name">Give city name:</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="remove_all">Remove all</string>
+    <string name="sun_moon_settings"><![CDATA[Sun & Moon Settings]]></string>
+    <string name="update_now">Update Now</string>
+    <string name="imperial">Imperial</string>
+    <string name="metric">Metric</string>
+    <string name="weather_settings">Weather Settings</string>
+    <string name="country">Country</string>
+    <string name="latitude_longitude">latitude, longitude</string>
+    <string name="day7">Day7</string>
+    <string name="day6">Day6</string>
+    <string name="day5">Day5</string>
+    <string name="click_tag">cos?</string>
+    <string name="set_favourite_or_delete_city">Set favourite or delete city:</string>
+    <string name="set_as_favourite">Set as favourite</string>
+    <string name="delete">Delete</string>
 </resources>
